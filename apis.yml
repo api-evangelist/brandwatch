@@ -5,10 +5,10 @@ apis:
   - aid: brandwatch:brandwatch
     name: Brandwatch
     tags:
-      - Social Media Monitoring
       - Analytics
       - Brands
       - Social Media
+      - Social Media Monitoring
     humanURL: ' https://www.brandwatch.com/products/apis/'
     properties:
       - url: ' https://www.brandwatch.com/products/apis/'
@@ -22,10 +22,10 @@ apis:
       for growth, address customer concerns, and enhance their overall brand reputation.
 name: Brandwatch
 tags:
-  - Social Media Monitoring
   - Analytics
   - Brands
   - Social Media
+  - Social Media Monitoring
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
