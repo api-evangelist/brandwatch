@@ -117,6 +117,8 @@ common:
     url: https://www.brandwatch.com/products/apis/
   - type: Documentation
     url: https://developers.brandwatch.com
+  - type: Integrations
+    url: https://www.brandwatch.com/integrations/
 properties:
   - type: x-domain
     value: brandwatch.com
@@ -144,6 +146,21 @@ properties:
       Social listening, real-time data streaming, aggregated statistics,
       sentiment scoring, custom data import, owned social metrics, publishing
       workflow integration, cross-platform conversation management
+integrations:
+  - name: chevron
+  - name: HubSpot_Logo
+  - name: ServiceNow_Logo
+  - name: Dropbox_Logo
+  - name: Bitly_Logo
+  - name: Tipalti_Logo
+  - name: Shopify_Logo
+  - name: Box_Logo2
+  - name: Onedrive_logo
+  - name: Google_Drive_Logo
+  - name: Bynder
+  - name: Zendesk_logo
+  - name: Salesforce_Sales_Cloud_Logo
+  - name: Salesforce_Service_Cloud_Logo
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
