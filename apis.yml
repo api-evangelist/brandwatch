@@ -111,6 +111,10 @@ apis:
       across platforms. Enables integration of Brandwatch's engagement tools with
       CRM and customer service systems for unified conversation management.
 common:
+  - type: GitHubOrganization
+    url: https://github.com/brandwatchltd
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/brandwatch
   - type: Website
     url: https://www.brandwatch.com
   - type: APIProducts
