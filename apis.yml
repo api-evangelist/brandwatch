@@ -123,6 +123,8 @@ common:
     url: https://developers.brandwatch.com
   - type: Integrations
     url: https://www.brandwatch.com/integrations/
+  - type: LLMsTxt
+    url: https://developers.brandwatch.com/llms.txt
 properties:
   - type: x-domain
     value: brandwatch.com
