@@ -111,6 +111,8 @@ apis:
       across platforms. Enables integration of Brandwatch's engagement tools with
       CRM and customer service systems for unified conversation management.
 common:
+  - type: DomainSecurity
+    url: security/brandwatch-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/brandwatchltd
   - type: LinkedIn
@@ -125,6 +127,8 @@ common:
     url: https://www.brandwatch.com/integrations/
   - type: LlmsText
     url: https://developers.brandwatch.com/llms.txt
+  - url: https://www.brandwatch.com/blog/feed/
+    type: Blog
 properties:
   - type: x-domain
     value: brandwatch.com
