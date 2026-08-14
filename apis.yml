@@ -11,21 +11,31 @@ tags:
 type: Index
 kind: company
 accessModel:
-  pricing: freemium
-  onboarding: unknown
+  pricing: contact-sales
+  onboarding: sales-gated
   trial: false
   try_now: false
   public: false
-  label: Freemium
-  confidence: medium
+  label: Contact Sales
+  confidence: high
   source:
   - plans
-  generated: '2026-07-22'
-  method: derived
+  - https://www.brandwatch.com/plans/
+  - https://developers.brandwatch.com/docs/authenticate
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    Corrected 2026-08-13. The previous "Freemium" label was derived from a
+    scaffold plans file that invented a free tier. Brandwatch publishes no
+    prices, no plan tiers and no free tier; /plans/ is a solution chooser whose
+    only call to action is a demo request. API access additionally requires an
+    existing Consumer Research contract and a Regular or Admin seat, and the
+    Data Upload and Analysis APIs each need separate enablement by a Brandwatch
+    contact.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/brandwatch.png
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-04-21'
+modified: '2026-08-13'
 position: Consumer
 description: >-
   Brandwatch is a leading consumer intelligence and social media analytics platform
@@ -42,43 +52,93 @@ apis:
       - Social Media
       - Sentiment Analysis
       - Aggregated Statistics
-    humanURL: https://www.brandwatch.com/products/apis/
+    humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
+    baseURL: https://api.brandwatch.com
     properties:
-      - url: https://www.brandwatch.com/products/apis/
+      - url: https://developers.brandwatch.com/docs/getting-started-analysis-api
         type: Documentation
+      - url: https://developers.brandwatch.com/docs/getting-started-analysis-api
+        type: GettingStarted
+      - url: https://developers.brandwatch.com/docs/analysis-request
+        type: APIReference
     description: >-
       Query Brandwatch's content library or imported data to return aggregated
       statistics and computed analysis. Enables programmatic access to brand
       mention analytics, sentiment scores, volume trends, and consumer insights
-      across social media platforms, news sites, and forums.
+      across social media platforms, news sites, and forums. Asynchronous:
+      POST /analysis/ returns 202 with a resultId and a retrieveAt timestamp,
+      and results are collected on a follow-up call. Documented in prose only —
+      no OpenAPI is published for this API. Not included in standard contracts;
+      sold on a cost-per-query model where one query is one keyword or boolean
+      over one 24-hour period.
   - aid: brandwatch:data-upload-api
     name: Brandwatch Data Upload API
     tags:
       - Data Import
       - Custom Data
       - Analytics
-    humanURL: https://www.brandwatch.com/products/apis/
+    humanURL: https://developers.brandwatch.com/docs/getting-started-data-upload
+    baseURL: https://api.brandwatch.com
     properties:
-      - url: https://www.brandwatch.com/products/apis/
+      - url: https://developers.brandwatch.com/docs/getting-started-data-upload
         type: Documentation
+      - url: https://developers.brandwatch.com/docs/getting-started-data-upload
+        type: GettingStarted
+      - url: https://developers.brandwatch.com/docs/uploading-documents
+        type: APIReference
     description: >-
       Import unstructured data from any source for analysis alongside consumer
       conversation data. Enables organizations to blend proprietary data with
-      Brandwatch's social intelligence for unified analytics.
+      Brandwatch's social intelligence for unified analytics. Custom data
+      sources are created at POST /content/sources and documents uploaded at
+      POST /content/upload. Documented in prose only — no OpenAPI is published
+      for this API. Access is off by default and must be enabled per-account by
+      a Brandwatch Customer Success Manager.
   - aid: brandwatch:consumer-research-api
     name: Brandwatch Consumer Research API
     tags:
       - Consumer Research
       - Data Export
       - Real-time Streaming
-    humanURL: https://www.brandwatch.com/products/apis/
+    humanURL: https://developers.brandwatch.com/
+    baseURL: https://api.brandwatch.com
     properties:
-      - url: https://www.brandwatch.com/products/apis/
+      - url: https://developers.brandwatch.com/
         type: Documentation
+      - url: https://developers.brandwatch.com/
+        type: DeveloperPortal
+      - url: https://developers.brandwatch.com/docs/data-retrieval
+        type: APIReference
+      - url: https://developers.brandwatch.com/docs/getting-started
+        type: GettingStarted
+      - url: https://developers.brandwatch.com/docs/authenticate
+        type: Authentication
+      - url: https://developers.brandwatch.com/changelog
+        type: ChangeLog
+      - url: https://developers.brandwatch.com/docs/rate-limiting
+        type: RateLimits
+      - url: openapi/brandwatch-consumer-research-openapi.yml
+        type: OpenAPI
+      - url: openapi/brandwatch-consumer-research-authentication-openapi.yml
+        type: OpenAPI
+      - url: overlays/brandwatch-consumer-research-overlay.yaml
+        type: Overlay
+      - url: data-model/brandwatch-data-model.yml
+        type: DataModel
+      - url: errors/brandwatch-problem-types.yml
+        type: ErrorCatalog
+      - url: mcp/brandwatch-mcp.yml
+        type: MCPServer
     description: >-
       Export analysis results for further research and integration with existing
       systems. Supports real-time data streaming alongside consumer conversation
-      data for continuous monitoring and research workflows.
+      data for continuous monitoring and research workflows. The only Brandwatch
+      API with a machine-readable contract: two OpenAPI 3.1.0 documents covering
+      36 operations across projects, queries, query groups, tags, categories,
+      rules, author/location/site lists, workflow, mentions, topics and charts.
+      Discoverable through an RFC 9727 API catalog at
+      developers.brandwatch.com/.well-known/api-catalog. Rate limited to 30
+      requests per rolling 10 minutes at the account (Client) level.
   - aid: brandwatch:measure-api
     name: Brandwatch Measure API
     tags:
@@ -93,7 +153,11 @@ apis:
       Integrate owned social media metrics into external analytics solutions for
       custom reporting. Enables organizations to combine their social channel
       performance data with Brandwatch's audience intelligence in third-party BI
-      and reporting platforms.
+      and reporting platforms. Part of the Social Media Management (formerly
+      Falcon) suite. Marketed on brandwatch.com/products/apis/ but absent from
+      developers.brandwatch.com — no reference, no base URL, no authentication
+      guide and no machine-readable contract is published, so no baseURL is
+      recorded here rather than guessing one.
   - aid: brandwatch:publish-api
     name: Brandwatch Publish API
     tags:
@@ -107,7 +171,11 @@ apis:
     description: >-
       Export social publishing data to integrate with content management systems.
       Enables workflow automation between Brandwatch's publishing tools and
-      external CMS platforms for unified content operations.
+      external CMS platforms for unified content operations. Part of the Social
+      Media Management (formerly Falcon) suite. Marketed on
+      brandwatch.com/products/apis/ but absent from developers.brandwatch.com —
+      no reference, no base URL and no machine-readable contract is published,
+      so no baseURL is recorded here rather than guessing one.
   - aid: brandwatch:engage-api
     name: Brandwatch Engage API
     tags:
@@ -121,8 +189,16 @@ apis:
     description: >-
       Consolidate conversations from social media inboxes with customer inquiries
       across platforms. Enables integration of Brandwatch's engagement tools with
-      CRM and customer service systems for unified conversation management.
+      CRM and customer service systems for unified conversation management. Part
+      of the Social Media Management (formerly Falcon) suite. Marketed on
+      brandwatch.com/products/apis/ but absent from developers.brandwatch.com —
+      no reference, no base URL and no machine-readable contract is published,
+      so no baseURL is recorded here rather than guessing one.
 common:
+  - type: OAuthScopes
+    url: scopes/brandwatch-scopes.yml
+  - type: Authentication
+    url: authentication/brandwatch-authentication.yml
   - type: DomainSecurity
     url: security/brandwatch-domain-security.yml
   - type: GitHubOrganization
@@ -141,6 +217,70 @@ common:
     url: https://developers.brandwatch.com/llms.txt
   - url: https://www.brandwatch.com/blog/feed/
     type: Blog
+  - type: DeveloperPortal
+    url: https://developers.brandwatch.com/
+  - type: GettingStarted
+    url: https://developers.brandwatch.com/docs/getting-started
+  - type: Support
+    url: https://www.brandwatch.com/customer-support/
+  - type: HelpCenter
+    url: https://support.brandwatch.com/
+  - type: Community
+    url: https://community.brandwatch.com/
+  - type: Pricing
+    url: https://www.brandwatch.com/plans/
+  - type: Login
+    url: https://login.brandwatch.com/
+  - type: OpenIDConnect
+    url: https://signin.brandwatch.com/auth/realms/bwone/.well-known/openid-configuration
+  - type: TermsOfService
+    url: https://www.cision.com/legal/msa/
+  - type: PrivacyPolicy
+    url: https://www.brandwatch.com/legal/user-privacy-policy/
+  - type: StatusPage
+    url: https://status.brandwatch.com/
+  - type: ChangeLog
+    url: changelog/brandwatch-changelog.yml
+  - type: Lifecycle
+    url: lifecycle/brandwatch-lifecycle.yml
+  - type: Conventions
+    url: conventions/brandwatch-conventions.yml
+  - type: Conformance
+    url: conformance/brandwatch-conformance.yml
+  - type: Compliance
+    url: https://www.brandwatch.com/legal/information-security/
+  - type: TrustCenter
+    url: security/brandwatch-trust-center.yml
+  - type: Security
+    url: https://www.brandwatch.com/legal/information-security/
+  - type: VulnerabilityDisclosure
+    url: security/brandwatch-vulnerability-disclosure.yml
+  - type: WellKnown
+    url: well-known/brandwatch-well-known.yml
+  - type: APICatalog
+    url: https://developers.brandwatch.com/.well-known/api-catalog
+  - type: Packages
+    url: packages/brandwatch-packages.yml
+  - type: SDKs
+    url: packages/brandwatch-packages.yml
+  - type: RateLimits
+    url: rate-limits/brandwatch-rate-limits.yml
+  - type: Plans
+    url: plans/brandwatch-plans-pricing.yml
+  - type: FinOps
+    url: finops/brandwatch-finops.yml
+  - type: ErrorCatalog
+    url: errors/brandwatch-problem-types.yml
+  - type: DataModel
+    url: data-model/brandwatch-data-model.yml
+  - type: MCPServer
+    url: mcp/brandwatch-mcp.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/brandwatch-llms.txt
+  - type: Overlay
+    url: overlays/brandwatch-consumer-research-overlay.yaml
 properties:
   - type: x-domain
     value: brandwatch.com
@@ -187,3 +327,8 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
