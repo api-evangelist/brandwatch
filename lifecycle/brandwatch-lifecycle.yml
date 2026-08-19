@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developers.brandwatch.com/changelog,
+  https://developers.brandwatch.com/docs/best-practices,
+  https://developers.brandwatch.com/docs/data-restrictions,
+  https://status.brandwatch.com/,
+  openapi/brandwatch-consumer-research-openapi.yml
+versioning:
+  scheme: none
+  current: '2.0'
+  in_path: false
+  in_header: false
+  in_media_type: false
+  docs: null
+  note: >-
+    Both OpenAPI documents declare info.version "2.0", but the version is not
+    expressed anywhere a client can act on it — every published URL is
+    https://api.brandwatch.com/<resource> with no version segment, no
+    Accept-Version header and no versioned media type. A consumer cannot pin a
+    version and cannot detect that the version changed.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy page, no notice period, no Sunset or Deprecation
+    header support, and zero operations flagged `deprecated: true` in either
+    spec. What Brandwatch publishes instead is a support-boundary statement —
+    "we only officially support the API endpoints featured here, in our
+    documentation. Any other endpoints are subject to change without notice."
+    That is the inverse of a deprecation policy: it disclaims notice rather than
+    promising it. No Deprecation pointer is emitted for this provider.
+breaking_change_precedent:
+  events:
+    - date: '2025-12-18'
+      change: Reddit data restrictions
+      detail: >-
+        Restrictions on Reddit Mention metadata retrievable through the Consumer
+        Research API, introduced January 2026 and announced via the changelog.
+      kind: upstream-platform-driven field removal
+      source: https://developers.brandwatch.com/changelog/reddit-data-restrictions.md
+    - date: null
+      change: X (formerly Twitter) metadata stripping
+      detail: >-
+        X posts returned by the API have full text and most metadata stripped
+        for compliance reasons, causing documented discrepancies between what
+        the Consumer Research UI shows and what the API returns. Brandwatch's
+        advice is to take the `guid` and go get the body from X directly.
+      kind: upstream-platform-driven field removal
+      source: https://developers.brandwatch.com/docs/data-restrictions
+  note: >-
+    Brandwatch's real breaking-change vector is not its own versioning — it is
+    the social platforms upstream. Data availability changes per account
+    depending on which Data Packs are bought, which means two customers calling
+    the identical operation can get different field sets with no contract
+    difference between them.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+  note: >-
+    No public SLA. The Information Security page has a "Business Continuity,
+    Disaster Recovery, and SLAs" section, but the numbers are contractual, not
+    published.
+status_page:
+  url: https://status.brandwatch.com/
+  status: 200
+  platform: Atlassian Statuspage
+  subscriptions:
+    - email
+    - sms
+  api: null
+  api_note: >-
+    Statuspage normally exposes /api/v2/status.json; not verified as public here.
+  source: https://status.brandwatch.com/
+changelog:
+  url: https://developers.brandwatch.com/changelog
+  artifact: changelog/brandwatch-changelog.yml
+  cadence: irregular
+  most_recent: '2026-03-24'
+support:
+  help_center: https://support.brandwatch.com/
+  community: https://community.brandwatch.com/
+  academy: https://academy.brandwatch.com/
+  note: >-
+    The help center requires a product login. Developer support is routed
+    through the customer's account manager or Customer Success Manager rather
+    than a public developer support channel.
+api_availability:
+  - api: Brandwatch Consumer Research API
+    status: documented, published contract
+  - api: Brandwatch Data Upload API
+    status: documented, no OpenAPI, access enabled per-account by a CSM
+  - api: Brandwatch Analysis API
+    status: documented, no OpenAPI, sold separately on a cost-per-query basis
+  - api: Brandwatch Measure API
+    status: marketed on brandwatch.com/products/apis/, no public developer documentation
+  - api: Brandwatch Publish API
+    status: marketed on brandwatch.com/products/apis/, no public developer documentation
+  - api: Brandwatch Engage API
+    status: marketed on brandwatch.com/products/apis/, no public developer documentation

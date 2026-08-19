@@ -4,112 +4,108 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Brandwatch
 providerId: brandwatch
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://developers.brandwatch.com/docs/rate-limiting
+docs:
+  - https://developers.brandwatch.com/docs/rate-limiting
+  - https://developers.brandwatch.com/docs/best-practices
 tags:
   - Analytics
   - Social Media
-  - Social Media Monitoring
   - Consumer Intelligence
-  - Brand Management
-  - Sentiment Analysis
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Brandwatch API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: >-
+  Published rate limits for the Brandwatch Consumer Research API, harvested from
+  the provider's own rate-limiting page. This replaces a 2026-05-04 scaffold
+  whose tier numbers (10/min free, 100/min professional) were invented; the real
+  limit is a single flat 30 requests per rolling 10 minutes, applied per Client
+  rather than per user or per key, with no published tier variation.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: x-rate-limit
+  limit_format: <limit>/<period>m
+  used: x-rate-limit-used
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    Brandwatch returns a non-standard pair. `x-rate-limit` carries the policy
+    ("30/10m"), `x-rate-limit-used` carries consumption to date in the window.
+    There is no RateLimit-Remaining, no reset timestamp and no Retry-After, so a
+    client cannot compute when it is safe to retry — it can only subtract used
+    from limit and back off blind. Neither header is the RFC 9239 / RateLimit-*
+    draft form.
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
+example_response_headers: |
+  x-rate-limit: 30/10m
+  x-rate-limit-used: 5
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
+  - name: Consumer Research API default
+    scope: client
+    scope_note: >-
+      Applied at the Client (account) level, not per user and not per API key —
+      every integration and every user under one Brandwatch Client shares the
+      same 30 calls.
+    metric: requests
+    limit: 30
+    window: 10
+    windowUnit: minute
+    windowType: rolling
+    burst: null
     applies:
-      - Brandwatch Analysis API
-      - Brandwatch Data Upload API
       - Brandwatch Consumer Research API
-      - Brandwatch Measure API
-      - Brandwatch Publish API
-      - Brandwatch Engage API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Brandwatch Analysis API
-      - Brandwatch Data Upload API
-      - Brandwatch Consumer Research API
-      - Brandwatch Measure API
-      - Brandwatch Publish API
-      - Brandwatch Engage API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Brandwatch Analysis API
-      - Brandwatch Data Upload API
-      - Brandwatch Consumer Research API
-      - Brandwatch Measure API
-      - Brandwatch Publish API
-      - Brandwatch Engage API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Brandwatch Analysis API
-      - Brandwatch Data Upload API
-      - Brandwatch Consumer Research API
-      - Brandwatch Measure API
-      - Brandwatch Publish API
-      - Brandwatch Engage API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Brandwatch Analysis API
-      - Brandwatch Data Upload API
-      - Brandwatch Consumer Research API
-      - Brandwatch Measure API
-      - Brandwatch Publish API
-      - Brandwatch Engage API
+    source: https://developers.brandwatch.com/docs/rate-limiting
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Rolling window
+    description: >-
+      For a request to be inside the limit there must have been fewer than 30
+      other API requests for the same Client in the preceding 10 minutes.
+      Requests beyond the limit are rejected with HTTP 429 Too Many Requests.
+    source: https://developers.brandwatch.com/docs/rate-limiting
+  - name: Serialize, do not parallelize
+    description: >-
+      Brandwatch recommends queuing requests client-side and executing them
+      linearly. Parallel requests may be throttled and take longer to return
+      than the same requests issued in sequence.
+    source: https://developers.brandwatch.com/docs/best-practices
+  - name: Cache reference data
+    description: >-
+      Brandwatch recommends caching Categories, Tags and Lists locally rather
+      than re-fetching them alongside every Mentions call — direct guidance for
+      staying inside 30 calls per 10 minutes.
+    source: https://developers.brandwatch.com/docs/best-practices
+  - name: Choose polling intervals by data volatility
+    description: >-
+      Poll a Mentions stream roughly every 30 seconds; poll a weekly volume
+      chart far less often.
+    source: https://developers.brandwatch.com/docs/best-practices
+  - name: Raising the limit is a sales conversation
+    description: >-
+      "If you have a use case that doesn't fit within these rate limits, then
+      please get in touch with your account manager." There is no published
+      higher tier and no self-service increase.
+    source: https://developers.brandwatch.com/docs/best-practices
+undocumented:
+  - api: Brandwatch Analysis API
+    note: >-
+      Metered by query quota rather than request rate (see
+      GET /analysis/usage, which returns total / totalActive / remaining quota),
+      but no request-rate limit is published.
+  - api: Brandwatch Data Upload API
+    note: no published rate limit
+  - api: Brandwatch Measure API
+    note: no public developer documentation, so no published rate limit
+  - api: Brandwatch Publish API
+    note: no public developer documentation, so no published rate limit
+  - api: Brandwatch Engage API
+    note: no public developer documentation, so no published rate limit
+limit_count: 1
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com

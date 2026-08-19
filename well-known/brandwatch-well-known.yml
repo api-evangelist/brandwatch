@@ -1,0 +1,139 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* on every Brandwatch host in apis.yml plus the
+  OpenAPI servers[] host (api.brandwatch.com)
+note: >-
+  Two real hits. (1) developers.brandwatch.com serves an RFC 9727 API Catalog
+  (application/linkset+json) that names the two Consumer Research API OpenAPI
+  documents — this is how the machine-readable contract was found, since the
+  ReadMe docs host returns an HTML shell for /openapi.json. (2) The platform
+  login host signin.brandwatch.com serves a full OpenID Connect discovery
+  document from a Keycloak realm named `bwone`. Every other /.well-known/ path
+  404s. api.brandwatch.com answers 401 for all paths (the gateway requires an
+  access token before routing), so no /.well-known/ surface is reachable there
+  anonymously; that is recorded as a gated probe, not a hit.
+hosts:
+  - host: https://developers.brandwatch.com
+    documents:
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: application/linkset+json; charset=utf-8
+        file: brandwatch-api-catalog.json
+        spec: RFC 9727 (API Catalog / linkset)
+        note: names 2 service-desc entries of type application/vnd.oai.openapi+json
+        defect: >-
+          Both linkset entries carry `service-doc: https://developers.brandwatch.com/reference`,
+          and that URL returns HTTP 404. The machine-readable half of the catalog
+          is correct — both service-desc OpenAPI URLs return 200 and parse — but
+          the human-readable half points at a page that does not exist. Worth
+          reporting to the provider; it is a one-line fix in their ReadMe config.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://www.brandwatch.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://api.brandwatch.com
+    note: >-
+      all paths return HTTP 401 {"error":"unauthorized"} — the API gateway
+      rejects unauthenticated requests before any /.well-known/ routing, so
+      absence cannot be distinguished from gating here.
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+      - path: /.well-known/openid-configuration
+        status: 401
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+      - path: /.well-known/api-catalog
+        status: 401
+      - path: /.well-known/ai-plugin.json
+        status: 401
+      - path: /.well-known/agent-card.json
+        status: 401
+      - path: /.well-known/agent.json
+        status: 401
+  - host: https://signin.brandwatch.com
+    discovered_via: >-
+      https://login.brandwatch.com/ redirects here — a Keycloak authorization
+      endpoint for the `bwone` realm.
+    documents:
+      - path: /auth/realms/bwone/.well-known/openid-configuration
+        status: 200
+        content_type: application/json;charset=UTF-8
+        file: brandwatch-openid-configuration.json
+        spec: OpenID Connect Discovery 1.0
+      - path: /.well-known/openid-configuration
+        status: 401
+        note: only the realm-scoped path is served; the host root requires auth
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+openid_connect:
+  served: true
+  scope: platform SSO only — NOT the Consumer Research API
+  issuer: https://signin.brandwatch.com/auth/realms/bwone
+  file: brandwatch-openid-configuration.json
+  endpoints:
+    authorization: https://signin.brandwatch.com/auth/realms/bwone/protocol/openid-connect/auth
+    token: https://signin.brandwatch.com/auth/realms/bwone/protocol/openid-connect/token
+    userinfo: https://signin.brandwatch.com/auth/realms/bwone/protocol/openid-connect/userinfo
+    jwks: https://signin.brandwatch.com/auth/realms/bwone/protocol/openid-connect/certs
+    introspection: https://signin.brandwatch.com/auth/realms/bwone/protocol/openid-connect/token/introspect
+    end_session: https://signin.brandwatch.com/auth/realms/bwone/protocol/openid-connect/logout
+    registration: https://signin.brandwatch.com/auth/realms/bwone/clients-registrations/openid-connect
+  grant_types_supported:
+    - authorization_code
+    - implicit
+    - refresh_token
+    - password
+    - client_credentials
+    - urn:openid:params:grant-type:ciba
+    - urn:ietf:params:oauth:grant-type:device_code
+  code_challenge_methods_supported:
+    - plain
+    - S256
+  scopes_supported_count: 18
+  important: >-
+    This is Brandwatch's human sign-in stack (Brandwatch One), running Keycloak.
+    It is a genuinely capable OIDC deployment — PKCE with S256, CIBA, device
+    code, introspection, dynamic client registration and product-scoped claims
+    (ci, smm, ci-context, smm-context, bwone-organization-id, bwone-account-id).
+    The Consumer Research API does NOT use it. API callers still authenticate
+    against https://api.brandwatch.com/oauth/token with a vendor
+    `grant_type=api-password` and receive an opaque year-long token with no
+    refresh, no revocation and no scope selection. The gap between the two is
+    the single most actionable finding in this profile: Brandwatch already runs
+    the standards-based identity infrastructure its API does not use.
+security_txt:
+  served: false
+  note: >-
+    No /.well-known/security.txt on any host. Brandwatch does publish a
+    vulnerability-disclosure policy and a security@brandwatch.com contact, but
+    as a prose section of its Information Security page, not as RFC 9116.
+    See security/brandwatch-vulnerability-disclosure.yml.
+agent_card:
+  served: false
+  note: probed both /.well-known/agent-card.json and the legacy /.well-known/agent.json on
+    every host; all 404 (or 401 on api.brandwatch.com). No a2a/ artifact was written.

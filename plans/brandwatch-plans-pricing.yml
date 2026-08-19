@@ -4,154 +4,73 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Brandwatch
 providerId: brandwatch
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://www.brandwatch.com/plans/
+docs:
+  - https://www.brandwatch.com/plans/
+  - https://developers.brandwatch.com/docs/getting-started-analysis-api
+  - https://developers.brandwatch.com/docs/getting-started-data-upload
 tags:
   - Analytics
   - Social Media
-  - Social Media Monitoring
   - Consumer Intelligence
-  - Brand Management
-  - Sentiment Analysis
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
-plans:
-  - id: brandwatch-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Brandwatch API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Brandwatch Analysis API
-      - name: Brandwatch Data Upload API
-      - name: Brandwatch Consumer Research API
-      - name: Brandwatch Measure API
-      - name: Brandwatch Publish API
-      - name: Brandwatch Engage API
-  - id: brandwatch-pro
-    name: Professional
-    type: paid
-    description: Production tier for Brandwatch. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Brandwatch Analysis API
-      - name: Brandwatch Data Upload API
-      - name: Brandwatch Consumer Research API
-      - name: Brandwatch Measure API
-      - name: Brandwatch Publish API
-      - name: Brandwatch Engage API
-  - id: brandwatch-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Brandwatch. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Brandwatch Analysis API
-      - name: Brandwatch Data Upload API
-      - name: Brandwatch Consumer Research API
-      - name: Brandwatch Measure API
-      - name: Brandwatch Publish API
-      - name: Brandwatch Engage API
+  - Pricing
+description: >-
+  Brandwatch publishes no prices. This artifact replaces a 2026-05-04 scaffold
+  that invented a Free / Professional / Enterprise ladder with 1,000 and 100,000
+  request quotas — none of which Brandwatch has ever published. The real
+  /plans/ page is a solution chooser (Consumer Intelligence, Social Media
+  Management, Influencer Marketing) where every call to action is "See it in
+  action" or "Schedule your free demo". There is no price, no tier table, no
+  API request quota, no free tier and no self-service sign-up anywhere on the
+  Brandwatch site.
+plan_count: 0
+pricing_model: contact-sales
+self_service_signup: false
+free_tier: false
+trial: demo-request-only
+plans: []
+api_commercial_terms:
+  - api: Brandwatch Consumer Research API
+    included: >-
+      Available to existing Consumer Research customers whose users hold the
+      "Regular" or "Admin" role. No separate API price is published.
+    source: https://developers.brandwatch.com/docs/authenticate
+  - api: Brandwatch Data Upload API
+    included: >-
+      Off by default. "In order to get access to the Data Upload API, please
+      contact your CSM to have access enabled."
+    source: https://developers.brandwatch.com/docs/getting-started-data-upload
+  - api: Brandwatch Analysis API
+    included: false
+    model: cost-per-query, sold in packages
+    detail: >-
+      "The Analysis API is not included in standard contracts, instead relying
+      on a cost-per-query model." A query is one keyword or boolean over one
+      24-hour period, so a week of one keyword is seven billable queries.
+      Queries that error or that never produce a retrievable result are not
+      counted; queries that return zero matches ARE counted. Quota balance is
+      readable at GET /analysis/usage (total / totalActive / remaining) but the
+      package prices are not published.
+    source: https://developers.brandwatch.com/docs/analysis-request
+  - api: Brandwatch Measure API
+    included: unknown
+    note: no public developer documentation
+  - api: Brandwatch Publish API
+    included: unknown
+    note: no public developer documentation
+  - api: Brandwatch Engage API
+    included: unknown
+    note: no public developer documentation
+evidence:
+  - url: https://www.brandwatch.com/plans/
+    status: 200
+    finding: solution chooser with demo-request forms; zero prices, zero quotas, zero tiers
+  - url: https://www.brandwatch.com/pricing/
+    status: 200
+    finding: redirects to https://www.brandwatch.com/plans/
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com

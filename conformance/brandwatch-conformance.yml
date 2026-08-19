@@ -1,0 +1,161 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  openapi/brandwatch-consumer-research-openapi.yml,
+  openapi/brandwatch-consumer-research-authentication-openapi.yml,
+  https://developers.brandwatch.com/docs/authenticate,
+  https://developers.brandwatch.com/docs/rate-limiting,
+  https://www.brandwatch.com/legal/information-security/,
+  well-known/brandwatch-well-known.yml
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: >-
+      Both published documents declare openapi 3.1.0 and parse. Served as
+      application/vnd.oai.openapi+json from the provider's own API catalog.
+  - id: rfc9727-api-catalog
+    conforms: true
+    evidence: >-
+      https://developers.brandwatch.com/.well-known/api-catalog returns 200
+      application/linkset+json with service-desc and service-doc entries for
+      both OpenAPI documents. Genuinely uncommon — most providers in the catalog
+      serve nothing at this path.
+  - id: oauth2
+    conforms: partial
+    evidence: >-
+      Token endpoint at https://api.brandwatch.com/oauth/token returning
+      access_token / token_type / expires_in / scope, which is the RFC 6749
+      token response. But the grant is a vendor extension
+      (grant_type=api-password) rather than any registered OAuth 2.0 grant, the
+      spec's declared clientCredentials flow points at a
+      https://example.com/oauth2/token placeholder, there is no authorization
+      endpoint, no refresh token, no revocation endpoint and no scope selection.
+      Shaped like OAuth, not an OAuth deployment.
+  - id: oidc
+    conforms: partial
+    evidence: >-
+      A full OpenID Connect Discovery 1.0 document IS served, at
+      https://signin.brandwatch.com/auth/realms/bwone/.well-known/openid-configuration
+      — a Keycloak realm backing Brandwatch One human sign-in, supporting PKCE
+      (S256), authorization_code, refresh_token, client_credentials, CIBA,
+      device code, introspection and dynamic client registration, with 18 scopes
+      including product-scoped ci / smm / bwone-organization-id claims. But it
+      does not serve the API: Consumer Research API callers authenticate against
+      api.brandwatch.com/oauth/token with a vendor grant. Brandwatch runs
+      conformant OIDC for humans and a non-standard grant for machines.
+  - id: pkce
+    conforms: true
+    scope: platform SSO only
+    evidence: code_challenge_methods_supported includes S256 on the bwone realm
+  - id: oauth2-dynamic-client-registration
+    conforms: true
+    scope: platform SSO only
+    evidence: registration_endpoint present on the bwone realm discovery document
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      404 on every host, despite Brandwatch publishing both a disclosure policy
+      and a security@brandwatch.com contact in prose. See
+      security/brandwatch-vulnerability-disclosure.yml.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use the OAuth-style {"error","error_description"} envelope with
+      media type application/json. No application/problem+json anywhere.
+  - id: rfc6585-429
+    conforms: true
+    evidence: >-
+      429 Too Many Requests on rate-limit exhaustion, documented at
+      https://developers.brandwatch.com/docs/rate-limiting — though it is not
+      declared on any operation in the spec.
+  - id: ratelimit-header-fields-draft
+    conforms: false
+    evidence: >-
+      Uses vendor headers x-rate-limit and x-rate-limit-used rather than the
+      RateLimit / RateLimit-Policy draft fields. No Retry-After.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: no Sunset or Deprecation header support and no deprecation policy
+  - id: idempotency-key
+    conforms: false
+    evidence: no idempotency key parameter, header or documentation on any of the 13 write operations
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Consistent offset pagination — page / pageSize in, resultsTotal /
+      resultsPage / resultsPageSize / results out, across 8 operations.
+  - id: json-schema-2020-12
+    conforms: partial
+    evidence: >-
+      Inline schemas throughout under OpenAPI 3.1 (which uses JSON Schema
+      2020-12), but components.schemas is EMPTY in both documents — every
+      response schema is written out inline with zero reuse.
+  - id: iso-8601
+    conforms: true
+    evidence: startDate/endDate/sinceDate parameters and Analysis API timestamps use ISO 8601 with UTC offsets
+  - id: tls-1.2-minimum
+    conforms: true
+    evidence: >-
+      "all requests to our servers must be done over HTTPS and TLS 1.2 or newer.
+      TLS 1.1 is no longer accepted."
+      (https://developers.brandwatch.com/docs/best-practices). Live probe on
+      2026-08-13 negotiated TLS 1.3 on both www.brandwatch.com and
+      api.brandwatch.com.
+  - id: iso-27001
+    conforms: true
+    evidence: >-
+      All Brandwatch products certified to ISO/IEC 27001:2022, audited annually
+      by a third party; certificate on request.
+      (https://www.brandwatch.com/legal/information-security/)
+  - id: gdpr
+    conforms: claimed
+    evidence: >-
+      User Privacy Policy, a separate Author Privacy Policy for the social
+      authors whose posts are indexed, a data subject access request process and
+      a published sub-processor list with change subscriptions.
+  - id: soc2
+    conforms: false
+    evidence: not claimed anywhere on the Brandwatch security or legal pages
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      No AsyncAPI document and no webhook surface. Brandwatch's "real-time
+      streaming" is client-side polling of GET
+      /projects/{projectId}/data/mentions, per its own polling tutorial.
+  - id: mcp
+    conforms: false
+    evidence: no first-party MCP server (registry search returns 0; nothing in docs or llms.txt)
+  - id: a2a
+    conforms: false
+    evidence: no agent card at /.well-known/agent-card.json or /.well-known/agent.json on any host
+  - id: llms-txt
+    conforms: true
+    evidence: >-
+      https://developers.brandwatch.com/llms.txt returns 200 text/plain, 12,074
+      bytes, correctly formed — H1, blockquote summary, and Guides / Changelog
+      link sections with per-link descriptions.
+summary:
+  conforms: 11
+  partial: 3
+  claimed: 1
+  does_not_conform: 8
+  strengths:
+    - RFC 9727 API catalog (rare, and the only reason the spec was findable)
+    - a correct, current llms.txt
+    - ISO/IEC 27001:2022 across all products
+    - consistent offset pagination
+    - a conformant OIDC/Keycloak deployment behind the human sign-in
+  gaps:
+    - no security.txt despite having a policy and a contact
+    - no RFC 9457 errors
+    - no idempotency on any write
+    - non-standard rate-limit headers with no Retry-After
+    - empty components.schemas
+  headline: >-
+    Brandwatch is not short of standards capability — it runs conformant OIDC
+    with PKCE, dynamic client registration and product-scoped claims for its
+    human sign-in, and it publishes an RFC 9727 API catalog that most of the
+    catalog does not. None of that reaches the API, which authenticates with a
+    vendor grant, returns OAuth-shaped errors instead of RFC 9457, signals rate
+    limits with x- headers, and offers no idempotency. The gap here is a wiring
+    problem, not a capability problem.

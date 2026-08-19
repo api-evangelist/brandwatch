@@ -1,0 +1,148 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developers.brandwatch.com/docs/authenticate,
+  https://developers.brandwatch.com/docs/rate-limiting,
+  https://developers.brandwatch.com/docs/best-practices,
+  https://developers.brandwatch.com/docs/tutorial-paging-through-historical-mentions,
+  openapi/brandwatch-consumer-research-openapi.yml
+scope: Brandwatch Consumer Research API (the only Brandwatch API with a published contract)
+authentication:
+  style: bearer token
+  header: 'Authorization: bearer <ACCESS_TOKEN>'
+  alternative: '?access_token=<ACCESS_TOKEN>'
+  token_endpoint: https://api.brandwatch.com/oauth/token
+  token_lifetime: one year (expires_in 31535999) by default for an API User
+  see: authentication/brandwatch-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key parameter, header or extension appears anywhere in either
+    published OpenAPI document, and no Brandwatch documentation page mentions
+    idempotency, retry keys or safe replay. The write surface is small (7 POST
+    operations creating tags, categories, author/location/site lists and
+    category backfills, plus 6 DELETEs) but a retried POST will create a
+    duplicate. No Idempotency pointer is emitted for this provider.
+pagination:
+  style: offset
+  request_params:
+    - name: page
+      in: query
+      note: zero-based
+    - name: pageSize
+      in: query
+  response_fields:
+    - resultsTotal
+    - resultsPage
+    - resultsPageSize
+    - results
+  applies_to: 8 operations (mentions, projects, queries, tags, categories, rules, lists)
+  sentinel: >-
+    Endpoints that are not paginated return resultsPage and resultsPageSize as
+    -1 with the full set in results — a sentinel an agent must special-case.
+  cursor: false
+  link_header: false
+  docs: https://developers.brandwatch.com/docs/tutorial-paging-through-historical-mentions
+  note: >-
+    Paging through a large historical mention set collides directly with the
+    30-calls-per-10-minutes Client limit; Brandwatch's own tutorial is a paging
+    walkthrough and its best-practices page tells clients to serialize rather
+    than parallelize those calls.
+filtering:
+  style: query parameters
+  common:
+    - startDate
+    - endDate
+    - queryId/queryGroupId
+    - nameContains
+    - includeActive
+    - includeInactive
+    - includeHidden
+    - orderBy
+    - orderDirection
+  reference: https://developers.brandwatch.com/docs/available-filters
+  note: >-
+    The parameter literally named `queryId/queryGroupId` (a slash in the
+    parameter name) appears on 7 operations. It is a real published name, not a
+    typo in this artifact, and it means one parameter carries two different
+    entity ids depending on which the caller has.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: false
+  note: >-
+    No customer-defined metadata bag on any resource. Mentions carry a fixed
+    metadata field set documented at
+    https://developers.brandwatch.com/docs/mention-metadata-field-definitions.
+request_tracing:
+  request_id_header: null
+  supported: false
+  note: no correlation or request-id header is documented or declared
+versioning:
+  scheme: none-visible
+  current: '2.0'
+  current_note: >-
+    info.version is "2.0" in both OpenAPI documents, but no version appears in
+    any path, header or media type. Every documented URL is
+    https://api.brandwatch.com/<resource> with no /v2/ segment. There is no way
+    for a client to pin a version.
+  see: lifecycle/brandwatch-lifecycle.yml
+error_envelope:
+  media_type: application/json
+  shape: '{"error": "<slug>", "error_description": "<sentence>"}'
+  rfc9457: false
+  see: errors/brandwatch-problem-types.yml
+rate_limit_signaling:
+  headers:
+    - x-rate-limit
+    - x-rate-limit-used
+  status: 429
+  retry_after: false
+  see: rate-limits/brandwatch-rate-limits.yml
+async:
+  applies_to: Brandwatch Analysis API
+  pattern: submit-then-poll
+  detail: >-
+    POST /analysis/ returns 202 with status WAITING, a resultId, a resultsUri
+    and a retrieveAt / retrieveAtMillis timestamp saying when to come back.
+    Status transitions to DONE. Brandwatch warns that the API "will periodically
+    respond synchronously depending on query complexity and caching", so a
+    client must handle both shapes from the same call.
+  docs: https://developers.brandwatch.com/docs/analysis-request
+transport_security:
+  tls_minimum: TLS 1.2
+  note: >-
+    "all requests to our servers must be done over HTTPS and TLS 1.2 or newer.
+    TLS 1.1 is no longer accepted."
+  docs: https://developers.brandwatch.com/docs/best-practices
+concurrency:
+  guidance: serialize
+  detail: >-
+    "We recommend queuing requests at the client side and executing them
+    linearly, rather than in parallel. Multiple parallel requests may be
+    throttled and take longer to return than a sequence of linearly executed
+    requests."
+  docs: https://developers.brandwatch.com/docs/best-practices
+caching:
+  guidance: >-
+    Cache Categories, Tags and Lists locally rather than refetching them with
+    every Mentions call.
+  docs: https://developers.brandwatch.com/docs/best-practices
+support_boundary:
+  statement: >-
+    "we only officially support the API endpoints featured here, in our
+    documentation. Any other endpoints are subject to change without notice."
+  docs: https://developers.brandwatch.com/docs/best-practices
+  implication: >-
+    Anything not in the two published OpenAPI documents or the guide pages is
+    explicitly out of contract, including any endpoint an agent might discover
+    by probing.
+cross_links:
+  errors: errors/brandwatch-problem-types.yml
+  lifecycle: lifecycle/brandwatch-lifecycle.yml
+  authentication: authentication/brandwatch-authentication.yml
+  rate_limits: rate-limits/brandwatch-rate-limits.yml
+  scopes: scopes/brandwatch-scopes.yml

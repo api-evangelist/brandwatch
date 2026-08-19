@@ -1,0 +1,107 @@
+# Brandwatch Developers Documentation
+
+> Discover how you can use the Brandwatch Consumer Research API to enhance and extend your applications with powerful social data.
+
+## Guides
+- [Getting Started](https://developers.brandwatch.com/docs/getting-started.md)
+- [Best practices & our terms](https://developers.brandwatch.com/docs/best-practices.md): Guidance on how to best use the Brandwatch Consumer Research API.
+- [Terminology](https://developers.brandwatch.com/docs/terminology.md): Some common terms used when working with the Brandwatch API.
+- [Authentication](https://developers.brandwatch.com/docs/authenticate.md): This page will show you how to generate an access token
+- [Rate limiting](https://developers.brandwatch.com/docs/rate-limiting.md): Understanding how the Consumer Research API limits the rate of API requests
+- [Users and Clients](https://developers.brandwatch.com/docs/users.md)
+- [Retrieving the current User](https://developers.brandwatch.com/docs/getting-the-current-user.md): Displaying information about who you are logged in as.
+- [Retrieving the current Client](https://developers.brandwatch.com/docs/retrieving-the-current-client-1.md): Displaying information about your Client.
+- [The me call](https://developers.brandwatch.com/docs/the-me-call.md): Return a combination of User and Client information in one call.
+- [Projects](https://developers.brandwatch.com/docs/projects.md)
+- [Retrieving Projects](https://developers.brandwatch.com/docs/retrieving-projects.md): Listing the Projects that contain your work.
+- [Queries](https://developers.brandwatch.com/docs/queries.md)
+- [Retrieving Queries](https://developers.brandwatch.com/docs/retrieving-queries.md): Listing the Queries that contain your data.
+- [Creating Queries](https://developers.brandwatch.com/docs/creating-queries.md): Adding a new Query search to your Project
+- [Editing Queries](https://developers.brandwatch.com/docs/editing-queries.md)
+- [Deleting Queries](https://developers.brandwatch.com/docs/deleting-queries.md)
+- [Query Groups](https://developers.brandwatch.com/docs/query-groups.md)
+- [Retrieving Query Groups](https://developers.brandwatch.com/docs/retrieving-query-groups.md): Listing the Query Groups that you have created.
+- [Deleting Query Groups](https://developers.brandwatch.com/docs/deleting-query-groups.md)
+- [Tags](https://developers.brandwatch.com/docs/tags.md)
+- [Retrieving Tags](https://developers.brandwatch.com/docs/retrieving-tags.md): Listing the Tags within your Project.
+- [Creating Tags](https://developers.brandwatch.com/docs/creating-tags.md): Listing the Tags within your Project.
+- [Deleting Tags](https://developers.brandwatch.com/docs/deleting-tags.md)
+- [Categories](https://developers.brandwatch.com/docs/categories.md)
+- [Retrieving Categories](https://developers.brandwatch.com/docs/retrieving-categories.md): Listing the Categories within your Project.
+- [Creating Categories](https://developers.brandwatch.com/docs/creating-categories.md): Adding a new Category to your Project.
+- [Deleting Categories](https://developers.brandwatch.com/docs/deleting-categories.md): Adding a new Category to your Project.
+- [Rules](https://developers.brandwatch.com/docs/rules.md)
+- [Retrieving Rules](https://developers.brandwatch.com/docs/retrieving-rules.md): Listing the Rules within your Project.
+- [Deleting Rules](https://developers.brandwatch.com/docs/deleting-rules.md)
+- [Lists](https://developers.brandwatch.com/docs/lists.md)
+- [Creating Author Lists](https://developers.brandwatch.com/docs/creating-author-lists.md): Creating a list of Authors in Brandwatch Consumer Research.
+- [Retrieving Author Lists](https://developers.brandwatch.com/docs/retrieving-author-lists.md): Showing lists of Authors that have been saved in Brandwatch Consumer Research.
+- [Deleting Author Lists](https://developers.brandwatch.com/docs/deleting-author-lists.md)
+- [Creating Location Lists](https://developers.brandwatch.com/docs/creating-location-lists.md): Creating a list of Locations in Brandwatch Consumer Research.
+- [Retrieving Location Lists](https://developers.brandwatch.com/docs/retrieving-location-list.md): Getting lists of Locations that have been saved in Brandwatch Consumer Research.
+- [Deleting Location Lists](https://developers.brandwatch.com/docs/deleting-location-lists.md)
+- [Creating Site Lists](https://developers.brandwatch.com/docs/creating-site-lists.md): Creating a list of sites in Brandwatch Consumer Research.
+- [Retrieving Site Lists](https://developers.brandwatch.com/docs/retrieving-site-lists.md): Getting lists of Sites that have been saved in Brandwatch Consumer Research.
+- [Deleting Site Lists](https://developers.brandwatch.com/docs/deleting-site-lists.md)
+- [Workflow](https://developers.brandwatch.com/docs/workflow.md)
+- [Retrieving Workflow](https://developers.brandwatch.com/docs/retrieving-workflow.md): Listing the Workflow within your Project.
+- [Custom Alerts](https://developers.brandwatch.com/docs/custom-alerts.md)
+- [Retrieving Custom Alerts](https://developers.brandwatch.com/docs/retrieving-custom-alerts.md)
+- [Creating Custom Alerts](https://developers.brandwatch.com/docs/creating-custom-alerts.md): Adding a new Custom Alert to your project
+- [Updating Custom Alerts](https://developers.brandwatch.com/docs/updating-custom-alerts.md): Updating a given Custom Alert in your project
+- [Deleting Custom Alerts](https://developers.brandwatch.com/docs/deleting-custom-alerts.md): Deleting a Custom Alert in your Project
+- [Mentions](https://developers.brandwatch.com/docs/mentions.md)
+- [Data Restrictions](https://developers.brandwatch.com/docs/data-restrictions.md)
+- [Mention Field Definitions](https://developers.brandwatch.com/docs/mention-metadata-field-definitions.md): A guide to the metadata fields attached to each mention
+- [Retrieving Mentions](https://developers.brandwatch.com/docs/retrieving-mentions.md): Listing the Mentions within your Query.
+- [Retrieving Filtered Mentions](https://developers.brandwatch.com/docs/retrieving-filtered-mentions.md): Listing a filtered set of Mentions within your Query.
+- [Editing Mentions](https://developers.brandwatch.com/docs/editing-mentions.md)
+- [Data Retrieval](https://developers.brandwatch.com/docs/data-retrieval.md)
+- [Total Mentions](https://developers.brandwatch.com/docs/total-mentions.md): Finding total number of Mentions in your dataset in a given time period.
+- [Topics](https://developers.brandwatch.com/docs/topics.md): Finding topics of conversation in your Mentions.
+- [Topics (New)](https://developers.brandwatch.com/docs/data-topics.md): Finding topics of conversation in your Mentions.
+- [Basic charts](https://developers.brandwatch.com/docs/basic-charts.md): Creating a chart out of your Mentions.
+- [Multiple aggregate charts](https://developers.brandwatch.com/docs/multi-aggregate-charts.md): Creating a chart out of your Mentions.
+- [Chart aggregates and dimensions](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates.md): How to make all of the different charts available.
+- [X (Twitter) Insights](https://developers.brandwatch.com/docs/twitter-insights.md)
+- [Top Sites](https://developers.brandwatch.com/docs/top-sites.md)
+- [Top Authors](https://developers.brandwatch.com/docs/top-authors.md)
+- [Top X (Twitter) Authors](https://developers.brandwatch.com/docs/top-tweeters.md)
+- [Top Shared Sites](https://developers.brandwatch.com/docs/top-shared-sites.md)
+- [Top Shared URLs](https://developers.brandwatch.com/docs/top-shared-urls.md)
+- [Filters](https://developers.brandwatch.com/docs/filters.md)
+- [Available Filters](https://developers.brandwatch.com/docs/available-filters.md): Learn about the Filters you can utilize to segment your data.
+- [Language Codes](https://developers.brandwatch.com/docs/language-codes.md): A list of valid language codes for use with Brandwatch Consumer Research
+- [Locations](https://developers.brandwatch.com/docs/locations.md)
+- [Objects & Logos](https://developers.brandwatch.com/docs/objects-logos.md)
+- [Exclusions](https://developers.brandwatch.com/docs/exclusion-snippets.md)
+- [Sorting Mentions](https://developers.brandwatch.com/docs/sorting-mentions.md)
+- [Tutorials](https://developers.brandwatch.com/docs/tutorials.md)
+- [Paging through historical Mentions](https://developers.brandwatch.com/docs/tutorial-paging-through-historical-mentions.md): Downloading data from your query by paging through it.
+- [Polling for Mentions](https://developers.brandwatch.com/docs/tutorial-polling-for-mentions.md): How to write a program that continually gets the latest mentions for your query.
+- [Building a Filters menu](https://developers.brandwatch.com/docs/tutorial-building-a-filters-menu.md): How to build a menu for your users to control how to get Brandwatch data.
+- [Getting Started](https://developers.brandwatch.com/docs/getting-started-data-upload.md): Get started using the Data Upload API
+- [Creating a Custom Data Source](https://developers.brandwatch.com/docs/creating-a-custom-data-source.md): Create a new custom data source
+- [Retrieving Custom Data Sources](https://developers.brandwatch.com/docs/retrieving-custom-data-sources.md): Retrieve a list of your custom data sources
+- [Updating Custom Data Sources](https://developers.brandwatch.com/docs/updating-custom-data-sources.md)
+- [Uploading Documents](https://developers.brandwatch.com/docs/uploading-documents.md): Upload documents to your new custom data source
+- [Usage Reporting](https://developers.brandwatch.com/docs/usage.md)
+- [Creating Queries using Custom Data Sources](https://developers.brandwatch.com/docs/creating-queries-using-custom-data-sources.md): Create queries to retrieve the data from your custom data sources
+- [Deleting Data Sources](https://developers.brandwatch.com/docs/deleting-data-sources.md)
+- [Deleting Documents](https://developers.brandwatch.com/docs/deleting-documents.md)
+- [Getting Started](https://developers.brandwatch.com/docs/getting-started-analysis-api.md): Getting started with the Brandwatch Analysis API
+- [Analysis Request](https://developers.brandwatch.com/docs/analysis-request.md): Submit a query task against 24 hours of social data.
+- [Analysis Results](https://developers.brandwatch.com/docs/analysis-results.md): Retrieve the status of the analysis request and the results.
+- [Analysis Usage](https://developers.brandwatch.com/docs/analysis-api-usage.md): Retrieve information on your usage of the Analysis API
+
+## Changelog
+- [Org switching in Consumer Research for API users](https://developers.brandwatch.com/changelog/org-switching-in-consumer-research-for-api-users.md)
+- [Reddit Data Restrictions](https://developers.brandwatch.com/changelog/reddit-data-restrictions.md)
+- [Retrieving Rules: updated description examples and json](https://developers.brandwatch.com/changelog/retrieving-rules.md)
+- [Retrieving Query Groups: new fields on shared queries](https://developers.brandwatch.com/changelog/retrieving-query-groups-new-fields-on-shared-queries.md)
+- [Multi-aggregate charts & new Topics endpoint introduced](https://developers.brandwatch.com/changelog/multi-aggregate-charts-and-new-topics-endpoint-introduced.md)
+- [Data Upload API: new fields reachEstimate and rawMetadata](https://developers.brandwatch.com/changelog/data-upload-api-new-fields-reachestimate-and-rawmetadata.md)
+- [Mentions API: Tiktok field definitions added, mentions retrieval payload examples updated with both Bluesky and Tiktok](https://developers.brandwatch.com/changelog/mentions-api-tiktok-field-definitions-added-mentions-retrieval-payload-examples-updated-with-both-bluesky-and-tiktok.md)
+- [Mentions API: Bluesky field definitions added](https://developers.brandwatch.com/changelog/mentions-api-bluesky-field-definitions-added.md)
+- [Mentions API: dailyVisitors definition added, payload examples updated](https://developers.brandwatch.com/changelog/mentions-api-dailyvisitors-definition-added-payload-examples-updated.md)
+- [X Insights payload enhanced](https://developers.brandwatch.com/changelog/x-insights-payload-enhanced.md)

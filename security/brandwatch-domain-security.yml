@@ -1,12 +1,17 @@
-generated: '2026-07-11'
+generated: '2026-08-13'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: www.brandwatch.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Aug 13 08:15:00 2026 GMT
+  cert_expires: Oct 11 08:00:55 2026 GMT
   hsts: false
+- host: api.brandwatch.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  1 06:57:42 2026 GMT
+  hsts: null
 domains:
 - domain: brandwatch.com
   dnssec: false

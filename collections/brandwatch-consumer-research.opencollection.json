@@ -1,0 +1,1075 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Consumer Research API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://example.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "The Me Call",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/me"
+      },
+      "docs": "Return a combination of User and Client information in one call.\n\nThere is a handy combined API call to find out a combination of User and Client information in one go:"
+    },
+    {
+      "info": {
+        "name": "Project Summary List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/summary",
+        "params": [
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "page"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "Total results shown per page"
+          },
+          {
+            "name": "nameContains",
+            "value": "",
+            "type": "query",
+            "description": "Search for projects which contain a specified string in their name"
+          }
+        ]
+      },
+      "docs": "Retrieve a summary of all of your Projects."
+    },
+    {
+      "info": {
+        "name": "Project Info",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve information on a specific Project."
+    },
+    {
+      "info": {
+        "name": "Query Summary List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/queries/summary",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "includeActive",
+            "value": "",
+            "type": "query",
+            "description": "Include active projects"
+          },
+          {
+            "name": "includeInactive",
+            "value": "",
+            "type": "query",
+            "description": "Include inactive projects"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of projects shown per page"
+          }
+        ]
+      },
+      "docs": "Retrieve a list of all Queries in a Project."
+    },
+    {
+      "info": {
+        "name": "Detailed Query Summary List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/queries",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "nameContains",
+            "value": "",
+            "type": "query",
+            "description": "Search for Queries with a specified string in their name"
+          },
+          {
+            "name": "type",
+            "value": "",
+            "type": "query",
+            "description": "`monitor`,`publicFacebook`,`twitter` or `instagram`"
+          },
+          {
+            "name": "includeHidden",
+            "value": "",
+            "type": "query",
+            "description": "Include hidden Queries"
+          },
+          {
+            "name": "includeActive",
+            "value": "",
+            "type": "query",
+            "description": "Include active Queries"
+          },
+          {
+            "name": "includeInactive",
+            "value": "",
+            "type": "query",
+            "description": "Include inactive Queries"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of Queries shown per page"
+          },
+          {
+            "name": "ids",
+            "value": "",
+            "type": "query",
+            "description": "Use the Query ID to show specified Queries"
+          }
+        ]
+      },
+      "docs": "Retrieve a detailed summary of all Queries in your Project."
+    },
+    {
+      "info": {
+        "name": "Detailed Query Info",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/queries/:queryId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve information for a single Query."
+    },
+    {
+      "info": {
+        "name": "Delete Queries",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/queries/:queryId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete Queries"
+    },
+    {
+      "info": {
+        "name": "Query Groups Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/querygroups",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "Number of Query Groups shown per page"
+          },
+          {
+            "name": "ids",
+            "value": "",
+            "type": "query",
+            "description": "Show specified Query Groups using Query Group IDs"
+          },
+          {
+            "name": "includeHidden",
+            "value": "",
+            "type": "query",
+            "description": "Include hidden Query Groups"
+          },
+          {
+            "name": "includeActive",
+            "value": "",
+            "type": "query",
+            "description": "Include active Query Groups"
+          },
+          {
+            "name": "includeInactive",
+            "value": "",
+            "type": "query",
+            "description": "Include inactive Query Groups"
+          }
+        ]
+      },
+      "docs": "Listing the Query Groups that you have created.\n\nYou can create Query Groups to represent a relationship between related Queries. They are stored within Projects."
+    },
+    {
+      "info": {
+        "name": "Delete Query Groups",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/querygroups/:queryGroupId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "queryGroupId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "You can delete Query Groups via the Consumer Research API.\n\nAssuming you know the Query Group id that you want to delete, then you can use the following request:"
+    },
+    {
+      "info": {
+        "name": "Tags Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/tags",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your [project id](retrieving-projects)"
+          },
+          {
+            "name": "nameContains",
+            "value": "",
+            "type": "query",
+            "description": "Search for Tags with a specified string in their name"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "Choose how many Tags are shown per page"
+          }
+        ]
+      },
+      "docs": "Listing the Tags within your Project."
+    },
+    {
+      "info": {
+        "name": "Create Tags",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.brandwatch.com/projects/:projectId/tags",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your project id"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Creating Tags within your Project"
+    },
+    {
+      "info": {
+        "name": "Delete Tags",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/tags/:tagId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your project id"
+          },
+          {
+            "name": "tagId",
+            "value": "",
+            "type": "path",
+            "description": "The Tag id for the Tag you'd like to delete."
+          }
+        ]
+      },
+      "docs": "Deleting Tags within your Project"
+    },
+    {
+      "info": {
+        "name": "Categories Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/categories",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your project id"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "Number of Categories shown per page"
+          }
+        ]
+      },
+      "docs": "Retrieve a summary of all Categories in your Project."
+    },
+    {
+      "info": {
+        "name": "Create Categories",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.brandwatch.com/projects/:projectId/categories",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your project id"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Adding a new Category to your Project."
+    },
+    {
+      "info": {
+        "name": "Rules Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/rules",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "enabled",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "nameContains",
+            "value": "",
+            "type": "query",
+            "description": "Tags which contain a specified string in their name"
+          },
+          {
+            "name": "ruleContains",
+            "value": "",
+            "type": "query",
+            "description": "Tags which contain a specified string in the `search` part of the Rule"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of Rules to be shown per page"
+          },
+          {
+            "name": "orderDirection",
+            "value": "",
+            "type": "query",
+            "description": "Direction by which the list is sorted"
+          }
+        ]
+      },
+      "docs": "Listing the Rules within your Project."
+    },
+    {
+      "info": {
+        "name": "Delete Rules",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/rules/:ruleId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "ruleId",
+            "value": "",
+            "type": "path",
+            "description": "your rule id"
+          }
+        ]
+      },
+      "docs": "Delete specific rules within your Project"
+    },
+    {
+      "info": {
+        "name": "Create Author Lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/author",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Creating a list of Authors in Brandwatch Consumer Research."
+    },
+    {
+      "info": {
+        "name": "Author Lists Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/author/summary",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ]
+      },
+      "docs": "Showing lists of Authors that have been saved in Brandwatch Consumer Research."
+    },
+    {
+      "info": {
+        "name": "Delete Author Lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/author/:authorListId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "authorListId",
+            "value": "",
+            "type": "path",
+            "description": "your author list id"
+          }
+        ]
+      },
+      "docs": "Delete author lists within your project"
+    },
+    {
+      "info": {
+        "name": "Create Location Lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.brandwatch.com/project/:projectId/group/location",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create Location Lists"
+    },
+    {
+      "info": {
+        "name": "Location Lists Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/location/summary",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ]
+      },
+      "docs": "Getting lists of Locations that have been saved in Brandwatch Consumer Research."
+    },
+    {
+      "info": {
+        "name": "Delete Location Lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/location/:locationListId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "locationListId",
+            "value": "",
+            "type": "path",
+            "description": "id of the location list you'd like to delete"
+          }
+        ]
+      },
+      "docs": "Deleting location lists"
+    },
+    {
+      "info": {
+        "name": "Create Site Lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/site",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Creating a list of sites in Brandwatch Consumer Research."
+    },
+    {
+      "info": {
+        "name": "Site Lists Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/site/summary",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ]
+      },
+      "docs": "Getting lists of Sites that have been saved in Brandwatch Consumer Research."
+    },
+    {
+      "info": {
+        "name": "Delete Site Lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.brandwatch.com/projects/:projectId/group/site/:siteListId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "siteListId",
+            "value": "",
+            "type": "path",
+            "description": "the id of the site list you'd like to delete"
+          }
+        ]
+      },
+      "docs": "Delete Site Lists"
+    },
+    {
+      "info": {
+        "name": "Workflow Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/workflow",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          }
+        ]
+      },
+      "docs": "Listing the Workflow within your Project."
+    },
+    {
+      "info": {
+        "name": "Retrieve Mentions",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/data/mentions",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "query",
+            "description": "your query or query group id"
+          },
+          {
+            "name": "startDate",
+            "value": "",
+            "type": "query",
+            "description": "The beginning of the date range that contains the Mentions."
+          },
+          {
+            "name": "endDate",
+            "value": "",
+            "type": "query",
+            "description": "The end of the date range that contains the Mentions."
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of Mentions on each page of the response."
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "The page to retrieve, indexed from 0."
+          },
+          {
+            "name": "orderBy",
+            "value": "",
+            "type": "query",
+            "description": "The field you'd like to order the Mentions by. `date` - the date of the mention (default), `added` - the time the mention matched your query,`updated` - the time when the mention was last updated,`impact` - Brandwatch specific metric that tells you the potential impact of a mention"
+          },
+          {
+            "name": "orderDirection",
+            "value": "",
+            "type": "query",
+            "description": "The direction to order the Mentions. `desc` (descending) or `asc` (ascending)"
+          },
+          {
+            "name": "pageType",
+            "value": "",
+            "type": "query",
+            "description": "filter by a specific page type"
+          },
+          {
+            "name": "sentiment",
+            "value": "",
+            "type": "query",
+            "description": "filter by sentiment. `positive`. `negative` or `neutral`"
+          },
+          {
+            "name": "tag",
+            "value": "",
+            "type": "query",
+            "description": "return Mentions that are tagged with this Tag ID"
+          },
+          {
+            "name": "xtag",
+            "value": "",
+            "type": "query",
+            "description": "exclude Mentions that are tagged with this tag id"
+          },
+          {
+            "name": "category",
+            "value": "",
+            "type": "query",
+            "description": "return Mentions that are tagged with this Category id"
+          },
+          {
+            "name": "xcategory",
+            "value": "",
+            "type": "query",
+            "description": "exclude Mentions that are tagged with this Category id"
+          }
+        ]
+      },
+      "docs": "Listing the Mentions within your Query."
+    },
+    {
+      "info": {
+        "name": "Total Mentions",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/data/mentions/count",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "query",
+            "description": "The ID of the Query or Query Group that contains the Mentions for which you'd like to see Topics."
+          },
+          {
+            "name": "startDate",
+            "value": "",
+            "type": "query",
+            "description": "The beginning of the date range that contains the Mentions."
+          },
+          {
+            "name": "endDate",
+            "value": "",
+            "type": "query",
+            "description": "The end of the date range that contains the Mentions."
+          }
+        ]
+      },
+      "docs": "Finding total number of Mentions in your dataset in a given time period."
+    },
+    {
+      "info": {
+        "name": "Topics",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/data/volume/topics/queries",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "your project id"
+          },
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "query",
+            "description": "The ID of the Query or Query Group that contains the Mentions for which you'd like to see Topics."
+          },
+          {
+            "name": "startDate",
+            "value": "",
+            "type": "query",
+            "description": "The beginning of the date range that contains the Mentions."
+          },
+          {
+            "name": "endDate",
+            "value": "",
+            "type": "query",
+            "description": "The end of the date range that contains the Mentions."
+          },
+          {
+            "name": "orderBy",
+            "value": "",
+            "type": "query",
+            "description": "Metric by which you wish to order the topics returned. `volume` - the number of Mentions the topic appears in,`burst` - the rate that the topic has emerged over time"
+          },
+          {
+            "name": "limit",
+            "value": "",
+            "type": "query",
+            "description": "The maximum number of topics to be returned."
+          },
+          {
+            "name": "excludeCategories",
+            "value": "",
+            "type": "query",
+            "description": "You have the option to exclude Categories from the topics returned (this is often done in the Consumer Research UI)."
+          },
+          {
+            "name": "excludeTags",
+            "value": "",
+            "type": "query",
+            "description": "You have the option to exclude Tags from the topics returned (this is often done in the Consumer Research UI)."
+          }
+        ]
+      },
+      "docs": "Finding topics of conversation in your Mentions.\n\nEffective topic analysis allow you to glean a quick overview of the popular topics within any conversation. Our technology makes use of the latest natural language processing (NLP) techniques to extract insightful topics from your dataset."
+    },
+    {
+      "info": {
+        "name": "Basic Charts",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/data/:aggregate/:dimension1/:dimension2",
+        "params": [
+          {
+            "name": "aggregate",
+            "value": "",
+            "type": "path",
+            "description": "Which aggregate data you would like to see. You can find a full list [here](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates)."
+          },
+          {
+            "name": "dimension1",
+            "value": "",
+            "type": "path",
+            "description": "Your x-axis dimension. You can find a full list of dimensions [here](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates)."
+          },
+          {
+            "name": "dimension2",
+            "value": "",
+            "type": "path",
+            "description": "Your y-axis dimension. You can find a full list [here](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates)."
+          },
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "query",
+            "description": "The ID of the Query or Query Group that contains the Mentions for which you'd like to see."
+          },
+          {
+            "name": "startDate",
+            "value": "",
+            "type": "query",
+            "description": "The beginning of the date range that contains the Mentions."
+          },
+          {
+            "name": "endDate",
+            "value": "",
+            "type": "query",
+            "description": "The end of the date range that contains the Mentions."
+          }
+        ]
+      },
+      "docs": "Creating a chart out of your Mentions."
+    },
+    {
+      "info": {
+        "name": "Twitter Hashtags",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/data/hashtags",
+        "params": [
+          {
+            "name": "queryId/queryGroupId",
+            "value": "",
+            "type": "query",
+            "description": "The ID of the Query or Query Group that contains the Mentions for which you'd like to see."
+          },
+          {
+            "name": "startDate",
+            "value": "",
+            "type": "query",
+            "description": "The beginning of the date range that contains the Mentions."
+          },
+          {
+            "name": "endDate",
+            "value": "",
+            "type": "query",
+            "description": "The end of the date range that contains the Mentions."
+          }
+        ]
+      },
+      "docs": "Retrieves an aggregated breakdown of Twitter Hashtag data.\n\nThis endpoint accepts all of our usual [Filters](https://developers.brandwatch.com/docs/filters)."
+    },
+    {
+      "info": {
+        "name": "Create Category Backfill",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.brandwatch.com/projects/:projectId/rulebackfill/rulecategories/:parentCategoryId",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your project id"
+          },
+          {
+            "name": "parentCategoryId",
+            "value": "",
+            "type": "path",
+            "description": "Id for the parent category (not a child category)"
+          },
+          {
+            "name": "startDate",
+            "value": "",
+            "type": "query",
+            "description": "Date from which the backfill should start"
+          }
+        ]
+      },
+      "docs": "Backfill a parent Category"
+    },
+    {
+      "info": {
+        "name": "Category Backfill Summary",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/projects/:projectId/rulebackfill/rulecategories",
+        "params": [
+          {
+            "name": "projectId",
+            "value": "",
+            "type": "path",
+            "description": "Your project id"
+          },
+          {
+            "name": "sinceDate",
+            "value": "",
+            "type": "query",
+            "description": "Date on which you created the category backfill"
+          }
+        ]
+      },
+      "docs": "Get a list of Category backfill jobs created since a particular time"
+    }
+  ],
+  "bundled": true
+}

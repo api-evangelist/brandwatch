@@ -1,0 +1,160 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Brandwatch Consumer Research API
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Derived from openapi/brandwatch-consumer-research-openapi.yml plus the
+  Brandwatch developer documentation at developers.brandwatch.com. Captures
+  corrections and additions API Evangelist can evidence from the provider's own
+  prose but which are missing from, or wrong in, the published contract. The
+  original spec is never mutated.
+extends: openapi/brandwatch-consumer-research-openapi.yml
+actions:
+  - target: $.info
+    description: >-
+      Record provenance and the fact that this contract is discoverable only via
+      the RFC 9727 API catalog.
+    update:
+      x-apievangelist-source: https://developers.brandwatch.com/openapi/5e94c1a40b8b77005c948d8d
+      x-apievangelist-discovery: https://developers.brandwatch.com/.well-known/api-catalog
+      x-apievangelist-harvested: '2026-08-13'
+      x-apievangelist-provider: Brandwatch (Cision Group Ltd)
+
+  - target: $.info
+    description: >-
+      The published spec carries no description. Add the one the provider gives
+      on its own documentation landing page.
+    update:
+      description: >-
+        The Brandwatch Consumer Research API provides programmatic access to
+        social listening data — mentions, aggregated statistics, topics and
+        charts — across the projects, queries, tags, categories and rules
+        configured in a Brandwatch Consumer Research account. Access requires an
+        existing Consumer Research contract and a user with the Regular or Admin
+        role.
+      termsOfService: https://www.cision.com/legal/msa/
+      contact:
+        name: Brandwatch Developer Documentation
+        url: https://developers.brandwatch.com/
+
+  - target: $.components.securitySchemes.sec0
+    description: >-
+      CORRECTION. The published oauth2 scheme declares clientCredentials with
+      tokenUrl https://example.com/oauth2/token — an unfilled ReadMe scaffold
+      default. The real endpoint, grant and returned scopes are documented at
+      https://developers.brandwatch.com/docs/authenticate. The original value is
+      left in place in openapi/; this records the true one.
+    update:
+      x-apievangelist-correction: >-
+        tokenUrl in the published spec is a placeholder (example.com). The real
+        token endpoint is https://api.brandwatch.com/oauth/token.
+      x-apievangelist-token-url: https://api.brandwatch.com/oauth/token
+      x-apievangelist-grant-type: api-password
+      x-apievangelist-client-id: brandwatch-api-client
+      x-apievangelist-scopes-returned:
+        - read
+        - trust
+        - write
+      x-apievangelist-token-lifetime-seconds: 31535999
+      x-apievangelist-docs: https://developers.brandwatch.com/docs/authenticate
+
+  - target: $.servers[0]
+    description: Annotate the transport requirement the provider publishes in its best-practices guidance.
+    update:
+      description: Production. HTTPS with TLS 1.2 or newer required; TLS 1.1 is rejected.
+      x-apievangelist-tls-minimum: '1.2'
+      x-apievangelist-docs: https://developers.brandwatch.com/docs/best-practices
+
+  - target: $
+    description: >-
+      Add the rate-limit contract. Documented in prose at
+      https://developers.brandwatch.com/docs/rate-limiting but expressed nowhere
+      in the spec — no operation declares a 429 and no response documents the
+      headers the API actually returns.
+    update:
+      x-apievangelist-rate-limit:
+        scope: client
+        limit: 30
+        window: 10 minutes
+        window_type: rolling
+        status_on_exhaustion: 429
+        headers:
+          - name: x-rate-limit
+            format: <limit>/<period>m
+            example: 30/10m
+          - name: x-rate-limit-used
+            example: '5'
+        retry_after: false
+        docs: https://developers.brandwatch.com/docs/rate-limiting
+
+  - target: $
+    description: >-
+      Record the error envelope. The spec declares 401/403/404/400 with empty
+      schemas; the API returns a consistent two-field JSON body, confirmed live.
+    update:
+      x-apievangelist-error-envelope:
+        media_type: application/json
+        fields:
+          - error
+          - error_description
+        rfc9457: false
+        example:
+          error: unauthorized
+          error_description: Invalid authentication credentials found on request
+
+  - target: $
+    description: Record the pagination contract, which is consistent but undeclared as a reusable component.
+    update:
+      x-apievangelist-pagination:
+        style: offset
+        request:
+          - page
+          - pageSize
+        response:
+          - resultsTotal
+          - resultsPage
+          - resultsPageSize
+          - results
+        unpaginated_sentinel: resultsPage and resultsPageSize return -1
+
+  - target: $
+    description: >-
+      Record what the spec does NOT cover, so a consumer of this overlay is not
+      misled into thinking 36 operations is the whole Brandwatch API surface.
+    update:
+      x-apievangelist-coverage:
+        documented_apis_without_openapi:
+          - name: Brandwatch Data Upload API
+            docs: https://developers.brandwatch.com/docs/getting-started-data-upload
+            endpoints_seen_in_docs:
+              - POST https://api.brandwatch.com/content/sources
+              - POST https://api.brandwatch.com/content/upload
+          - name: Brandwatch Analysis API
+            docs: https://developers.brandwatch.com/docs/getting-started-analysis-api
+            endpoints_seen_in_docs:
+              - POST https://api.brandwatch.com/analysis/
+              - GET https://api.brandwatch.com/analysis/usage
+        marketed_apis_without_documentation:
+          - Brandwatch Measure API
+          - Brandwatch Publish API
+          - Brandwatch Engage API
+        note: >-
+          Brandwatch markets six APIs on
+          https://www.brandwatch.com/products/apis/. One has a machine-readable
+          contract, two more have prose documentation only, and three have
+          neither.
+
+  - target: $.paths['/projects/{projectId}/data/mentions'].get
+    description: >-
+      Flag the account-dependent field variability the provider documents
+      separately, so it travels with the operation that is affected by it.
+    update:
+      x-apievangelist-field-variability:
+        constant: false
+        reason: >-
+          Returned metadata varies by upstream source and by which Data Packs
+          the account holds. X posts have full text and most metadata stripped;
+          Reddit restrictions took effect January 2026.
+        docs: https://developers.brandwatch.com/docs/data-restrictions

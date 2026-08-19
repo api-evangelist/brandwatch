@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/brandwatch-consumer-research-openapi.yml, openapi/brandwatch-consumer-research-authentication-openapi.yml
+docs: null
+format: vendor
+format_note: >-
+  Not RFC 9457. Brandwatch returns a two-field JSON object
+  {"error": "...", "error_description": "..."} — the OAuth 2.0 error shape
+  (RFC 6749 §5.2) reused for general API errors. No `type` URI, no `title`, no
+  `status` in the body, no `instance`, and no `application/problem+json` media
+  type anywhere in either published spec.
+envelope:
+  media_type: application/json
+  fields:
+    - name: error
+      type: string
+      description: machine-readable error slug
+    - name: error_description
+      type: string
+      description: human-readable sentence
+  example: |
+    {
+      "error": "unauthorized",
+      "error_description": "Invalid authentication credentials found on request"
+    }
+  observed_live: true
+  observed_note: >-
+    Confirmed live on 2026-08-13 — an unauthenticated GET of
+    https://api.brandwatch.com/ returns exactly this body with HTTP 401.
+coverage:
+  operations_total: 36
+  status_codes_declared:
+    '200': 28
+    '201': 2
+    '204': 3
+    '400': 4
+    '401': 14
+    '403': 13
+    '404': 11
+    '5xx': 0
+  operations_with_any_4xx: 24
+  operations_with_no_4xx: 12
+  note: >-
+    No operation in either spec declares a 5xx response, and no operation
+    declares 429 — even though the rate-limiting page documents that 429 is
+    what an over-limit client gets. Twelve operations declare only a 200. The
+    error contract is therefore substantially thinner in the spec than in the
+    prose docs.
+problems:
+  - status: 400
+    title: Bad Request
+    slug: null
+    description: >-
+      Declared on the four operations that take a body or a compound path.
+      Brandwatch publishes no example body and no error slug for 400.
+    source_operations:
+      - openapi/brandwatch-consumer-research-openapi.yml#deleting-rules-1
+      - openapi/brandwatch-consumer-research-openapi.yml#deleting-site-lists-1
+      - openapi/brandwatch-consumer-research-openapi.yml#backfill-categories
+      - openapi/brandwatch-consumer-research-openapi.yml#check-category-backfill-progress
+  - status: 401
+    title: Unauthorized
+    slug: unauthorized
+    description: Invalid authentication credentials found on request.
+    remediation: >-
+      Mint a fresh token at POST https://api.brandwatch.com/oauth/token with
+      grant_type=api-password. Tokens default to a one-year lifetime, so a 401
+      usually means a malformed or revoked token rather than an expired one.
+    example: |
+      {
+        "error": "unauthorized",
+        "error_description": "Invalid authentication credentials found on request"
+      }
+    source_operations:
+      - openapi/brandwatch-consumer-research-openapi.yml#the-me-call-1
+      - openapi/brandwatch-consumer-research-openapi.yml#retrieving-project-summary
+    declared_on: 14 operations
+  - status: 403
+    title: Forbidden
+    slug: null
+    description: >-
+      Returned when the authenticated user lacks the role for the operation.
+      Brandwatch documents that only "Regular" and "Admin" Consumer Research
+      users may call the API, and that the Data Upload API must be enabled
+      per-account by a CSM — both are 403 conditions in practice.
+    body: >-
+      Declared as text/plain with an empty example in the spec; no structured
+      body is published.
+    declared_on: 13 operations
+  - status: 404
+    title: Not Found
+    slug: null
+    description: >-
+      Project, query, tag, category, rule or list id does not exist or is not
+      visible to the token's Client.
+    declared_on: 11 operations
+undeclared_but_documented:
+  - status: 429
+    title: Too Many Requests
+    description: >-
+      Documented on https://developers.brandwatch.com/docs/rate-limiting
+      ("Requests beyond the rate limit will be rejected with an HTTP 429 Too
+      Many Requests error") but declared on ZERO operations in either OpenAPI
+      document. An agent reading only the spec has no idea this response exists.
+    signal_headers:
+      - x-rate-limit
+      - x-rate-limit-used
+    source: https://developers.brandwatch.com/docs/rate-limiting
+  - status: 202
+    title: Accepted
+    description: >-
+      The Analysis API returns 202 with a `resultId` and a `retrieveAt`
+      timestamp for asynchronous query tasks. Documented at
+      https://developers.brandwatch.com/docs/analysis-request, but the Analysis
+      API has no OpenAPI at all.
+    source: https://developers.brandwatch.com/docs/analysis-request
+gaps:
+  - No error-code registry or error-reference page anywhere in the Brandwatch developer docs.
+  - No 5xx responses declared on any operation.
+  - 429 documented in prose, absent from the spec.
+  - 403 declared as text/plain with an empty body rather than the JSON envelope the API actually uses.

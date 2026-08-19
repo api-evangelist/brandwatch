@@ -1,0 +1,309 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/brandwatch-consumer-research-openapi.yml, openapi/brandwatch-consumer-research-authentication-openapi.yml
+docs: https://developers.brandwatch.com/docs/terminology
+note: >-
+  Derived from path structure and response-schema field names. The specs declare
+  ZERO named schemas — components.schemas is an empty object in both documents,
+  every response is written out inline, and there is not one $ref anywhere. So
+  the entity graph below is reconstructed from the resource hierarchy in the
+  paths and from id-bearing fields in the response payloads, not from named
+  types the provider published. Identifiers are bare integers throughout; there
+  are no prefixed or typed ids, so an id alone does not tell a client what it
+  refers to.
+id_convention:
+  type: integer
+  prefixed: false
+  example: 398748937
+  note: >-
+    Project, query, tag, category, rule and list ids are all unprefixed
+    integers. One published query parameter is literally named
+    `queryId/queryGroupId`, carrying either kind of id in a single slot — the
+    clearest symptom of untyped identifiers in this API.
+root: Client
+hierarchy: Client > Project > (Query | QueryGroup | Tag | Category | Rule | List | Workflow) > Mention
+entities:
+  - name: Client
+    description: The Brandwatch account. The unit of billing, of rate limiting and of data isolation.
+    operations:
+      - retrieving-the-current-client
+    fields_observed:
+      - id
+    relationships:
+      - has_many: User
+      - has_many: Project
+        via: billableClientId
+  - name: User
+    description: An individual login. Must hold the Regular or Admin role to use the API at all.
+    operations:
+      - retrieving-the-current-user
+      - the-me-call-1
+    relationships:
+      - belongs_to: Client
+  - name: Project
+    description: The container for all research work — queries, tags, categories, rules and lists.
+    operations:
+      - retrieving-project-summary
+      - retrieving-specific-project-summary
+    fields_observed:
+      - id
+      - name
+      - description
+      - billableClientId
+      - billableClientName
+      - timezone
+      - billableClientIsPitch
+    relationships:
+      - belongs_to: Client
+        via: billableClientId
+      - has_many: Query
+      - has_many: QueryGroup
+      - has_many: Tag
+      - has_many: Category
+      - has_many: Rule
+      - has_many: AuthorList
+      - has_many: LocationList
+      - has_many: SiteList
+      - has_one: Workflow
+  - name: Query
+    description: A saved boolean search that defines a stream of Mentions.
+    operations:
+      - retrieving-queries-1
+      - retrieving-detailed-summary-all-queries
+      - retrieve-details-specific-query
+      - deleting-queries-1
+    fields_observed:
+      - id
+      - name
+      - description
+      - creationDate
+      - lastModificationDate
+      - languages
+      - type
+      - booleanQuery
+      - monitorId
+      - startDate
+      - samplePercentage
+      - sampled
+      - queryLimitUsage
+      - locationFilter
+      - imageFilter
+      - contentSources
+      - audienceLists
+      - exclusionSnippets
+      - active
+      - lockedQuery
+      - lockedByUsername
+    relationships:
+      - belongs_to: Project
+      - has_many: Mention
+      - has_many: AudienceList
+        via: audienceLists
+      - referenced_by: Rule
+        via: filter.queryId
+  - name: QueryGroup
+    description: A named grouping of queries, shareable across projects.
+    operations:
+      - retrieving-query-groups-1
+      - deleting-query-groups-1
+    fields_observed:
+      - id
+      - name
+      - shared
+      - sharedProjectIds
+      - queries
+      - users
+    relationships:
+      - belongs_to: Project
+      - has_many: Query
+        via: queries
+      - shared_with: Project
+        via: sharedProjectIds
+  - name: Tag
+    description: A flat label applied to Mentions.
+    operations:
+      - retrieving-tags-1
+      - creating-tags-1
+      - deleting-tags-1
+    fields_observed:
+      - id
+      - name
+    relationships:
+      - belongs_to: Project
+      - applied_to: Mention
+        via: tags
+  - name: Category
+    description: A hierarchical classification. Categories nest via a children array.
+    operations:
+      - retrieving-categories-1
+      - creating-categories-1
+      - backfill-categories
+      - check-category-backfill-progress
+    fields_observed:
+      - id
+      - name
+      - multiple
+      - children
+    relationships:
+      - belongs_to: Project
+      - has_many: Category
+        via: children
+        note: self-referential nesting
+      - applied_to: Mention
+        via: categories / categoryDetails
+  - name: Rule
+    description: An automation that applies actions (sentiment, category, tag, workflow) to matching Mentions.
+    operations:
+      - retrieving-rules-1
+      - deleting-rules-1
+    fields_observed:
+      - id
+      - projectId
+      - name
+      - filter
+      - scope
+      - enabled
+      - ruleAction
+    relationships:
+      - belongs_to: Project
+        via: projectId
+      - filters_on: Query
+        via: filter.queryId
+      - acts_on: Mention
+      - assigns: Category
+      - assigns: Tag
+  - name: AuthorList
+    description: A saved list of authors, usable as a filter.
+    operations:
+      - creating-author-lists-1
+      - retrieving-author-lists-1
+      - deleting-author-lists-1
+    fields_observed:
+      - id
+      - name
+      - shared
+      - sharedProjectIds
+      - authors
+      - userId
+      - userName
+    relationships:
+      - belongs_to: Project
+      - created_by: User
+        via: userId
+      - shared_with: Project
+        via: sharedProjectIds
+  - name: LocationList
+    description: A saved list of locations, usable as a filter.
+    operations:
+      - creating-location-lists-1
+      - retrieving-location-lists
+      - deleting-location-lists-1
+    relationships:
+      - belongs_to: Project
+  - name: SiteList
+    description: A saved list of sites/domains, usable as a filter.
+    operations:
+      - creating-site-lists-1
+      - retrieving-site-lists-1
+      - deleting-site-lists-1
+    relationships:
+      - belongs_to: Project
+  - name: Workflow
+    description: The triage state machine (assignment, status, priority) applied to Mentions.
+    operations:
+      - retrieving-workflow-1
+    fields_observed:
+      - id
+      - name
+      - children
+    relationships:
+      - belongs_to: Project
+      - applied_to: Mention
+        via: assignment / checked / priority / status
+  - name: Mention
+    description: >-
+      The central fact table — one social, news, blog, forum or review post
+      matched by a Query. By far the widest entity in the API.
+    operations:
+      - retrieving-mentions-1
+      - total-mentions-1
+    fields_observed:
+      - resourceId
+      - accountType
+      - added
+      - assignment
+      - author
+      - avatarUrl
+      - categories
+      - categoryDetails
+      - checked
+      - city
+      - cityCode
+      - continent
+      - continentCode
+      - country
+      - countryCode
+      - region
+      - regionCode
+      - date
+      - displayUrls
+      - domain
+      - expandedUrls
+      - facebookAuthorId
+      - facebookComments
+      - facebookLikes
+      - facebookRole
+      - facebookShares
+      - facebookSubtype
+      - fullname
+      - gender
+      - impressions
+      - guid
+      - sentiment
+      - reachEstimate
+      - monthlyVisitors
+      - pageType
+      - queryId
+      - queryName
+    relationships:
+      - belongs_to: Query
+        via: queryId
+      - has_many: Tag
+      - has_many: Category
+      - has_one: Workflow assignment
+    field_reference: https://developers.brandwatch.com/docs/mention-metadata-field-definitions
+    caveat: >-
+      The available field set is NOT constant. It varies by upstream source and
+      by which Data Packs the account has bought — X posts arrive with full text
+      and most metadata stripped, and Reddit restrictions landed in January
+      2026. Two customers calling the identical operation can receive different
+      field sets with no difference in the contract. See
+      https://developers.brandwatch.com/docs/data-restrictions.
+  - name: Topic
+    description: A derived cluster of conversation across a query's mentions.
+    operations:
+      - topics-1
+    fields_observed:
+      - topics
+    relationships:
+      - derived_from: Mention
+  - name: ChartAggregate
+    description: >-
+      Not a stored entity — a computed projection over Mentions selected by
+      path parameters (aggregate, dimension1, dimension2).
+    operations:
+      - basic-charts-1
+      - twitter-insights-1
+    relationships:
+      - derived_from: Mention
+    reference: https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates
+entity_count: 16
+relationship_count: 33
+schema_reuse:
+  components_schemas: 0
+  refs: 0
+  note: >-
+    Zero named schemas and zero $refs across 36 operations. The Mention shape
+    alone is repeated inline wherever it appears. This is why the entity names
+    above are inferred from paths rather than read off the spec — an agent
+    cannot learn Brandwatch's type system from the contract, only its URLs.

@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/brandwatch-consumer-research-openapi.yml
+docs: https://developers.brandwatch.com/docs/authenticate
+note: >-
+  Brandwatch publishes no scope reference page. The three scope values below are
+  the ones the provider's own documented token response returns
+  (`"scope": "read trust write"`), captured from the worked example on the
+  Authentication page — they are observed, not documented. Brandwatch does not
+  say what each grants, does not let a client request a subset at token-request
+  time, and does not map any scope to any operation. The OpenAPI declares an
+  oauth2 scheme with an empty `scopes` map and a placeholder
+  `https://example.com/oauth2/token` token URL, so the spec contributes nothing
+  here.
+schemes:
+  - name: oauth2-token-endpoint
+    source: https://developers.brandwatch.com/docs/authenticate
+    flows:
+      - flow: password
+        tokenUrl: https://api.brandwatch.com/oauth/token
+        grant_type: api-password
+scopes:
+  - scope: read
+    description: null
+    flows:
+      - password
+    sources:
+      - https://developers.brandwatch.com/docs/authenticate
+    note: returned in the documented token response; Brandwatch publishes no definition
+  - scope: trust
+    description: null
+    flows:
+      - password
+    sources:
+      - https://developers.brandwatch.com/docs/authenticate
+    note: returned in the documented token response; Brandwatch publishes no definition
+  - scope: write
+    description: null
+    flows:
+      - password
+    sources:
+      - https://developers.brandwatch.com/docs/authenticate
+    note: returned in the documented token response; Brandwatch publishes no definition
+scope_count: 3
+platform_sso_scopes:
+  applies_to: Brandwatch One human sign-in — NOT the Consumer Research API
+  issuer: https://signin.brandwatch.com/auth/realms/bwone
+  discovery: https://signin.brandwatch.com/auth/realms/bwone/.well-known/openid-configuration
+  file: well-known/brandwatch-openid-configuration.json
+  method: probed
+  note: >-
+    Recorded for completeness and kept strictly separate from the API scopes
+    above. These are the scopes advertised by Brandwatch's Keycloak realm for
+    browser sign-in to the product suite. An API client cannot request them and
+    they do not appear on an API token. They are listed here because they show
+    Brandwatch already models product and tenancy boundaries as OIDC scopes
+    (ci = Consumer Intelligence, smm = Social Media Management) — the exact
+    structure the API's opaque three-value scope string lacks.
+  scopes:
+    - openid
+    - profile
+    - email
+    - phone
+    - address
+    - roles
+    - basic
+    - acr
+    - offline_access
+    - web-origins
+    - microprofile-jwt
+    - service_account
+    - ci
+    - ci-context
+    - smm
+    - smm-context
+    - bwone-account-id
+    - bwone-organization-id
+  scope_count: 18
+selectable: false
+selectable_note: >-
+  The token request accepts no `scope` parameter. Scopes are a property of the
+  underlying Consumer Research user account, so an agent cannot obtain a
+  read-only token for a read-only task.

@@ -1,0 +1,87 @@
+generated: '2026-08-13'
+method: searched
+source: openapi/brandwatch-consumer-research-authentication-openapi.yml, openapi/brandwatch-consumer-research-openapi.yml
+docs: https://developers.brandwatch.com/docs/authenticate
+summary:
+  types:
+    - apiKey
+    - oauth2
+  api_key_in:
+    - header
+    - query
+  oauth2_flows:
+    - password
+  token_endpoint: https://api.brandwatch.com/oauth/token
+  token_lifetime_seconds: 31535999
+  token_lifetime_note: one year by default for an API User
+model: >-
+  Brandwatch uses a single bearer access token for the whole Consumer Research
+  API surface. The token is minted from an OAuth 2.0-shaped token endpoint using
+  a Brandwatch-specific `grant_type=api-password` with the account's own username
+  and password plus a fixed `client_id` of `brandwatch-api-client` — it is a
+  resource-owner-password exchange, not a client-credentials one, despite what
+  the published spec declares. The same token is then presented on every request.
+schemes:
+  - name: bearer-token
+    type: http
+    scheme: bearer
+    parameter: Authorization
+    format: 'Authorization: bearer <ACCESS_TOKEN>'
+    sources:
+      - https://developers.brandwatch.com/docs/authenticate
+      - openapi/brandwatch-consumer-research-authentication-openapi.yml
+    note: >-
+      The spec models this as `type: apiKey, in: header, name: Authorization`
+      with `x-bearer-format: bearer`; the docs describe the same thing as a
+      bearer token.
+  - name: access-token-query-parameter
+    type: apiKey
+    in: query
+    parameter: access_token
+    sources:
+      - https://developers.brandwatch.com/docs/authenticate
+    note: >-
+      The docs explicitly permit passing the token in the URL as
+      `&access_token=[ACCESS TOKEN]`. This is a real published alternative and
+      it is a weakness worth flagging: tokens in query strings leak into proxy
+      logs, browser history and Referer headers, and these tokens are valid for
+      a year by default.
+  - name: oauth2-token-endpoint
+    type: oauth2
+    flows:
+      - flow: password
+        tokenUrl: https://api.brandwatch.com/oauth/token
+        grant_type: api-password
+        client_id: brandwatch-api-client
+        scopes_returned:
+          - read
+          - trust
+          - write
+    sources:
+      - https://developers.brandwatch.com/docs/authenticate
+      - openapi/brandwatch-consumer-research-openapi.yml
+    note: >-
+      The published spec declares `clientCredentials` with
+      `tokenUrl: https://example.com/oauth2/token` — a ReadMe scaffold default
+      that was never filled in. The real endpoint and grant, per the provider's
+      own authentication page, are recorded above. The spec value is left
+      untouched in openapi/; the correction lives here and in
+      overlays/brandwatch-consumer-research-overlay.yaml.
+multi_tenancy:
+  parameter: platform_client_id
+  applies_to: token request
+  docs: https://developers.brandwatch.com/docs/authenticate
+  note: >-
+    Accounts using Consumer Research organization switching must pass an
+    additional `platform_client_id` on the token request to bind the token to
+    the right Consumer Research client. The list of valid platform client IDs is
+    not self-service — the docs say to ask Brandwatch support for it.
+access_prerequisites:
+  - Only "Regular" or "Admin" Consumer Research users can call the API at all.
+  - The Data Upload API must be enabled per-account by a Customer Success Manager.
+  - The Analysis API is not in standard contracts; it is sold on a cost-per-query basis.
+gaps:
+  - No self-service credential issuance — every path to a token runs through an existing paid seat.
+  - No documented token refresh or revocation endpoint.
+  - No scope selection at token-request time; the token comes back with whatever the user already has.
+  - No mTLS, no OIDC discovery document, no JWKS endpoint published.

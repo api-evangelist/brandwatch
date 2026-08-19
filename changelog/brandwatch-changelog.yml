@@ -1,0 +1,85 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.brandwatch.com/changelog
+scheme: dated-entries
+scheme_note: >-
+  Entries are dated but carry no version number, and the API itself is
+  unversioned in the URL (see lifecycle/brandwatch-lifecycle.yml). Every entry
+  in the visible window is a documentation update or an upstream data-source
+  restriction; none announces a versioned API release.
+current_version: '2.0'
+current_version_note: info.version in both published OpenAPI documents
+cadence: irregular — 10 entries spanning 2024-11-07 to 2026-03-24
+most_recent: '2026-03-24'
+entries:
+  - date: '2026-03-24'
+    title: Org switching in Consumer Research for API users
+    breaking: false
+    additions:
+      - >-
+        New `platform_client_id` parameter on the token request, required for
+        accounts using organization switching so the token binds to the intended
+        Consumer Research client.
+    url: https://developers.brandwatch.com/changelog/org-switching-in-consumer-research-for-api-users
+  - date: '2025-12-18'
+    title: Reddit Data Restrictions
+    breaking: true
+    breaking_note: >-
+      Field-level restrictions on Reddit Mention data retrievable via the API,
+      effective January 2026. Announced, but with no Sunset header and no
+      deprecation window.
+    url: https://developers.brandwatch.com/changelog/reddit-data-restrictions
+  - date: '2025-11-28'
+    title: 'Retrieving Rules: updated description examples and json'
+    breaking: false
+    additions:
+      - New `sharedWithProjectIds` field on shared queries.
+      - Previously undocumented fields including `queries` added to the reference.
+    url: https://developers.brandwatch.com/changelog/retrieving-rules
+  - date: '2025-11-20'
+    title: 'Retrieving Query Groups: new fields on shared queries'
+    breaking: false
+    url: https://developers.brandwatch.com/changelog/retrieving-query-groups-new-fields-on-shared-queries
+  - date: '2025-07-25'
+    title: Multi-aggregate charts & new Topics endpoint introduced
+    breaking: false
+    additions:
+      - New Topics endpoint (GET /projects/{projectId}/data/volume/topics/queries).
+      - Chart calls supporting multiple aggregates.
+    url: https://developers.brandwatch.com/changelog/multi-aggregate-charts-and-new-topics-endpoint-introduced
+  - date: '2025-07-25'
+    title: 'Data Upload API: new fields reachEstimate and rawMetadata'
+    breaking: false
+    additions:
+      - reachEstimate
+      - rawMetadata
+    url: https://developers.brandwatch.com/changelog/data-upload-api-new-fields-reachestimate-and-rawmetadata
+  - date: '2025-06-02'
+    title: 'Mentions API: TikTok field definitions added; payload examples updated for Bluesky and TikTok'
+    breaking: false
+    url: https://developers.brandwatch.com/changelog/mentions-api-tiktok-field-definitions-added-mentions-retrieval-payload-examples-updated-with-both-bluesky-and-tiktok
+  - date: '2025-05-30'
+    title: 'Mentions API: Bluesky field definitions added'
+    breaking: false
+    url: https://developers.brandwatch.com/changelog/mentions-api-bluesky-field-definitions-added
+  - date: '2025-02-04'
+    title: 'Mentions API: dailyVisitors definition added, payload examples updated'
+    breaking: false
+    url: https://developers.brandwatch.com/changelog/mentions-api-dailyvisitors-definition-added-payload-examples-updated
+  - date: '2024-11-07'
+    title: X Insights payload enhanced
+    breaking: false
+    url: https://developers.brandwatch.com/changelog/x-insights-payload-enhanced
+entry_count: 10
+window: 2024-11-07 to 2026-03-24
+observations:
+  - >-
+    Eight of ten entries are documentation corrections rather than API changes,
+    which reads as a docs surface catching up with an API that already shipped.
+  - >-
+    The two substantive changes are both driven by upstream social platforms
+    (Reddit restrictions, X/Bluesky/TikTok field definitions), not by Brandwatch
+    product releases.
+  - >-
+    Dates come from the ReadMe changelog index; the entry markdown served at
+    /changelog/<slug>.md carries no date of its own.

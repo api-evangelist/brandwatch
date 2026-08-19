@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Consumer Research API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/oauth/token",
+        "params": [
+          {
+            "name": "username",
+            "value": "",
+            "type": "query",
+            "description": "username used to login to Consumer Research application"
+          },
+          {
+            "name": "grant_type",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "client_id",
+            "value": "",
+            "type": "query"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Generate a token for use with all API requests.\n\nAll endpoints require an authentication token passed with the request."
+    },
+    {
+      "info": {
+        "name": "Current User",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/user"
+      },
+      "docs": "Displaying information about who you are logged in as.\n\nEach Brandwatch User has associated metadata, including their permissions.\n\nThe following call will list the current User:"
+    },
+    {
+      "info": {
+        "name": "Current Client",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.brandwatch.com/client"
+      },
+      "docs": "Displaying information about your Client.\n\nYour Brandwatch User will be contained within a Client, which is the entity that is billed. For example, if you work for ACME Robotics, your client will probably be called ACME Robotics, with your Users all as part of that Client.\n\nYou can request information about your current Client as follows:"
+    }
+  ],
+  "bundled": true
+}

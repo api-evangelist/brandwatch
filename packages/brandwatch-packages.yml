@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  PyPI + npm registry metadata endpoints, the BrandwatchLtd GitHub organization
+  (https://github.com/BrandwatchLtd), and the Brandwatch developer docs
+  "Best practices & our terms" page which names the Python utility library.
+note: >-
+  Brandwatch ships client libraries but has stopped maintaining them. Every
+  first-party package below was last published between 2018 and 2022 — the most
+  recent, bcr-api 1.5.1, is four years old, while the Consumer Research API it
+  wraps shipped documented changes as recently as 2026-03-24
+  (see changelog/brandwatch-changelog.yml). There is no first-party SDK for any
+  language other than Python and JavaScript, and no SDK at all for the Analysis
+  API or the Data Upload API.
+packages:
+  - language: python
+    registry: pypi
+    name: bcr-api
+    url: https://pypi.org/project/bcr-api/
+    install: pip install bcr-api
+    source: https://github.com/BrandwatchLtd/bcr-api
+    official: true
+    version: 1.5.1
+    published: '2022-08-24'
+    covers:
+      - Brandwatch Consumer Research API
+    note: >-
+      Named in the provider's own docs (https://developers.brandwatch.com/docs/best-practices)
+      as "a Python utility library that is developed and maintained by our
+      Professional Services team". Authors carry @brandwatch.com addresses.
+      Latest PyPI release 1.5.1 (2022-08-24); the GitHub repo's newest tag is
+      v1.5.0 and it was last pushed 2025-10-16.
+  - language: python
+    registry: pypi
+    name: bwapi
+    url: https://pypi.org/project/bwapi/
+    install: pip install bwapi
+    source: https://github.com/BrandwatchLtd/api_sdk
+    official: true
+    version: 4.1.0
+    published: '2019-10-07'
+    covers:
+      - Brandwatch Consumer Research API
+    note: >-
+      "A software development kit for the Brandwatch API", published from the
+      BrandwatchLtd/api_sdk repo; authors carry @brandwatch.com addresses.
+      Last PyPI release 2019-10-07, nearly seven years stale. Superseded in
+      practice by bcr-api.
+  - language: javascript
+    registry: npm
+    name: brandwatch-api
+    url: https://www.npmjs.com/package/brandwatch-api
+    install: npm install brandwatch-api
+    source: https://github.com/BrandwatchLtd/node-brandwatch-api
+    official: true
+    version: 0.4.0
+    published: '2022-05-19'
+    license: MIT
+    covers:
+      - Brandwatch Consumer Research API
+    note: >-
+      npm `author` is "Brandwatch Ltd" and the maintainer set includes the
+      `brandwatch` and `stevem.brandwatch` npm accounts, so this is first-party.
+      Still pre-1.0 after four years; no repository field is set on the package
+      itself, though BrandwatchLtd/node-brandwatch-api matches by name and
+      description.
+  - language: javascript
+    registry: npm
+    name: brandwatch-react-auth
+    url: https://www.npmjs.com/package/brandwatch-react-auth
+    install: npm install brandwatch-react-auth
+    source: https://github.com/BrandwatchLtd/brandwatch-react-auth
+    official: true
+    version: 2.5.0
+    published: '2018-03-02'
+    covers:
+      - Brandwatch platform authentication
+    note: >-
+      A React component for authenticating a browser app against Brandwatch,
+      not a client for the documented REST surface. Published from the
+      BrandwatchLtd org. Last release 2018-03-02.
+not_official:
+  - language: javascript
+    registry: npm
+    name: brandwatch-mcp-server
+    url: https://www.npmjs.com/package/brandwatch-mcp-server
+    version: 1.0.2-dev
+    published: '2025-04-14'
+    official: false
+    note: >-
+      Third-party, NOT Brandwatch. Sole npm maintainer is `zhangtao_pivotal`;
+      the package declares no repository, no homepage, no license, no author,
+      and its newest version is a `-dev` prerelease from a single day of
+      publishing. Recorded here so a future pass does not mistake it for a
+      first-party MCP server. See mcp/brandwatch-mcp.yml.
+registries_checked:
+  - registry: pypi
+    result: 2 first-party packages (bcr-api, bwapi); brandwatch, brandwatch-api, brandwatch-sdk all 404
+  - registry: npm
+    result: 2 first-party packages (brandwatch-api, brandwatch-react-auth); no @brandwatch-scoped API client
+  - registry: rubygems
+    result: none found
+  - registry: crates.io
+    result: none found
+  - registry: nuget
+    result: none found
+  - registry: maven-central
+    result: none found
+  - registry: pkg.go.dev
+    result: none found
+  - registry: packagist
+    result: none found
+official_count: 4

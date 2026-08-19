@@ -1,0 +1,166 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: openapi/brandwatch-consumer-research-openapi.yml
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+deployment_note: >-
+  Brandwatch ships no MCP server, remote or local. Searched the official MCP
+  registry (registry.modelcontextprotocol.io returns 0 servers for
+  "brandwatch"), the BrandwatchLtd GitHub organization (100 repos, none
+  MCP-related), npm under both the bare and @brandwatch scopes, the developer
+  docs, and the provider's own llms.txt — which does not contain the string
+  "mcp" anywhere. The tools below are DERIVED candidates from the published
+  OpenAPI operations, not a server that exists.
+third_party:
+  - name: brandwatch-mcp-server
+    registry: npm
+    url: https://www.npmjs.com/package/brandwatch-mcp-server
+    version: 1.0.2-dev
+    published: '2025-04-14'
+    official: false
+    warning: >-
+      NOT Brandwatch. Sole npm maintainer `zhangtao_pivotal`, no repository, no
+      homepage, no license, no author field, four versions all published inside
+      a 32-minute window on a single day, and still on a -dev prerelease tag
+      sixteen months later. Recorded so a later pass does not mistake it for a
+      first-party agent surface. It is not evaluated, not endorsed, and not the
+      basis of any pointer.
+candidate_server:
+  name: brandwatch
+  transport: http
+  base: https://api.brandwatch.com
+  auth: >-
+    bearer token from POST /oauth/token with grant_type=api-password — a server
+    would have to hold a long-lived (one-year) account-scoped credential, since
+    Brandwatch offers no scoped or short-lived token.
+  design_constraint: >-
+    The binding constraint on any Brandwatch MCP server is the rate limit: 30
+    calls per 10 minutes at the CLIENT level, shared across every integration
+    and user on the account. An agent that lists projects, lists queries, then
+    pages mentions can exhaust a whole organization's budget in under a minute.
+    A serious server would need aggressive caching of the reference entities
+    (projects, queries, tags, categories, lists) exactly as the provider's
+    best-practices page recommends for human-written clients.
+tools:
+  - name: get_me
+    description: Return combined User and Client information for the current token.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#the-me-call-1
+  - name: list_projects
+    description: List the projects available to the authenticated client.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-project-summary
+  - name: get_project
+    description: Get details for one project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-specific-project-summary
+  - name: list_queries
+    description: List the saved queries in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-queries-1
+  - name: list_queries_detailed
+    description: List queries in a project with full definitions.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-detailed-summary-all-queries
+  - name: get_query
+    description: Get the full definition of one query.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieve-details-specific-query
+  - name: delete_query
+    description: Delete a query from a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-queries-1
+  - name: list_query_groups
+    description: List query groups in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-query-groups-1
+  - name: delete_query_group
+    description: Delete a query group.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-query-groups-1
+  - name: list_tags
+    description: List tags in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-tags-1
+  - name: create_tag
+    description: Create a tag in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#creating-tags-1
+  - name: delete_tag
+    description: Delete a tag from a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-tags-1
+  - name: list_categories
+    description: List categories in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-categories-1
+  - name: create_category
+    description: Create a category in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#creating-categories-1
+  - name: list_rules
+    description: List automation rules in a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-rules-1
+  - name: delete_rule
+    description: Delete a rule from a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-rules-1
+  - name: create_author_list
+    description: Create a list of authors.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#creating-author-lists-1
+  - name: list_author_lists
+    description: List saved author lists.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-author-lists-1
+  - name: delete_author_list
+    description: Delete an author list.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-author-lists-1
+  - name: create_location_list
+    description: Create a list of locations.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#creating-location-lists-1
+  - name: list_location_lists
+    description: List saved location lists.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-location-lists
+  - name: delete_location_list
+    description: Delete a location list.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-location-lists-1
+  - name: create_site_list
+    description: Create a list of sites.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#creating-site-lists-1
+  - name: list_site_lists
+    description: List saved site lists.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-site-lists-1
+  - name: delete_site_list
+    description: Delete a site list.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#deleting-site-lists-1
+  - name: get_workflow
+    description: Retrieve the workflow configuration for a project.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-workflow-1
+  - name: search_mentions
+    description: Retrieve mentions matching a query over a date range.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#retrieving-mentions-1
+  - name: count_mentions
+    description: Return the total number of mentions for a query over a date range.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#total-mentions-1
+  - name: get_topics
+    description: Return topics of conversation across the mentions in a query.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#topics-1
+  - name: get_chart
+    description: Return an aggregate chart over one or two dimensions.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#basic-charts-1
+  - name: get_twitter_hashtags
+    description: Return X (Twitter) hashtag insights.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#twitter-insights-1
+  - name: create_category_backfill
+    description: Backfill rule categories across historical mentions.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#backfill-categories
+  - name: get_category_backfill_progress
+    description: Check progress of a category backfill.
+    source_operation: openapi/brandwatch-consumer-research-openapi.yml#check-category-backfill-progress
+  - name: get_current_user
+    description: Return the authenticated user.
+    source_operation: openapi/brandwatch-consumer-research-authentication-openapi.yml#retrieving-the-current-user
+  - name: get_current_client
+    description: Return the authenticated client (account).
+    source_operation: openapi/brandwatch-consumer-research-authentication-openapi.yml#retrieving-the-current-client
+tool_count: 35
+registries_searched:
+  - registry: registry.modelcontextprotocol.io
+    query: brandwatch
+    result: 0 servers
+  - registry: npm
+    result: only the third-party package recorded above
+  - registry: github.com/BrandwatchLtd
+    result: 0 of 100 repos MCP-related
+  - source: https://developers.brandwatch.com/llms.txt
+    result: no occurrence of "mcp"

@@ -1,0 +1,107 @@
+generated: '2026-08-13'
+method: searched
+probe: true
+url: https://www.brandwatch.com/legal/information-security/
+title: The Brandwatch Security Programme
+format: single long-form page
+format_note: >-
+  Not a hosted trust portal — trust.brandwatch.com does not resolve (DNS
+  NXDOMAIN) and there is no Vanta/Drata/SafeBase surface. What Brandwatch
+  publishes is one twelve-section security programme page under /legal/. It is
+  unusually detailed for a page of that kind: named hosting providers, named
+  data-centre locations, retention windows, password policy and encryption
+  specifics are all stated in the open.
+certifications:
+  - name: ISO/IEC 27001:2022
+    scope: all Brandwatch products
+    status: certified
+    audit_cadence: at least annually, third party
+    certificate_availability: on request via a Brandwatch contact
+    evidence: >-
+      "All Brandwatch products are ISO 27001:2022 certified ... We engage a
+      third party to audit our adherence to these standards at least annually.
+      Our current ISO 27001 certificate is available upon request."
+not_claimed:
+  - SOC 2
+  - PCI DSS
+  - HIPAA
+  - FedRAMP
+  - CSA STAR
+  - ISO 27017
+  - ISO 27018
+not_claimed_note: >-
+  None of these appear anywhere on the Brandwatch security or legal pages.
+  Recorded as an explicit absence so a later pass does not assume them.
+sections:
+  - Programme Overview
+  - Data Centres and Third Party Hosting
+  - Access Control and Data Protection
+  - Device and Network Security
+  - Business Continuity, Disaster Recovery, and SLAs
+  - Security in Development
+  - Vendor and Contractor Security
+  - Data Breach Notification
+  - Privacy, legal, and regulatory Compliance
+  - ISO/IEC 27001 Compliance
+  - Vulnerability Disclosure
+  - Feedback
+published_facts:
+  hosting:
+    - provider: AWS
+      use: Consumer Research raw data ingestion, indexing, analysis and storage
+      region: US
+    - provider: Google Cloud Platform
+      use: Consumer Research frontend applications and Vizia components
+      region: Europe
+    - provider: Virtus DC (Hayes, UK)
+      use: analysis results and customer metadata, colocation
+      region: UK
+    - provider: AWS and GCP
+      use: Social Media Management products
+      region: EU (Listening infrastructure in US and UK, public data only)
+    - provider: Heroku and AWS
+      use: Influence (formerly Paladin)
+      region: US
+    - provider: Linode, Aiven
+      use: supplementary
+  sub_processors: https://www.brandwatch.com/legal/sub-processors/
+  sub_processor_subscriptions: https://www.brandwatch.com/legal/sub-processors/#subscribe-to-sub-processor-changes
+  encryption_in_transit: TLS 1.2 and 1.3, TLS 1.2 by default
+  encryption_at_rest: SSE-S3 for uploaded data and backups; AES-256 for physical backup tapes
+  data_retention_after_termination: 30 days maximum, then automated deletion or anonymization
+  sso:
+    consumer_research: SAML 2.0 and Google Authentication, premium feature; no SCIM provisioning
+    social_media_management: SAML, OpenID Connect, Google/Facebook/Twitter/LinkedIn, 2FA — included at no cost
+  password_policy: bcrypt hashed and salted, 8 char minimum with numeric and special, optional 90-day expiry, lockout after 10 failures
+  security_training: OWASP Top 10 refresher training for staff
+privacy:
+  user_privacy_policy: https://www.brandwatch.com/legal/user-privacy-policy/
+  author_privacy_policy: https://www.brandwatch.com/legal/author-privacy-policy/
+  data_subject_access_request: https://www.brandwatch.com/legal/data-subject-access-request/
+  contact: privacy@brandwatch.com
+  note: >-
+    Brandwatch publishes a separate Author Privacy Policy covering the social
+    media authors whose public posts it indexes — the data subjects who are not
+    its customers. That is a distinctive and relevant artifact for a social
+    listening platform.
+legal:
+  hub: https://www.brandwatch.com/legal/
+  terms: https://www.cision.com/legal/msa/
+  terms_note: >-
+    Brandwatch's Terms & Conditions link resolves to the Master Services
+    Agreement of its parent, Cision Group Ltd. Brandwatch has been part of
+    Cision since 2021 and the site footer identifies the operating entity as
+    Cision Group Ltd, company number 03898053.
+  modern_slavery_statement: https://www.cision.com/content/dam/cision-revamp/cision-optimized/legal/2025%20Modern%20Slavery%20Statement.pdf
+evidence:
+  - source: https://www.brandwatch.com/legal/information-security/
+    status: 200
+    keywords:
+      - ISO 27001:2022
+      - security programme
+      - vulnerability disclosure
+      - data breach notification
+      - sub processors
+  - source: https://trust.brandwatch.com
+    status: 000
+    finding: DNS does not resolve — no hosted trust portal

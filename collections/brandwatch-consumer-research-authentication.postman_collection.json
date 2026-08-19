@@ -1,0 +1,585 @@
+{
+  "item": [
+    {
+      "id": "3011fdfd-5e1d-4b36-b9a7-2a03c6d8a037",
+      "name": "Authentication",
+      "request": {
+        "name": "Authentication",
+        "description": {
+          "content": "Generate a token for use with all API requests.\n\nAll endpoints require an authentication token passed with the request.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "oauth",
+            "token"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "username",
+              "value": "username@brandwatch.com",
+              "description": "(Required) username used to login to Consumer Research application"
+            },
+            {
+              "disabled": false,
+              "key": "grant_type",
+              "value": "api-password",
+              "description": "(Required) "
+            },
+            {
+              "disabled": false,
+              "key": "client_id",
+              "value": "brandwatch-api-client",
+              "description": "(Required) "
+            }
+          ],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"password\": \"<string>\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "a2841c1e-97e4-4467-801e-25db5eea63bf",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "username@brandwatch.com"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "api-password"
+                },
+                {
+                  "key": "client_id",
+                  "value": "brandwatch-api-client"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n  \\\"access_token\\\": \\\"aa000000-0aaa-0000-0a00-aa00a000a00a\\\",\\n  \\\"token_type\\\": \\\"bearer\\\",\\n  \\\"expires_in\\\": 31535999,\\n  \\\"scope\\\": \\\"read trust write\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "dadad4f2-b829-42ca-97aa-506b0d49ae59",
+      "name": "Current User",
+      "request": {
+        "name": "Current User",
+        "description": {
+          "content": "Displaying information about who you are logged in as.\n\nEach Brandwatch User has associated metadata, including their permissions.\n\nThe following call will list the current User:",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "user"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "5dcdc972-c481-4656-bc5b-7a88760ec1f5",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n  \\\"id\\\": 32987387,\\n  \\\"username\\\": \\\"example@example.com\\\",\\n  \\\"password\\\": \\\"[protected]\\\",\\n  \\\"passwordConfirmation\\\": null,\\n  \\\"oldPassword\\\": null,\\n  \\\"passwordExpiryDate\\\": null,\\n  \\\"clientId\\\": 59580958,\\n  \\\"firstName\\\": \\\"John\\\",\\n  \\\"lastName\\\": \\\"Doe\\\",\\n  \\\"creationDate\\\": \\\"2016-06-29T16:19:17.744+0000\\\",\\n  \\\"enabled\\\": true,\\n  \\\"job\\\": \\\"Research analyst\\\",\\n  \\\"department\\\": \\\"Insights\\\",\\n  \\\"uiRole\\\": \\\"admin\\\",\\n  \\\"address\\\": \\\"1 Home Road, London, England\\\",\\n  \\\"phone\\\": \\\"\\\",\\n  \\\"mobile\\\": \\\"999-999-999\\\",\\n  \\\"messenger\\\": \\\"johndoe121\\\",\\n  \\\"apiRole\\\": [\\n    \\\"BW_BASIC_USER\\\",\\n    \\\"BW_ADMIN_USER\\\"\\n  ],\\n  \\\"ccAccess\\\": \\\"no_access\\\",\\n  \\\"externalId\\\": null,\\n  \\\"tags\\\": {\\n    \\\"notify\\\": \\\"true\\\"\\n  },\\n  \\\"twoFactorAuthConfigured\\\": true,\\n  \\\"blocked\\\": false,\\n  \\\"products\\\": [\\n    {\\n      \\\"code\\\": \\\"mybrandwatch\\\"\\n    }\\n  ]\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "d1423876-5e00-480d-8ac2-a3fb9c9eca0c",
+          "name": "401",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"error\\\": \\\"unauthorized\\\",\\n    \\\"error_description\\\": \\\"Invalid authentication credentials found on request\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c56e79f4-33b2-4a6b-a450-ed7a5b56f2da",
+          "name": "403",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "0dd55dd1-8102-477f-9822-d640d2950261",
+          "name": "404",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "a68c76a2-6d06-4ec0-aedf-1410749b2c0f",
+      "name": "Current Client",
+      "request": {
+        "name": "Current Client",
+        "description": {
+          "content": "Displaying information about your Client.\n\nYour Brandwatch User will be contained within a Client, which is the entity that is billed. For example, if you work for ACME Robotics, your client will probably be called ACME Robotics, with your Users all as part of that Client.\n\nYou can request information about your current Client as follows:",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "client"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "7b6b931f-fe27-4c73-a878-e05aa7f2557e",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "client"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"id\\\": 343832672,\\n    \\\"name\\\": \\\"ACME Robotics\\\",\\n    \\\"parentId\\\": -1,\\n    \\\"startDate\\\": \\\"0024-07-30T00:00:00.000+0000\\\",\\n    \\\"expiryDate\\\": null,\\n    \\\"website\\\": \\\"http://www.example.com\\\",\\n    \\\"address1\\\": \\\"1 Robotics Road\\\",\\n    \\\"address2\\\": \\\"Robotics Park\\\",\\n    \\\"address3\\\": \\\"\\\",\\n    \\\"country\\\": \\\"USA\\\",\\n    \\\"postcode\\\": \\\"92328\\\",\\n    \\\"contactName\\\": \\\"No User\\\",\\n    \\\"contactEmail\\\": \\\"null@brandwatch.com\\\",\\n    \\\"contactTitle\\\": \\\"Wile E. Coyote\\\",\\n    \\\"contactTelephone\\\": \\\"0800-999-999-999\\\",\\n    \\\"contactMobile\\\": \\\"0800-991-991-991\\\",\\n    \\\"mentionArchiveSize\\\": 12,\\n    \\\"tags\\\": {\\n        \\\"ratelimit.limit\\\": \\\"600\\\",\\n        \\\"ratelimit.period\\\": \\\"10\\\",\\n        \\\"rules_only\\\": \\\"true\\\",\\n        \\\"shardName\\\": \\\"4\\\"\\n    },\\n    \\\"maximumSubscribedBrands\\\": 20000,\\n    \\\"pricingModel\\\": \\\"QB\\\",\\n    \\\"priceStructureId\\\": -1,\\n    \\\"priceStructureLineId\\\": -1,\\n    \\\"maxUsers\\\": 2147483647,\\n    \\\"theme\\\": \\\"brandwatch\\\",\\n    \\\"owner\\\": \\\"example@example.com\\\",\\n    \\\"isLegacy\\\": true,\\n    \\\"mentionBasedPricingMatrixLevel\\\": -1,\\n    \\\"userInactivityTimeoutMinutes\\\": 1440,\\n    \\\"pitchClient\\\": false,\\n    \\\"shardName\\\": \\\"4\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "abb97930-f798-4209-8a84-9ba24fdd574e",
+          "name": "401",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "client"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"error\\\": \\\"unauthorized\\\",\\n    \\\"error_description\\\": \\\"Invalid authentication credentials found on request\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "4825d3dc-6c85-4ffe-8f00-9e747b4f2fef",
+          "name": "403",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "client"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "66e618ec-25a1-4107-b19d-18a57092d16e",
+          "name": "404",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "client"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.brandwatch.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fad99bf3-d121-4f65-afa4-cfa882593842",
+    "name": "Consumer Research API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
