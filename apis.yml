@@ -3,6 +3,13 @@ url: https://raw.githubusercontent.com/api-evangelist/brandwatch/refs/heads/main
 name: Brandwatch
 tags:
   - Analytics
+  - Social-Media
+  - Social Media Monitoring
+  - Consumer Intelligence
+  - Brand Management
+  - Sentiment Analysis
+tags_raw:
+  - Analytics
   - Social Media
   - Social Media Monitoring
   - Consumer Intelligence
@@ -48,6 +55,11 @@ apis:
   - aid: brandwatch:analysis-api
     name: Brandwatch Analysis API
     tags:
+      - Analytics
+      - Social-Media
+      - Sentiment Analysis
+      - Aggregated Statistics
+    tags_raw:
       - Analytics
       - Social Media
       - Sentiment Analysis
@@ -97,6 +109,10 @@ apis:
   - aid: brandwatch:consumer-research-api
     name: Brandwatch Consumer Research API
     tags:
+      - Consumer Research
+      - Data Export
+      - Real-Time Streaming
+    tags_raw:
       - Consumer Research
       - Data Export
       - Real-time Streaming
@@ -161,6 +177,10 @@ apis:
   - aid: brandwatch:publish-api
     name: Brandwatch Publish API
     tags:
+      - Publishing
+      - Content Management
+      - Social-Media
+    tags_raw:
       - Publishing
       - Content Management
       - Social Media
