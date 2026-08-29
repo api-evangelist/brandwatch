@@ -1,0 +1,25 @@
+slug: brandwatch
+provider: Brandwatch
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Data
+  spec_file: brandwatch-data-api-openapi.yml
+  capability_id: BC-400.30
+  capability_id_l1: BC-400
+  capability_name: Market Intelligence Management
+  confidence: 0.7
+  evidence: GET /data/{aggregate}/{dimension1}/{dimension2} Basic Charts; GET /data/hashtags Twitter Hashtags
+  reason: Aggregated social-conversation charts and Twitter hashtag insights from a 'consumer intelligence
+    and social media analytics platform' — this is market/consumer intelligence and competitive listening.
+    Generic 'Data' tag keeps confidence moderate.

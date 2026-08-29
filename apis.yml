@@ -363,6 +363,9 @@ apis:
   - type: ErrorCatalog
     url: errors/brandwatch-problem-types.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/brandwatch-capability-edges.yml
+    name: Brandwatch Business Capability Map
   - type: OAuthScopes
     url: scopes/brandwatch-scopes.yml
   - type: Authentication
