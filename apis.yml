@@ -172,6 +172,8 @@ apis:
   humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
   baseURL: https://api.brandwatch.com
   tags:
+  - Clients
+  tags_raw:
   - Client
   properties:
   - type: OpenAPI
@@ -256,6 +258,8 @@ apis:
   humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
   baseURL: https://api.brandwatch.com
   tags:
+  - Authentication
+  tags_raw:
   - Oauth
   properties:
   - type: OpenAPI
@@ -312,6 +316,8 @@ apis:
   humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
   baseURL: https://api.brandwatch.com
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
