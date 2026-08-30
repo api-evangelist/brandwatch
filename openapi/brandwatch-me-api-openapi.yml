@@ -1,0 +1,148 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research Me API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: Me
+paths:
+  /me:
+    get:
+      summary: The Me Call
+      description: 'Return a combination of User and Client information in one call.
+
+
+        There is a handy combined API call to find out a combination of User and Client information in one go:'
+      operationId: the-me-call-1
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 328973287,\n    \"username\": \"example@example.com\",\n    \"uiRole\": \"user\",\n    \"firstName\": \"Wile E.\",\n    \"tags\": {\n        \"notify\": \"true\"\n    },\n    \"client\": {\n        \"id\": 3328928272,\n        \"name\": \"ACME Robotics\",\n        \"theme\": \"brandwatch\",\n        \"parentId\": -1,\n        \"userInactivityTimeoutMinutes\": 1440,\n        \"priceStructureName\": \"Legacy\",\n        \"queryLimit\": 20000,\n        \"mentionLimit\": -1,\n        \"priceStructureLineCost\": 0,\n        \"startDate\": \"0024-07-30T00:00:00.000+0000\"\n    },\n    \"crmAccount\": null,\n    \"passwordExpiryDate\": null,\n    \"creationDate\": \"2016-06-29T16:19:17.744+0000\",\n    \"lastName\": \"Coyote\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 328973287
+                    default: 0
+                  username:
+                    type: string
+                    example: example@example.com
+                  uiRole:
+                    type: string
+                    example: user
+                  firstName:
+                    type: string
+                    example: Wile E.
+                  tags:
+                    type: object
+                    properties:
+                      notify:
+                        type: string
+                        example: 'true'
+                  client:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 3328928272
+                        default: 0
+                      name:
+                        type: string
+                        example: ACME Robotics
+                      theme:
+                        type: string
+                        example: brandwatch
+                      parentId:
+                        type: integer
+                        example: -1
+                        default: 0
+                      userInactivityTimeoutMinutes:
+                        type: integer
+                        example: 1440
+                        default: 0
+                      priceStructureName:
+                        type: string
+                        example: Legacy
+                      queryLimit:
+                        type: integer
+                        example: 20000
+                        default: 0
+                      mentionLimit:
+                        type: integer
+                        example: -1
+                        default: 0
+                      priceStructureLineCost:
+                        type: integer
+                        example: 0
+                        default: 0
+                      startDate:
+                        type: string
+                        example: 0024-07-30T00:00:00.000+0000
+                  crmAccount: {}
+                  passwordExpiryDate: {}
+                  creationDate:
+                    type: string
+                    example: 2016-06-29T16:19:17.744+0000
+                  lastName:
+                    type: string
+                    example: Coyote
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": \"unauthorized\",\n    \"error_description\": \"Invalid authentication credentials found on request\"\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unauthorized
+                  error_description:
+                    type: string
+                    example: Invalid authentication credentials found on request
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/me
+        samples-languages:
+        - curl
+      tags:
+      - Me
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

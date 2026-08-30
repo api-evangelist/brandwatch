@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research Project API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: Project
+paths:
+  /project/{projectId}/group/location:
+    post:
+      summary: Create Location Lists
+      description: ''
+      operationId: creating-location-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - locations
+              properties:
+                name:
+                  type: string
+                  description: name of your location list
+                locations:
+                  type: array
+                  description: an array of locations to add to the list
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 192667493,\n    \"name\": \"Northeastern Cities\",\n    \"shared\": \"public\",\n    \"sharedProjectIds\": [\n        1998159493\n    ],\n    \"locations\": [\n        {\n            \"id\": \"wdc0\",\n            \"name\": \"Washington\",\n            \"type\": \"city\",\n            \"fullName\": \"Washington, District of Columbia, District of Columbia, United States, North America\"\n        },\n        {\n            \"id\": \"phig\",\n            \"name\": \"Philadelphia\",\n            \"type\": \"city\",\n            \"fullName\": \"Philadelphia, Philadelphia County, Pennsylvania, United States, North America\"\n        },\n        {\n            \"id\": \"bos1\",\n            \"name\": \"Boston\",\n            \"type\": \"city\",\n            \"fullName\": \"Boston, Suffolk County, Massachusetts, United States, North America\"\n        },\n        {\n            \"id\": \"bali\",\n            \"name\": \"Baltimore\",\n            \"type\": \"city\",\n            \"fullName\": \"Baltimore, Baltimore County, Maryland, United States, North America\"\n        },\n        {\n            \"id\": \"new8\",\n            \"name\": \"New York City\",\n            \"type\": \"city\",\n            \"fullName\": \"New York City, New York County, New York, United States, North America\"\n        }\n    ],\n    \"userName\": \"example@brandwatch.com\",\n    \"userId\": 117025679\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 192667493
+                    default: 0
+                  name:
+                    type: string
+                    example: Northeastern Cities
+                  shared:
+                    type: string
+                    example: public
+                  sharedProjectIds:
+                    type: array
+                    items:
+                      type: integer
+                      example: 1998159493
+                      default: 0
+                  locations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: wdc0
+                        name:
+                          type: string
+                          example: Washington
+                        type:
+                          type: string
+                          example: city
+                        fullName:
+                          type: string
+                          example: Washington, District of Columbia, District of Columbia, United States, North America
+                  userName:
+                    type: string
+                    example: example@brandwatch.com
+                  userId:
+                    type: integer
+                    example: 117025679
+                    default: 0
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST \\\n  'https://api.brandwatch.com/projects/1998159493/group/location/' \\\n  -H 'content-type: application/json' \\\n  -d '{\"name\":\"Northeastern Cities\",\"locations\":[{\"id\":\"new8\"},{\"id\":\"bos1\"},{\"id\":\"phig\"},{\"id\":\"bali\"},{\"id\":\"wdc0\"}],\"sharedProjectIds\":[1998159493],\"shared\":\"public\"}'"
+        samples-languages:
+        - curl
+      tags:
+      - Project
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

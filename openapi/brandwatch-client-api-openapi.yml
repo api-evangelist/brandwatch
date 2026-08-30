@@ -1,0 +1,195 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research Client API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: Client
+paths:
+  /client:
+    get:
+      summary: Current Client
+      description: 'Displaying information about your Client.
+
+
+        Your Brandwatch User will be contained within a Client, which is the entity that is billed. For example, if you work for ACME Robotics, your client will probably be called ACME Robotics, with your Users all as part of that Client.
+
+
+        You can request information about your current Client as follows:'
+      operationId: retrieving-the-current-client
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 343832672,\n    \"name\": \"ACME Robotics\",\n    \"parentId\": -1,\n    \"startDate\": \"0024-07-30T00:00:00.000+0000\",\n    \"expiryDate\": null,\n    \"website\": \"http://www.example.com\",\n    \"address1\": \"1 Robotics Road\",\n    \"address2\": \"Robotics Park\",\n    \"address3\": \"\",\n    \"country\": \"USA\",\n    \"postcode\": \"92328\",\n    \"contactName\": \"No User\",\n    \"contactEmail\": \"null@brandwatch.com\",\n    \"contactTitle\": \"Wile E. Coyote\",\n    \"contactTelephone\": \"0800-999-999-999\",\n    \"contactMobile\": \"0800-991-991-991\",\n    \"mentionArchiveSize\": 12,\n    \"tags\": {\n        \"ratelimit.limit\": \"600\",\n        \"ratelimit.period\": \"10\",\n        \"rules_only\": \"true\",\n        \"shardName\": \"4\"\n    },\n    \"maximumSubscribedBrands\": 20000,\n    \"pricingModel\": \"QB\",\n    \"priceStructureId\": -1,\n    \"priceStructureLineId\": -1,\n    \"maxUsers\": 2147483647,\n    \"theme\": \"brandwatch\",\n    \"owner\": \"example@example.com\",\n    \"isLegacy\": true,\n    \"mentionBasedPricingMatrixLevel\": -1,\n    \"userInactivityTimeoutMinutes\": 1440,\n    \"pitchClient\": false,\n    \"shardName\": \"4\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 343832672
+                    default: 0
+                  name:
+                    type: string
+                    example: ACME Robotics
+                  parentId:
+                    type: integer
+                    example: -1
+                    default: 0
+                  startDate:
+                    type: string
+                    example: 0024-07-30T00:00:00.000+0000
+                  expiryDate: {}
+                  website:
+                    type: string
+                    example: http://www.example.com
+                  address1:
+                    type: string
+                    example: 1 Robotics Road
+                  address2:
+                    type: string
+                    example: Robotics Park
+                  address3:
+                    type: string
+                    example: ''
+                  country:
+                    type: string
+                    example: USA
+                  postcode:
+                    type: string
+                    example: '92328'
+                  contactName:
+                    type: string
+                    example: No User
+                  contactEmail:
+                    type: string
+                    example: null@brandwatch.com
+                  contactTitle:
+                    type: string
+                    example: Wile E. Coyote
+                  contactTelephone:
+                    type: string
+                    example: 0800-999-999-999
+                  contactMobile:
+                    type: string
+                    example: 0800-991-991-991
+                  mentionArchiveSize:
+                    type: integer
+                    example: 12
+                    default: 0
+                  tags:
+                    type: object
+                    properties:
+                      ratelimit.limit:
+                        type: string
+                        example: '600'
+                      ratelimit.period:
+                        type: string
+                        example: '10'
+                      rules_only:
+                        type: string
+                        example: 'true'
+                      shardName:
+                        type: string
+                        example: '4'
+                  maximumSubscribedBrands:
+                    type: integer
+                    example: 20000
+                    default: 0
+                  pricingModel:
+                    type: string
+                    example: QB
+                  priceStructureId:
+                    type: integer
+                    example: -1
+                    default: 0
+                  priceStructureLineId:
+                    type: integer
+                    example: -1
+                    default: 0
+                  maxUsers:
+                    type: integer
+                    example: 2147483647
+                    default: 0
+                  theme:
+                    type: string
+                    example: brandwatch
+                  owner:
+                    type: string
+                    example: example@example.com
+                  isLegacy:
+                    type: boolean
+                    example: true
+                    default: true
+                  mentionBasedPricingMatrixLevel:
+                    type: integer
+                    example: -1
+                    default: 0
+                  userInactivityTimeoutMinutes:
+                    type: integer
+                    example: 1440
+                    default: 0
+                  pitchClient:
+                    type: boolean
+                    example: false
+                    default: true
+                  shardName:
+                    type: string
+                    example: '4'
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": \"unauthorized\",\n    \"error_description\": \"Invalid authentication credentials found on request\"\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unauthorized
+                  error_description:
+                    type: string
+                    example: Invalid authentication credentials found on request
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/client
+        samples-languages:
+        - curl
+      tags:
+      - Client
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

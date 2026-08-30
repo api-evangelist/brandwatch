@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research OAUTH API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: Oauth
+paths:
+  /oauth/token:
+    get:
+      summary: Authentication
+      description: 'Generate a token for use with all API requests.
+
+
+        All endpoints require an authentication token passed with the request.'
+      operationId: authentication
+      parameters:
+      - name: username
+        in: query
+        description: username used to login to Consumer Research application
+        required: true
+        schema:
+          type: string
+          default: username@brandwatch.com
+      - name: grant_type
+        in: query
+        required: true
+        schema:
+          type: string
+          default: api-password
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: string
+          default: brandwatch-api-client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - password
+              properties:
+                password:
+                  type: string
+                  description: password utilized to login to Consumer Research application
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"access_token\": \"aa000000-0aaa-0000-0a00-aa00a000a00a\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 31535999,\n  \"scope\": \"read trust write\"\n}"
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: aa000000-0aaa-0000-0a00-aa00a000a00a
+                  token_type:
+                    type: string
+                    example: bearer
+                  expires_in:
+                    type: integer
+                    example: 31535999
+                    default: 0
+                  scope:
+                    type: string
+                    example: read trust write
+      deprecated: false
+      security: []
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST --data-urlencode 'password=[yourpassword]' \\\n  'https://api.brandwatch.com/oauth/token?username=[your@username.com]&grant_type=api-password&client_id=brandwatch-api-client'"
+        samples-languages:
+        - curl
+      tags:
+      - Oauth
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,2828 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research Projects API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: Projects
+paths:
+  /projects/summary:
+    get:
+      summary: Project Summary List
+      description: Retrieve a summary of all of your Projects.
+      operationId: retrieving-project-summary
+      parameters:
+      - name: page
+        in: query
+        description: page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: pageSize
+        in: query
+        description: Total results shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: nameContains
+        in: query
+        description: Search for projects which contain a specified string in their name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": 2,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 398748937,\n      \"name\": \"Telecoms research\",\n      \"description\": \"Mobile phones\",\n      \"billableClientId\": 127732,\n      \"billableClientName\": \"My company\",\n      \"timezone\": \"Africa/Abidjan\",\n      \"billableClientIsPitch\": false\n    },\n    {\n      \"id\": 32092327,\n      \"name\": \"GPS research\",\n      \"description\": \"In-car navigation systems\",\n      \"billableClientId\": 127732,\n      \"billableClientName\": \"My company\",\n      \"timezone\": \"America/Glace_Bay\",\n      \"billableClientIsPitch\": false\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: 2
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 398748937
+                          default: 0
+                        name:
+                          type: string
+                          example: Telecoms research
+                        description:
+                          type: string
+                          example: Mobile phones
+                        billableClientId:
+                          type: integer
+                          example: 127732
+                          default: 0
+                        billableClientName:
+                          type: string
+                          example: My company
+                        timezone:
+                          type: string
+                          example: Africa/Abidjan
+                        billableClientIsPitch:
+                          type: boolean
+                          example: false
+                          default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/summary
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}:
+    get:
+      summary: Project Info
+      description: Retrieve information on a specific Project.
+      operationId: retrieving-specific-project-summary
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 1998283570,\n    \"name\": \"Test Project\",\n    \"description\": \"\",\n    \"clientId\": 1997404085,\n    \"defaultLangCodes\": [\n        \"en\"\n    ],\n    \"creatorUserId\": 212280860,\n    \"creationDate\": \"2020-01-27T22:25:50.755+0000\",\n    \"billableClientId\": 1997404084,\n    \"timezone\": \"America/New_York\",\n    \"clientName\": \"Staff - Test Client\",\n    \"billableClientName\": \"Staff - Test Client\",\n    \"shardName\": \"39\",\n    \"shard\": 39,\n    \"queryLimit\": null,\n    \"twitterChannelLimit\": null,\n    \"nonTwitterChannelLimit\": null,\n}"
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/32092327
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/queries/summary:
+    get:
+      summary: Query Summary List
+      description: Retrieve a list of all Queries in a Project.
+      operationId: retrieving-queries-1
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: includeActive
+        in: query
+        description: Include active projects
+        schema:
+          type: boolean
+          default: false
+      - name: includeInactive
+        in: query
+        description: Include inactive projects
+        schema:
+          type: boolean
+          default: false
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: pageSize
+        in: query
+        description: The number of projects shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultsTotal\": 2,\n    \"resultsPage\": -1,\n    \"resultsPageSize\": -1,\n    \"results\": [\n        {\n            \"id\": 1999933037,\n            \"name\": \"@brandwatchsocial\",\n            \"type\": \"monitor\",\n            \"creationDate\": \"2019-10-10T17:36:13.933+0000\",\n            \"lastModificationDate\": \"2019-10-10T17:37:23.681+0000\",\n            \"lastModifiedUsername\": \"example@example.com\",\n            \"lockedQuery\": false,\n            \"lockedByUsername\": null,\n            \"createdByWizard\": false,\n            \"languages\": [\n                \"en\"\n            ],\n            \"contentSources\": [\n                \"news\",\n                \"twitter\",\n                \"review\",\n                \"blog\"\n            ],\n            \"languageAgnostic\": false\n        },\n        {\n            \"id\": 1999934807,\n            \"name\": \"Mentions of Pepsi\",\n            \"type\": \"monitor\",\n            \"creationDate\": \"2019-10-14T13:58:21.525+0000\",\n            \"lastModificationDate\": \"2019-10-23T17:22:15.904+0000\",\n            \"lastModifiedUsername\": \"example@example.com\",\n            \"lockedQuery\": false,\n            \"lockedByUsername\": null,\n            \"createdByWizard\": false,\n            \"languages\": [\n                \"en\"\n            ],\n            \"contentSources\": [\n                \"news\"\n            ],\n            \"languageAgnostic\": false\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: 2
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1999933037
+                          default: 0
+                        name:
+                          type: string
+                          example: '@brandwatchsocial'
+                        type:
+                          type: string
+                          example: monitor
+                        creationDate:
+                          type: string
+                          example: 2019-10-10T17:36:13.933+0000
+                        lastModificationDate:
+                          type: string
+                          example: 2019-10-10T17:37:23.681+0000
+                        lastModifiedUsername:
+                          type: string
+                          example: example@example.com
+                        lockedQuery:
+                          type: boolean
+                          example: false
+                          default: true
+                        lockedByUsername: {}
+                        createdByWizard:
+                          type: boolean
+                          example: false
+                          default: true
+                        languages:
+                          type: array
+                          items:
+                            type: string
+                            example: en
+                        contentSources:
+                          type: array
+                          items:
+                            type: string
+                            example: news
+                        languageAgnostic:
+                          type: boolean
+                          example: false
+                          default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/queries/summary
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/queries:
+    get:
+      summary: Detailed Query Summary List
+      description: Retrieve a detailed summary of all Queries in your Project.
+      operationId: retrieving-detailed-summary-all-queries
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: nameContains
+        in: query
+        description: Search for Queries with a specified string in their name
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: '`monitor`,`publicFacebook`,`twitter` or `instagram`'
+        schema:
+          type: array
+          items:
+            type: string
+      - name: includeHidden
+        in: query
+        description: Include hidden Queries
+        schema:
+          type: boolean
+          default: false
+      - name: includeActive
+        in: query
+        description: Include active Queries
+        schema:
+          type: boolean
+          default: true
+      - name: includeInactive
+        in: query
+        description: Include inactive Queries
+        schema:
+          type: boolean
+          default: false
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: pageSize
+        in: query
+        description: The number of Queries shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: ids
+        in: query
+        description: Use the Query ID to show specified Queries
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultsTotal\": 1,\n    \"resultsPage\": -1,\n    \"resultsPageSize\": -1,\n    \"results\": [\n        {\n            \"id\": 1999933037,\n            \"name\": \"BBC\",\n            \"description\": null,\n            \"creationDate\": \"2019-10-10T17:36:13.933+0000\",\n            \"lastModificationDate\": \"2019-10-10T17:37:23.681+0000\",\n            \"languages\": [\n                \"en\"\n            ],\n            \"type\": \"monitor\",\n            \"highlightTerms\": [\n                \"the BBC\",\n            ],\n            \"lastModifiedUsername\": \"example@example.com\",\n            \"lockedQuery\": false,\n            \"lockedByUsername\": null,\n            \"lockedTime\": null,\n            \"createdByWizard\": false,\n            \"booleanQuery\": \"the BBC\",\n            \"startDate\": \"2016-01-01T00:00:00.000+0000\",\n            \"percentComplete\": 100,\n            \"samplePercentage\": 11.4649,\n            \"sampled\": false,\n            \"locationFilter\": null,\n            \"imageFilter\": null,\n            \"contentSources\": [\n                \"news\",\n                \"twitter\",\n                \"review\",\n                \"blog\"\n            ],\n        }\n    ]\n}"
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/queries
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/queries/{queryId}:
+    get:
+      summary: Detailed Query Info
+      description: Retrieve information for a single Query.
+      operationId: retrieve-details-specific-query
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: queryId/queryGroupId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 2000124252,\n    \"name\": \"GM Demo - Buick\",\n    \"description\": null,\n    \"creationDate\": \"2020-04-03T23:20:35.043+0000\",\n    \"lastModificationDate\": \"2020-04-03T23:38:56.851+0000\",\n    \"languages\": [\n        \"en\"\n    ],\n    \"type\": \"monitor\",\n    \"highlightTerms\": [\n        \"buick\",\n        \"buicks\"\n    ],\n    \"lastModifiedUsername\": \"example@brandwatch.com\",\n    \"lockedQuery\": false,\n    \"lockedByUsername\": null,\n    \"lockedTime\": null,\n    \"createdByWizard\": false,\n    \"booleanQuery\": \"buick OR buicks OR title:(buick OR buicks)\",\n    \"monitorId\": 34655332892,\n    \"startDate\": \"2020-03-01T00:00:00.000+0000\",\n    \"percentComplete\": 100,\n    \"samplePercentage\": 100.0000,\n    \"userRequestedSampling\": false,\n    \"sampled\": false,\n    \"queryLimitUsage\": 1,\n    \"locationFilter\": {\n        \"includedLocations\": [\n            \"USA\"\n        ],\n        \"excludedLocations\": []\n    },\n    \"imageFilter\": null,\n    \"contentSources\": [\n        \"forum\",\n        \"news\",\n        \"twitter\"\n    ],\n    \"audienceLists\": null,\n    \"exclusionSnippets\": [],\n    \"active\": true\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2000124252
+                    default: 0
+                  name:
+                    type: string
+                    example: GM Demo - Buick
+                  description: {}
+                  creationDate:
+                    type: string
+                    example: 2020-04-03T23:20:35.043+0000
+                  lastModificationDate:
+                    type: string
+                    example: 2020-04-03T23:38:56.851+0000
+                  languages:
+                    type: array
+                    items:
+                      type: string
+                      example: en
+                  type:
+                    type: string
+                    example: monitor
+                  highlightTerms:
+                    type: array
+                    items:
+                      type: string
+                      example: buick
+                  lastModifiedUsername:
+                    type: string
+                    example: example@brandwatch.com
+                  lockedQuery:
+                    type: boolean
+                    example: false
+                    default: true
+                  lockedByUsername: {}
+                  lockedTime: {}
+                  createdByWizard:
+                    type: boolean
+                    example: false
+                    default: true
+                  booleanQuery:
+                    type: string
+                    example: buick OR buicks OR title:(buick OR buicks)
+                  monitorId:
+                    type: integer
+                    example: 34655332892
+                    default: 0
+                  startDate:
+                    type: string
+                    example: 2020-03-01T00:00:00.000+0000
+                  percentComplete:
+                    type: integer
+                    example: 100
+                    default: 0
+                  samplePercentage:
+                    type: integer
+                    example: 100
+                    default: 0
+                  userRequestedSampling:
+                    type: boolean
+                    example: false
+                    default: true
+                  sampled:
+                    type: boolean
+                    example: false
+                    default: true
+                  queryLimitUsage:
+                    type: integer
+                    example: 1
+                    default: 0
+                  locationFilter:
+                    type: object
+                    properties:
+                      includedLocations:
+                        type: array
+                        items:
+                          type: string
+                          example: USA
+                      excludedLocations:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                  imageFilter: {}
+                  contentSources:
+                    type: array
+                    items:
+                      type: string
+                      example: forum
+                  audienceLists: {}
+                  exclusionSnippets:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+                  active:
+                    type: boolean
+                    example: true
+                    default: true
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET 'https://api.brandwatch.com/projects/1998283571/queries/2000124252'
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+    delete:
+      summary: Delete Queries
+      description: ''
+      operationId: deleting-queries-1
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: queryId/queryGroupId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '204':
+          description: '204'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/queries/11554
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/querygroups:
+    get:
+      summary: Query Groups Summary
+      description: 'Listing the Query Groups that you have created.
+
+
+        You can create Query Groups to represent a relationship between related Queries. They are stored within Projects.'
+      operationId: retrieving-query-groups-1
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: pageSize
+        in: query
+        description: Number of Query Groups shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: ids
+        in: query
+        description: Show specified Query Groups using Query Group IDs
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int32
+      - name: includeHidden
+        in: query
+        description: Include hidden Query Groups
+        schema:
+          type: boolean
+          default: false
+      - name: includeActive
+        in: query
+        description: Include active Query Groups
+        schema:
+          type: boolean
+          default: true
+      - name: includeInactive
+        in: query
+        description: Include inactive Query Groups
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": -1,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 165923298,\n      \"name\": \"Competitors\",\n      \"shared\": \"public\",\n      \"sharedProjectIds\": [\n        1494022974\n      ],\n      \"queries\": [\n        {\n          \"id\": 39037892,\n          \"name\": \"Ikea\"\n        },\n        {\n          \"id\": 49482811,\n          \"name\": \"DFS\"\n        }\n      ],\n      \"users\": [\n        {\n          \"id\": 298473382,\n          \"username\": \"example@example.com\",\n          \"firstName\": \"John\",\n          \"lastName\": \"Doe\",\n          \"uiRole\": \"regular\"\n        }\n      ]\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 165923298
+                          default: 0
+                        name:
+                          type: string
+                          example: Competitors
+                        shared:
+                          type: string
+                          example: public
+                        sharedProjectIds:
+                          type: array
+                          items:
+                            type: integer
+                            example: 1494022974
+                            default: 0
+                        queries:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 39037892
+                                default: 0
+                              name:
+                                type: string
+                                example: Ikea
+                        users:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 298473382
+                                default: 0
+                              username:
+                                type: string
+                                example: example@example.com
+                              firstName:
+                                type: string
+                                example: John
+                              lastName:
+                                type: string
+                                example: Doe
+                              uiRole:
+                                type: string
+                                example: regular
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/937893762/querygroups
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/querygroups/{queryGroupId}:
+    delete:
+      summary: Delete Query Groups
+      description: 'You can delete Query Groups via the Consumer Research API.
+
+
+        Assuming you know the Query Group id that you want to delete, then you can use the following request:'
+      operationId: deleting-query-groups-1
+      parameters:
+      - name: projectId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: queryGroupId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '204':
+          description: '204'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/querygroups/18349
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/tags:
+    get:
+      summary: Tags Summary
+      description: Listing the Tags within your Project.
+      operationId: retrieving-tags-1
+      parameters:
+      - name: projectId
+        in: path
+        description: Your [project id](retrieving-projects)
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: nameContains
+        in: query
+        description: Search for Tags with a specified string in their name
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: pageSize
+        in: query
+        description: Choose how many Tags are shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": -1,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 3897282,\n      \"name\": \"Celebrities\"\n    },\n    {\n      \"id\": 3472876,\n      \"name\": \"Journalists\"\n    },\n    {\n      \"id\": 9879833,\n      \"name\": \"Bloggers\"\n    },\n    {\n      \"id\": 7673322,\n      \"name\": \"Members of the public\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 3897282
+                          default: 0
+                        name:
+                          type: string
+                          example: Celebrities
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/tags
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+    post:
+      summary: Create Tags
+      description: Creating Tags within your Project
+      operationId: creating-tags-1
+      parameters:
+      - name: projectId
+        in: path
+        description: Your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                  description: Name of your Tag
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 4047253,\n    \"name\": \"Exclusions Tag\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 4047253
+                    default: 0
+                  name:
+                    type: string
+                    example: Exclusions Tag
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST \\\n  'https://api.brandwatch.com/projects/1998159537/tags/' \\\n  -H 'content-type: application/json' \\\n  -d '{\"name\":\"Exclusions Tag\"}'"
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/tags/{tagId}:
+    delete:
+      summary: Delete Tags
+      description: Deleting Tags within your Project
+      operationId: deleting-tags-1
+      parameters:
+      - name: projectId
+        in: path
+        description: Your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: tagId
+        in: path
+        description: The Tag id for the Tag you'd like to delete.
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '204':
+          description: '204'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: ''
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/tags/7829036
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/categories:
+    get:
+      summary: Categories Summary
+      description: Retrieve a summary of all Categories in your Project.
+      operationId: retrieving-categories-1
+      parameters:
+      - name: projectId
+        in: path
+        description: Your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: pageSize
+        in: query
+        description: Number of Categories shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": -1,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 39873297,\n      \"name\": \"Customer Issues\",\n      \"multiple\": false,\n      \"children\": [\n        {\n          \"id\": 19298737,\n          \"name\": \"Shipping\",\n          \"ordering\": 0\n        },\n        {\n          \"id\": 9083947,\n          \"name\": \"Sizing\",\n          \"ordering\": 0\n        },\n        {\n          \"id\": 9328497,\n          \"name\": \"Product faults\",\n          \"ordering\": 0\n        },\n        {\n          \"id\": 39483984,\n          \"name\": \"Environmental\",\n          \"ordering\": 0\n        }\n      ]\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 39873297
+                          default: 0
+                        name:
+                          type: string
+                          example: Customer Issues
+                        multiple:
+                          type: boolean
+                          example: false
+                          default: true
+                        children:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 19298737
+                                default: 0
+                              name:
+                                type: string
+                                example: Shipping
+                              ordering:
+                                type: integer
+                                example: 0
+                                default: 0
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/categories
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+    post:
+      summary: Create Categories
+      description: Adding a new Category to your Project.
+      operationId: creating-categories-1
+      parameters:
+      - name: projectId
+        in: path
+        description: Your project id
+        schema:
+          type: integer
+          format: int64
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - children
+              properties:
+                name:
+                  type: string
+                  description: Name of your (parent) Category
+                children:
+                  type: array
+                  description: Names of your Subcategories
+                  items:
+                    properties:
+                      name:
+                        type: string
+                        description: Name of your Subcategory
+                        default: Subcategory 1
+                    required:
+                    - name
+                    type: object
+                multiple:
+                  type: boolean
+                  description: If `true`, multiple subcategories can be applied to each mention.
+                  default: true
+      responses:
+        '201':
+          description: '201'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 4047196,\n    \"name\": \"Test Category\",\n    \"multiple\": true,\n    \"children\": [\n        {\n            \"id\": 4047197,\n            \"name\": \"Example Subcategory 1\",\n            \"ordering\": 1\n        },\n        {\n            \"id\": 4047198,\n            \"name\": \"Example Subcategory 2\",\n            \"ordering\": 2\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 4047196
+                    default: 0
+                  name:
+                    type: string
+                    example: Test Category
+                  multiple:
+                    type: boolean
+                    example: true
+                    default: true
+                  children:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 4047197
+                          default: 0
+                        name:
+                          type: string
+                          example: Example Subcategory 1
+                        ordering:
+                          type: integer
+                          example: 1
+                          default: 0
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST \\\n  'https://api.brandwatch.com/projects/1998159537/categories/' \\\n  -H 'content-type: application/json' \\\n  -d '{\"name\":\"Test Category\",\"children\":[{\"name\":\"Example Subcategory 1\",\"id\":\"\"},{\"name\":\"Example Subcategory 2\"}],\"multiple\":true}'"
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/rules:
+    get:
+      summary: Rules Summary
+      description: Listing the Rules within your Project.
+      operationId: retrieving-rules-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: enabled
+        in: query
+        schema:
+          type: boolean
+      - name: nameContains
+        in: query
+        description: Tags which contain a specified string in their name
+        schema:
+          type: string
+      - name: ruleContains
+        in: query
+        description: Tags which contain a specified string in the `search` part of the Rule
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: The number of Rules to be shown per page
+        schema:
+          type: integer
+          format: int32
+          default: -1
+      - name: orderDirection
+        in: query
+        description: Direction by which the list is sorted
+        schema:
+          type: string
+          default: desc or asc
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": 1,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 1998324680,\n      \"projectId\": 1494022974,\n      \"name\": \"Dropped calls\",\n      \"filter\": {\n        \"queryId\": [\n          1501738808\n        ],\n        \"search\": \"\\\"dropped call\\\"\",\n      },\n      \"scope\": \"query\",\n      \"enabled\": true,\n      \"ruleAction\": {\n        \"sentiment\": \"negative\",\n      },\n      \"queryName\": \"Mobile phones\",\n      \"projectName\": \"Telecoms\"\n    }\n  ]\n}"
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/rules
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/rules/{ruleId}:
+    delete:
+      summary: Delete Rules
+      description: Delete specific rules within your Project
+      operationId: deleting-rules-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: ruleId
+        in: path
+        description: your rule id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/rules/283471
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/author:
+    post:
+      summary: Create Author Lists
+      description: Creating a list of Authors in Brandwatch Consumer Research.
+      operationId: creating-author-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - authors
+              properties:
+                name:
+                  type: string
+                  description: name of the author list
+                authors:
+                  type: string
+                  description: a list of authors
+                  default: '["author1","author2"]'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 192667484,\n    \"name\": \"Media Handles\",\n    \"shared\": \"public\",\n    \"sharedProjectIds\": [\n        1998159493\n    ],\n    \"authors\": [\n        \"mashable\",\n        \"espn\",\n        \"wsj\",\n        \"reuters\",\n        \"techcrunch\",\n        \"bbcbreaking\",\n        \"huffingtonpost\",\n        \"nytimes\",\n        \"washingtonpost\",\n        \"mediapost\",\n        \"abcnews\",\n        \"skynews\",\n        \"washpost\",\n        \"socialmedia2day\",\n        \"ap\",\n        \"gma\",\n        \"huffpost\",\n        \"cnbc\",\n        \"nprnews\",\n        \"financialtimes\",\n        \"bbcworld\",\n        \"latimes\",\n        \"abcnewslive\",\n        \"wntonight\",\n        \"nbcnews\",\n        \"ft\",\n        \"telegraph\",\n        \"bostonglobe\",\n        \"foxnews\",\n        \"guardian\",\n        \"grist\",\n        \"cnn\",\n        \"abc\",\n        \"recode\",\n        \"afp\",\n        \"usatoday\",\n        \"digiday\",\n        \"ibtimes\",\n        \"npr\",\n        \"bbcnews\",\n        \"thenextweb\",\n        \"theeconomist\",\n        \"buzzfeed\",\n        \"newsweek\",\n        \"associatedpress\",\n        \"cbs\",\n        \"rollingstone\",\n        \"forbes\",\n        \"time\",\n        \"msnbc\"\n    ],\n    \"userId\": 117025679,\n    \"userName\": \"example@brandwatch.com\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 192667484
+                    default: 0
+                  name:
+                    type: string
+                    example: Media Handles
+                  shared:
+                    type: string
+                    example: public
+                  sharedProjectIds:
+                    type: array
+                    items:
+                      type: integer
+                      example: 1998159493
+                      default: 0
+                  authors:
+                    type: array
+                    items:
+                      type: string
+                      example: mashable
+                  userId:
+                    type: integer
+                    example: 117025679
+                    default: 0
+                  userName:
+                    type: string
+                    example: example@brandwatch.com
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST \\\n  'https://api.brandwatch.com/projects/1998159493/group/author/' \\\n  -H 'content-type: application/json' \\\n  -d '{\"sharedProjectIds\":[1998159493],\"name\":\"Media Handles\",\"authors\":[\"mashable\",\"espn\",\"wsj\",\"reuters\",\"techcrunch\",\"bbcbreaking\",\"huffingtonpost\",\"nytimes\",\"washingtonpost\",\"mediapost\",\"abcnews\",\"skynews\",\"washpost\",\"socialmedia2day\",\"ap\",\"gma\",\"huffpost\",\"cnbc\",\"nprnews\",\"financialtimes\",\"bbcworld\",\"latimes\",\"abcnewslive\",\"wntonight\",\"nbcnews\",\"ft\",\"telegraph\",\"bostonglobe\",\"foxnews\",\"guardian\",\"grist\",\"cnn\",\"abc\",\"recode\",\"afp\",\"usatoday\",\"digiday\",\"ibtimes\",\"npr\",\"bbcnews\",\"thenextweb\",\"theeconomist\",\"buzzfeed\",\"newsweek\",\"associatedpress\",\"cbs\",\"rollingstone\",\"forbes\",\"time\",\"msnbc\"],\"shared\":\"public\"}'"
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/author/summary:
+    get:
+      summary: Author Lists Summary
+      description: Showing lists of Authors that have been saved in Brandwatch Consumer Research.
+      operationId: retrieving-author-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": 1,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 165923563,\n      \"name\": \"Influencers\",\n      \"shared\": \"public\",\n      \"sharedProjectIds\": [\n        398748937\n      ],\n      \"authors\": [\n        \"John Doe\"\n      ],\n      \"userId\": 2748873,\n      \"userName\": \"example@example.com\"\n    }\n  ],\n  \"projects\": [\n    {\n      \"id\": 398748937,\n      \"name\": \"Shopping trends\",\n      \"description\": \"\",\n      \"billableClientId\": 324398,\n      \"billableClientName\": null,\n      \"timezone\": null,\n      \"billableClientIsPitch\": false\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: 1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 165923563
+                          default: 0
+                        name:
+                          type: string
+                          example: Influencers
+                        shared:
+                          type: string
+                          example: public
+                        sharedProjectIds:
+                          type: array
+                          items:
+                            type: integer
+                            example: 398748937
+                            default: 0
+                        authors:
+                          type: array
+                          items:
+                            type: string
+                            example: John Doe
+                        userId:
+                          type: integer
+                          example: 2748873
+                          default: 0
+                        userName:
+                          type: string
+                          example: example@example.com
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 398748937
+                          default: 0
+                        name:
+                          type: string
+                          example: Shopping trends
+                        description:
+                          type: string
+                          example: ''
+                        billableClientId:
+                          type: integer
+                          example: 324398
+                          default: 0
+                        billableClientName: {}
+                        timezone: {}
+                        billableClientIsPitch:
+                          type: boolean
+                          example: false
+                          default: true
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/group/author/summary
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/author/{authorListId}:
+    delete:
+      summary: Delete Author Lists
+      description: Delete author lists within your project
+      operationId: deleting-author-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: authorListId
+        in: path
+        description: your author list id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/group/author/37239
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/location/summary:
+    get:
+      summary: Location Lists Summary
+      description: Getting lists of Locations that have been saved in Brandwatch Consumer Research.
+      operationId: retrieving-location-lists
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"resultsTotal\": 1,\n  \"resultsPage\": -1,\n  \"resultsPageSize\": -1,\n  \"results\": [\n    {\n      \"id\": 179865741,\n      \"name\": \"Top locations\",\n      \"shared\": \"public\",\n      \"sharedProjectIds\": [\n        398748937\n      ],\n      \"locations\": [\n        {\n          \"id\": \"cn\",\n          \"name\": \"People's Republic of China\",\n          \"type\": \"country\",\n          \"fullName\": \"People's Republic of China, Asia\"\n        },\n        {\n          \"id\": \"jp\",\n          \"name\": \"Japan\",\n          \"type\": \"country\",\n          \"fullName\": \"Japan, Asia\"\n        },\n        {\n          \"id\": \"kr\",\n          \"name\": \"Republic of Korea\",\n          \"type\": \"country\",\n          \"fullName\": \"Republic of Korea, Asia\"\n        },\n        {\n          \"id\": \"tw\",\n          \"name\": \"Republic of China (Taiwan)\",\n          \"type\": \"country\",\n          \"fullName\": \"Republic of China (Taiwan), Asia\"\n        }\n      ],\n      \"userName\": \"curtis@brandwatch.com\",\n      \"userId\": 179428706\n    }\n  ],\n  \"projects\": [\n    {\n      \"id\": 398748937,\n      \"name\": \"Shopping trends\",\n      \"description\": \"\",\n      \"billableClientId\": 39837783,\n      \"billableClientName\": null,\n      \"timezone\": \"America/New_York\",\n      \"billableClientIsPitch\": false\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: 1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 179865741
+                          default: 0
+                        name:
+                          type: string
+                          example: Top locations
+                        shared:
+                          type: string
+                          example: public
+                        sharedProjectIds:
+                          type: array
+                          items:
+                            type: integer
+                            example: 398748937
+                            default: 0
+                        locations:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: cn
+                              name:
+                                type: string
+                                example: People's Republic of China
+                              type:
+                                type: string
+                                example: country
+                              fullName:
+                                type: string
+                                example: People's Republic of China, Asia
+                        userName:
+                          type: string
+                          example: curtis@brandwatch.com
+                        userId:
+                          type: integer
+                          example: 179428706
+                          default: 0
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 398748937
+                          default: 0
+                        name:
+                          type: string
+                          example: Shopping trends
+                        description:
+                          type: string
+                          example: ''
+                        billableClientId:
+                          type: integer
+                          example: 39837783
+                          default: 0
+                        billableClientName: {}
+                        timezone:
+                          type: string
+                          example: America/New_York
+                        billableClientIsPitch:
+                          type: boolean
+                          example: false
+                          default: true
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/group/location/summary
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/location/{locationListId}:
+    delete:
+      summary: Delete Location Lists
+      description: Deleting location lists
+      operationId: deleting-location-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: locationListId
+        in: path
+        description: id of the location list you'd like to delete
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/group/location/37239
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/site:
+    post:
+      summary: Create Site Lists
+      description: Creating a list of sites in Brandwatch Consumer Research.
+      operationId: creating-site-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domains:
+                  type: array
+                  description: array of domains to add to the site list
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": 192667382,\n    \"name\": \"News Sites\",\n    \"shared\": \"public\",\n    \"sharedProjectIds\": [\n        1998189791\n    ],\n    \"domains\": [\n        \"www.bbc.com/news\",\n        \"www.reuters.com\",\n        \"www.salon.com\",\n        \"mic.com\",\n        \"www.boston.com\",\n        \"www.cnbc.com\",\n        \"www.theblaze.com\",\n        \"www.huffingtonpost.com\",\n        \"edition.cnn.com\",\n        \"www.nypost.com\",\n        \"thehill.com\",\n        \"www.theverge.com\",\n        \"www.ap.org\",\n        \"www.theatlantic.com\",\n        \"www.chicagotribune.com\",\n        \"www.bostonglobe.com\",\n        \"www.msnbc.com\"\n    ],\n    \"userId\": 117025679,\n    \"userName\": \"example@brandwatch.com\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 192667382
+                    default: 0
+                  name:
+                    type: string
+                    example: News Sites
+                  shared:
+                    type: string
+                    example: public
+                  sharedProjectIds:
+                    type: array
+                    items:
+                      type: integer
+                      example: 1998189791
+                      default: 0
+                  domains:
+                    type: array
+                    items:
+                      type: string
+                      example: www.bbc.com/news
+                  userId:
+                    type: integer
+                    example: 117025679
+                    default: 0
+                  userName:
+                    type: string
+                    example: example@brandwatch.com
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X POST \\\n  'https://api.brandwatch.com/projects/1998189791/group/site/' \\\n  -H 'content-type: application/json' \\\n  -d '{\"domains\":[\"thehill.com\",\"www.boston.com\",\"edition.cnn.com\",\"www.bostonglobe.com\",\"www.theblaze.com\",\"www.msnbc.com\",\"www.huffingtonpost.com\",\"www.theatlantic.com\",\"www.reuters.com\",\"mic.com\",\"www.chicagotribune.com\",\"www.theverge.com\",\"www.bbc.com/news\",\"www.cnbc.com\",\"www.ap.org\",\"www.salon.com\",\"www.nypost.com\"],\"sharedProjectIds\":[1998189791],\"name\":\"News Sites\",\"shared\":\"public\"}'"
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/site/summary:
+    get:
+      summary: Site Lists Summary
+      description: Getting lists of Sites that have been saved in Brandwatch Consumer Research.
+      operationId: retrieving-site-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultsTotal\": 1,\n    \"resultsPage\": -1,\n    \"resultsPageSize\": -1,\n    \"results\": [\n        {\n            \"id\": 192667376,\n            \"name\": \"News Sites\",\n            \"shared\": \"public\",\n            \"sharedProjectIds\": [\n                1998189791\n            ],\n            \"domains\": [\n                \"www.bbc.com/news\",\n                \"www.reuters.com\",\n                \"www.salon.com\",\n                \"mic.com\",\n                \"www.boston.com\",\n                \"www.cnbc.com\",\n                \"www.theblaze.com\",\n                \"www.huffingtonpost.com\",\n                \"edition.cnn.com\",\n                \"www.nypost.com\",\n                \"thehill.com\",\n                \"www.ap.org\",\n                \"www.theverge.com\",\n                \"www.chicagotribune.com\",\n                \"www.theatlantic.com\",\n                \"www.bostonglobe.com\",\n                \"www.msnbc.com\"\n            ],\n            \"userId\": 117025679,\n            \"userName\": \"example@brandwatch.com\"\n        }\n    ],\n    \"projects\": [\n        {\n            \"id\": 1998189791,\n            \"name\": \"Breaking News\",\n            \"description\": \"\",\n            \"billableClientId\": 1724493131,\n            \"billableClientName\": null,\n            \"timezone\": \"America/New_York\",\n            \"billableClientIsPitch\": false\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: 1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 192667376
+                          default: 0
+                        name:
+                          type: string
+                          example: News Sites
+                        shared:
+                          type: string
+                          example: public
+                        sharedProjectIds:
+                          type: array
+                          items:
+                            type: integer
+                            example: 1998189791
+                            default: 0
+                        domains:
+                          type: array
+                          items:
+                            type: string
+                            example: www.bbc.com/news
+                        userId:
+                          type: integer
+                          example: 117025679
+                          default: 0
+                        userName:
+                          type: string
+                          example: example@brandwatch.com
+                  projects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1998189791
+                          default: 0
+                        name:
+                          type: string
+                          example: Breaking News
+                        description:
+                          type: string
+                          example: ''
+                        billableClientId:
+                          type: integer
+                          example: 1724493131
+                          default: 0
+                        billableClientName: {}
+                        timezone:
+                          type: string
+                          example: America/New_York
+                        billableClientIsPitch:
+                          type: boolean
+                          example: false
+                          default: true
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/1998189791/group/site/summary
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/group/site/{siteListId}:
+    delete:
+      summary: Delete Site Lists
+      description: ''
+      operationId: deleting-site-lists-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: siteListId
+        in: path
+        description: the id of the site list you'd like to delete
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X DELETE https://api.brandwatch.com/projects/398748937/group/site/37239
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/workflow:
+    get:
+      summary: Workflow Summary
+      description: Listing the Workflow within your Project.
+      operationId: retrieving-workflow-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[\n  {\n    \"id\": 587088,\n    \"name\": \"Assignment\",\n    \"children\": [\n      {\n        \"id\": 587093,\n        \"name\": \"colleague@example.com\",\n        \"ordering\": -1\n      },\n      {\n        \"id\": 588907,\n        \"name\": \"anothercolleague@example.com\",\n        \"ordering\": -1\n      }\n    ]\n  },\n  {\n    \"id\": 587075,\n    \"name\": \"Priority\",\n    \"children\": [\n      {\n        \"id\": 587076,\n        \"name\": \"high\",\n        \"ordering\": 1\n      },\n      {\n        \"id\": 587077,\n        \"name\": \"medium\",\n        \"ordering\": 2\n      },\n      {\n        \"id\": 587078,\n        \"name\": \"low\",\n        \"ordering\": 3\n      }\n    ]\n  },\n  {\n    \"id\": 587091,\n    \"name\": \"Checked\",\n    \"children\": [\n      {\n        \"id\": 587092,\n        \"name\": \"yes\",\n        \"ordering\": -1\n      }\n    ]\n  },\n  {\n    \"id\": 587079,\n    \"name\": \"Status\",\n    \"children\": [\n      {\n        \"id\": 587080,\n        \"name\": \"open\",\n        \"ordering\": 1\n      },\n      {\n        \"id\": 587081,\n        \"name\": \"pending\",\n        \"ordering\": 2\n      },\n      {\n        \"id\": 587082,\n        \"name\": \"closed\",\n        \"ordering\": 3\n      }\n    ]\n  }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 587088
+                      default: 0
+                    name:
+                      type: string
+                      example: Assignment
+                    children:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 587093
+                            default: 0
+                          name:
+                            type: string
+                            example: colleague@example.com
+                          ordering:
+                            type: integer
+                            example: -1
+                            default: 0
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/projects/398748937/workflow
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/data/mentions:
+    get:
+      summary: Retrieve Mentions
+      description: Listing the Mentions within your Query.
+      operationId: retrieving-mentions-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: queryId/queryGroupId
+        in: query
+        description: your query or query group id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: The beginning of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: endDate
+        in: query
+        description: The end of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: pageSize
+        in: query
+        description: The number of Mentions on each page of the response.
+        schema:
+          type: integer
+          format: int32
+          default: null
+      - name: page
+        in: query
+        description: The page to retrieve, indexed from 0.
+        schema:
+          type: integer
+          format: int32
+          default: null
+      - name: orderBy
+        in: query
+        description: The field you'd like to order the Mentions by. `date` - the date of the mention (default), `added` - the time the mention matched your query,`updated` - the time when the mention was last updated,`impact` - Brandwatch specific metric that tells you the potential impact of a mention
+        schema:
+          type: string
+      - name: orderDirection
+        in: query
+        description: The direction to order the Mentions. `desc` (descending) or `asc` (ascending)
+        schema:
+          type: string
+      - name: pageType
+        in: query
+        description: filter by a specific page type
+        schema:
+          type: string
+          default: twitter
+      - name: sentiment
+        in: query
+        description: filter by sentiment. `positive`. `negative` or `neutral`
+        schema:
+          type: string
+      - name: tag
+        in: query
+        description: return Mentions that are tagged with this Tag ID
+        schema:
+          type: string
+      - name: xtag
+        in: query
+        description: exclude Mentions that are tagged with this tag id
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: return Mentions that are tagged with this Category id
+        schema:
+          type: string
+      - name: xcategory
+        in: query
+        description: exclude Mentions that are tagged with this Category id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"results\": [\n        {\n            \"resourceId\": \"c54d12f5107496bac30b5ddc3478bbab\",\n            \"accountType\": \"individual\",\n            \"added\": \"2019-10-10T17:48:54.588+0000\",\n            \"assignment\": null,\n            \"author\": null,\n            \"avatarUrl\": null,\n            \"categories\": [],\n            \"categoryDetails\": [],\n            \"checked\": false,\n            \"city\": null,\n            \"cityCode\": null,\n            \"continent\": \"Europe\",\n            \"continentCode\": \"EUROPE\",\n            \"country\": \"United Kingdom\",\n            \"countryCode\": \"GBR\",\n            \"region\": null,\n            \"regionCode\": null,\n            \"date\": null,\n            \"displayUrls\": null,\n            \"domain\": \"twitter.com\",\n            \"expandedUrls\": null,\n            \"facebookAuthorId\": null,\n            \"facebookComments\": 0,\n            \"facebookLikes\": 0,\n            \"facebookRole\": null,\n            \"facebookShares\": 0,\n            \"facebookSubtype\": null,\n            \"fullname\": \"edwards0819 (Jan Edwards)\",\n            \"gender\": \"unknown\",\n            \"impressions\": 48,\n            \"insightsHashtag\": null,\n            \"insightsMentioned\": null,\n            \"instagramCommentCount\": 0,\n            \"instagramFollowerCount\": 0,\n            \"instagramFollowingCount\": 0,\n            \"instagramInteractionsCount\": 0,\n            \"instagramLikeCount\": 0,\n            \"instagramPostCount\": 0,\n            \"interest\": [],\n            \"language\": \"en\",\n            \"lastAssignmentDate\": null,\n            \"latitude\": 0.0,\n            \"locationName\": \"GBR\",\n            \"longitude\": 0.0,\n            \"matchPositions\": [\n                {\n                    \"start\": 213,\n                    \"text\": \"BBCR4today\",\n                    \"length\": 10\n                }\n            ],\n            \"mediaFilter\": null,\n            \"mediaUrls\": [\n                \"http://pbs.twimg.com/media/EDPcH9iW4AMxgfR.jpg\"\n            ],\n            \"monthlyVisitors\": 1308696000,\n            \"originalUrl\": null,\n            \"pageType\": \"twitter\",\n            \"priority\": null,\n            \"professions\": [],\n            \"queryId\": 1999933037,\n            \"queryName\": \"BBC\",\n            \"reachEstimate\": 0,\n            \"replyTo\": null,\n            \"resourceType\": \"crimsonMonitor\",\n            \"retweetOf\": null,\n            \"sentiment\": \"neutral\",\n            \"shortUrls\": null,\n            \"snippet\": null,\n            \"starred\": false,\n            \"status\": null,\n            \"subtype\": null,\n            \"tags\": [],\n            \"threadAuthor\": null,\n            \"threadCreated\": \"2019-08-30T19:25:43.000+0000\",\n            \"threadEntryType\": null,\n            \"threadId\": \"1167518780588810240\",\n            \"threadURL\": null,\n            \"title\": \"http://twitter.com/1/statuses/1168312574590509056\",\n            \"twitterAuthorId\": null,\n            \"twitterFollowers\": null,\n            \"twitterFollowing\": null,\n            \"twitterPostCount\": null,\n            \"twitterReplyCount\": null,\n            \"twitterRetweets\": null,\n            \"twitterRole\": null,\n            \"twitterVerified\": null,\n            \"updated\": \"2019-10-10T17:48:54.588+0000\",\n            \"url\": \"http://twitter.com/1/statuses/1168312574590509056\",\n            \"classifications\": [\n                {\n                    \"classifierId\": \"emotions\",\n                    \"labelId\": \"Sadness\",\n                    \"name\": \"Sadness\",\n                    \"confidence\": 0.43600535\n                }\n            ],\n            \"pageTypeName\": \"Twitter\",\n            \"impact\": 0.0\n        }\n    ],\n    \"resultsPage\": 0,\n    \"resultsPageSize\": 1,\n    \"resultsTotal\": 16332,\n    \"scaledResultsTotal\": 142452,\n    \"nextCursor\": \"AQ=AA=AWzvRWQw=MTk5OTkzMzAzNyFjNTRkMTJmNTEwNzQ5NmJhYzMwYjVkZGMzNDc4YmJhYg\",\n    \"startDate\": \"2019-09-01T00:00:00.000+0000\",\n    \"endDate\": \"2019-09-02T00:00:00.000+0000\"\n}"
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        resourceId:
+                          type: string
+                          example: c54d12f5107496bac30b5ddc3478bbab
+                        accountType:
+                          type: string
+                          example: individual
+                        added:
+                          type: string
+                          example: 2019-10-10T17:48:54.588+0000
+                        assignment: {}
+                        author: {}
+                        avatarUrl: {}
+                        categories:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        categoryDetails:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        checked:
+                          type: boolean
+                          example: false
+                          default: true
+                        city: {}
+                        cityCode: {}
+                        continent:
+                          type: string
+                          example: Europe
+                        continentCode:
+                          type: string
+                          example: EUROPE
+                        country:
+                          type: string
+                          example: United Kingdom
+                        countryCode:
+                          type: string
+                          example: GBR
+                        region: {}
+                        regionCode: {}
+                        date: {}
+                        displayUrls: {}
+                        domain:
+                          type: string
+                          example: twitter.com
+                        expandedUrls: {}
+                        facebookAuthorId: {}
+                        facebookComments:
+                          type: integer
+                          example: 0
+                          default: 0
+                        facebookLikes:
+                          type: integer
+                          example: 0
+                          default: 0
+                        facebookRole: {}
+                        facebookShares:
+                          type: integer
+                          example: 0
+                          default: 0
+                        facebookSubtype: {}
+                        fullname:
+                          type: string
+                          example: edwards0819 (Jan Edwards)
+                        gender:
+                          type: string
+                          example: unknown
+                        impressions:
+                          type: integer
+                          example: 48
+                          default: 0
+                        insightsHashtag: {}
+                        insightsMentioned: {}
+                        instagramCommentCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        instagramFollowerCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        instagramFollowingCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        instagramInteractionsCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        instagramLikeCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        instagramPostCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        interest:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        language:
+                          type: string
+                          example: en
+                        lastAssignmentDate: {}
+                        latitude:
+                          type: integer
+                          example: 0
+                          default: 0
+                        locationName:
+                          type: string
+                          example: GBR
+                        longitude:
+                          type: integer
+                          example: 0
+                          default: 0
+                        matchPositions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              start:
+                                type: integer
+                                example: 213
+                                default: 0
+                              text:
+                                type: string
+                                example: BBCR4today
+                              length:
+                                type: integer
+                                example: 10
+                                default: 0
+                        mediaFilter: {}
+                        mediaUrls:
+                          type: array
+                          items:
+                            type: string
+                            example: http://pbs.twimg.com/media/EDPcH9iW4AMxgfR.jpg
+                        monthlyVisitors:
+                          type: integer
+                          example: 1308696000
+                          default: 0
+                        originalUrl: {}
+                        pageType:
+                          type: string
+                          example: twitter
+                        priority: {}
+                        professions:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        queryId:
+                          type: integer
+                          example: 1999933037
+                          default: 0
+                        queryName:
+                          type: string
+                          example: BBC
+                        reachEstimate:
+                          type: integer
+                          example: 0
+                          default: 0
+                        replyTo: {}
+                        resourceType:
+                          type: string
+                          example: crimsonMonitor
+                        retweetOf: {}
+                        sentiment:
+                          type: string
+                          example: neutral
+                        shortUrls: {}
+                        snippet: {}
+                        starred:
+                          type: boolean
+                          example: false
+                          default: true
+                        status: {}
+                        subtype: {}
+                        tags:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        threadAuthor: {}
+                        threadCreated:
+                          type: string
+                          example: 2019-08-30T19:25:43.000+0000
+                        threadEntryType: {}
+                        threadId:
+                          type: string
+                          example: '1167518780588810240'
+                        threadURL: {}
+                        title:
+                          type: string
+                          example: http://twitter.com/1/statuses/1168312574590509056
+                        twitterAuthorId: {}
+                        twitterFollowers: {}
+                        twitterFollowing: {}
+                        twitterPostCount: {}
+                        twitterReplyCount: {}
+                        twitterRetweets: {}
+                        twitterRole: {}
+                        twitterVerified: {}
+                        updated:
+                          type: string
+                          example: 2019-10-10T17:48:54.588+0000
+                        url:
+                          type: string
+                          example: http://twitter.com/1/statuses/1168312574590509056
+                        classifications:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              classifierId:
+                                type: string
+                                example: emotions
+                              labelId:
+                                type: string
+                                example: Sadness
+                              name:
+                                type: string
+                                example: Sadness
+                              confidence:
+                                type: number
+                                example: 0.43600535
+                                default: 0
+                        pageTypeName:
+                          type: string
+                          example: Twitter
+                        impact:
+                          type: integer
+                          example: 0
+                          default: 0
+                  resultsPage:
+                    type: integer
+                    example: 0
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: 1
+                    default: 0
+                  resultsTotal:
+                    type: integer
+                    example: 16332
+                    default: 0
+                  scaledResultsTotal:
+                    type: integer
+                    example: 142452
+                    default: 0
+                  nextCursor:
+                    type: string
+                    example: AQ=AA=AWzvRWQw=MTk5OTkzMzAzNyFjNTRkMTJmNTEwNzQ5NmJhYzMwYjVkZGMzNDc4YmJhYg
+                  startDate:
+                    type: string
+                    example: 2019-09-01T00:00:00.000+0000
+                  endDate:
+                    type: string
+                    example: 2019-09-02T00:00:00.000+0000
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET 'https://api.brandwatch.com/projects/289733322/data/mentions?queryId=348973733&startDate=2016-05-01&endDate=2016-05-02&pageSize=1&page=0'
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/data/mentions/count:
+    get:
+      summary: Total Mentions
+      description: Finding total number of Mentions in your dataset in a given time period.
+      operationId: total-mentions-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: queryId/queryGroupId
+        in: query
+        description: The ID of the Query or Query Group that contains the Mentions for which you'd like to see Topics.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: The beginning of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: endDate
+        in: query
+        description: The end of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"mentionsCount\": 3635\n}"
+              schema:
+                type: object
+                properties:
+                  mentionsCount:
+                    type: integer
+                    example: 3635
+                    default: 0
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X GET \\\n  'https://api.brandwatch.com/projects/1998159493/data/mentions/count?endDate=2017-07-05T04%3A00%3A00.000Z&queryId%5B%5D=1998534103&startDate=2017-06-04T04%3A00%3A00.000Z' \\"
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/data/volume/topics/queries:
+    get:
+      summary: Topics
+      description: 'Finding topics of conversation in your Mentions.
+
+
+        Effective topic analysis allow you to glean a quick overview of the popular topics within any conversation. Our technology makes use of the latest natural language processing (NLP) techniques to extract insightful topics from your dataset.'
+      operationId: topics-1
+      parameters:
+      - name: projectId
+        in: path
+        description: your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: queryId/queryGroupId
+        in: query
+        description: The ID of the Query or Query Group that contains the Mentions for which you'd like to see Topics.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: The beginning of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: endDate
+        in: query
+        description: The end of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: orderBy
+        in: query
+        description: Metric by which you wish to order the topics returned. `volume` - the number of Mentions the topic appears in,`burst` - the rate that the topic has emerged over time
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of topics to be returned.
+        schema:
+          type: integer
+          format: int32
+      - name: excludeCategories
+        in: query
+        description: You have the option to exclude Categories from the topics returned (this is often done in the Consumer Research UI).
+        schema:
+          type: boolean
+      - name: excludeTags
+        in: query
+        description: You have the option to exclude Tags from the topics returned (this is often done in the Consumer Research UI).
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"topics\": [\n    {\n      \"id\": \"1998640329__Lipstick\",\n      \"label\": \"Lipstick\",\n      \"volume\": 3,\n      \"type\": \"topic\",\n      \"sentiment\": {\n        \"neutral\": 1,\n        \"positive\": 2\n      },\n      \"sentimentScore\": 116,\n      \"burst\": 100,\n      \"days\": [\n        {\n          \"date\": \"2016-05-05T00:00:00.000+0000\",\n          \"volume\": 1\n        },\n        {\n          \"date\": \"2016-05-04T00:00:00.000+0000\",\n          \"volume\": 2\n        },\n        {\n          \"date\": \"2016-05-02T00:00:00.000+0000\",\n          \"volume\": 0\n        },\n        {\n          \"date\": \"2016-05-01T00:00:00.000+0000\",\n          \"volume\": 0\n        },\n        {\n          \"date\": \"2016-05-06T00:00:00.000+0000\",\n          \"volume\": 0\n        },\n        {\n          \"date\": \"2016-05-03T00:00:00.000+0000\",\n          \"volume\": 0\n        }\n      ],\n      \"pageType\": {\n        \"blog\": 0,\n        \"facebook\": 2,\n        \"forum\": 1,\n        \"general\": 0,\n        \"image\": 0,\n        \"instagram\": 0,\n        \"news\": 0,\n        \"review\": 0,\n        \"twitter\": 0,\n        \"video\": 0\n      },\n      \"queries\": [\n        {\n          \"id\": 1998640329,\n          \"name\": \"Makeup\",\n          \"volume\": 3\n        }\n      ]\n    },\n    {\n      \"id\": \"1998640329__Rashes\",\n      \"label\": \"Rashes\",\n      \"volume\": 5,\n      \"type\": \"topic\",\n      \"sentiment\": {\n        \"neutral\": 5\n      },\n      \"sentimentScore\": 50,\n      \"burst\": 100,\n      \"days\": [\n        {\n          \"date\": \"2016-05-05T00:00:00.000+0000\",\n          \"volume\": 2\n        },\n        {\n          \"date\": \"2016-05-04T00:00:00.000+0000\",\n          \"volume\": 0\n        },\n        {\n          \"date\": \"2016-05-02T00:00:00.000+0000\",\n          \"volume\": 0\n        },\n        {\n          \"date\": \"2016-05-06T00:00:00.000+0000\",\n          \"volume\": 2\n        },\n        {\n          \"date\": \"2016-05-01T00:00:00.000+0000\",\n          \"volume\": 0\n        },\n        {\n          \"date\": \"2016-05-03T00:00:00.000+0000\",\n          \"volume\": 0\n        }\n      ],\n      \"pageType\": {\n        \"blog\": 0,\n        \"facebook\": 5,\n        \"forum\": 0,\n        \"general\": 0,\n        \"image\": 0,\n        \"instagram\": 0,\n        \"news\": 0,\n        \"review\": 0,\n        \"twitter\": 0,\n        \"video\": 0\n      },\n      \"queries\": [\n        {\n          \"id\": 389734742,\n          \"name\": \"Makeup\",\n          \"volume\": 5\n        }\n      ]\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  topics:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 1998640329__Lipstick
+                        label:
+                          type: string
+                          example: Lipstick
+                        volume:
+                          type: integer
+                          example: 3
+                          default: 0
+                        type:
+                          type: string
+                          example: topic
+                        sentiment:
+                          type: object
+                          properties:
+                            neutral:
+                              type: integer
+                              example: 1
+                              default: 0
+                            positive:
+                              type: integer
+                              example: 2
+                              default: 0
+                        sentimentScore:
+                          type: integer
+                          example: 116
+                          default: 0
+                        burst:
+                          type: integer
+                          example: 100
+                          default: 0
+                        days:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              date:
+                                type: string
+                                example: 2016-05-05T00:00:00.000+0000
+                              volume:
+                                type: integer
+                                example: 1
+                                default: 0
+                        pageType:
+                          type: object
+                          properties:
+                            blog:
+                              type: integer
+                              example: 0
+                              default: 0
+                            facebook:
+                              type: integer
+                              example: 2
+                              default: 0
+                            forum:
+                              type: integer
+                              example: 1
+                              default: 0
+                            general:
+                              type: integer
+                              example: 0
+                              default: 0
+                            image:
+                              type: integer
+                              example: 0
+                              default: 0
+                            instagram:
+                              type: integer
+                              example: 0
+                              default: 0
+                            news:
+                              type: integer
+                              example: 0
+                              default: 0
+                            review:
+                              type: integer
+                              example: 0
+                              default: 0
+                            twitter:
+                              type: integer
+                              example: 0
+                              default: 0
+                            video:
+                              type: integer
+                              example: 0
+                              default: 0
+                        queries:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1998640329
+                                default: 0
+                              name:
+                                type: string
+                                example: Makeup
+                              volume:
+                                type: integer
+                                example: 3
+                                default: 0
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET 'https://api.brandwatch.com/projects/397263282/data/volume/topics/queries?queryId=389734742&startDate=2016-05-01&endDate=2016-05-07&orderBy=burst&limit=2'
+        samples-languages:
+        - curl
+      tags:
+      - Projects
+  /projects/{projectId}/rulebackfill/rulecategories/{parentCategoryId}:
+    post:
+      summary: Create Category Backfill
+      description: Backfill a parent Category
+      operationId: backfill-categories
+      parameters:
+      - name: projectId
+        in: path
+        description: Your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: parentCategoryId
+        in: path
+        description: Id for the parent category (not a child category)
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: startDate
+        in: query
+        description: Date from which the backfill should start
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[\n  {\n    \"id\":776209,\n    \"ruleId\":2004946175,\n    \"requesterId\":42,\n    \"status\":\"WAITING\"\n\t}\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 776209
+                      default: 0
+                    ruleId:
+                      type: integer
+                      example: 2004946175
+                      default: 0
+                    requesterId:
+                      type: integer
+                      example: 42
+                      default: 0
+                    status:
+                      type: string
+                      example: WAITING
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Projects
+  /projects/{projectId}/rulebackfill/rulecategories:
+    get:
+      summary: Category Backfill Summary
+      description: Get a list of Category backfill jobs created since a particular time
+      operationId: check-category-backfill-progress
+      parameters:
+      - name: projectId
+        in: path
+        description: Your project id
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: sinceDate
+        in: query
+        description: Date on which you created the category backfill
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultsTotal\": 1,\n    \"resultsPage\": -1,\n    \"resultsPageSize\": -1,\n    \"results\": [\n        {\n            \"categoryId\": 24611070,\n            \"status\": \"waiting\",\n            \"type\": \"category\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultsTotal:
+                    type: integer
+                    example: 1
+                    default: 0
+                  resultsPage:
+                    type: integer
+                    example: -1
+                    default: 0
+                  resultsPageSize:
+                    type: integer
+                    example: -1
+                    default: 0
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        categoryId:
+                          type: integer
+                          example: 24611070
+                          default: 0
+                        status:
+                          type: string
+                          example: waiting
+                        type:
+                          type: string
+                          example: category
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Projects
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

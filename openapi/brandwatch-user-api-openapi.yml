@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research User API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: User
+paths:
+  /user:
+    get:
+      summary: Current User
+      description: 'Displaying information about who you are logged in as.
+
+
+        Each Brandwatch User has associated metadata, including their permissions.
+
+
+        The following call will list the current User:'
+      operationId: retrieving-the-current-user
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": 32987387,\n  \"username\": \"example@example.com\",\n  \"password\": \"[protected]\",\n  \"passwordConfirmation\": null,\n  \"oldPassword\": null,\n  \"passwordExpiryDate\": null,\n  \"clientId\": 59580958,\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"creationDate\": \"2016-06-29T16:19:17.744+0000\",\n  \"enabled\": true,\n  \"job\": \"Research analyst\",\n  \"department\": \"Insights\",\n  \"uiRole\": \"admin\",\n  \"address\": \"1 Home Road, London, England\",\n  \"phone\": \"\",\n  \"mobile\": \"999-999-999\",\n  \"messenger\": \"johndoe121\",\n  \"apiRole\": [\n    \"BW_BASIC_USER\",\n    \"BW_ADMIN_USER\"\n  ],\n  \"ccAccess\": \"no_access\",\n  \"externalId\": null,\n  \"tags\": {\n    \"notify\": \"true\"\n  },\n  \"twoFactorAuthConfigured\": true,\n  \"blocked\": false,\n  \"products\": [\n    {\n      \"code\": \"mybrandwatch\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 32987387
+                    default: 0
+                  username:
+                    type: string
+                    example: example@example.com
+                  password:
+                    type: string
+                    example: '[protected]'
+                  passwordConfirmation: {}
+                  oldPassword: {}
+                  passwordExpiryDate: {}
+                  clientId:
+                    type: integer
+                    example: 59580958
+                    default: 0
+                  firstName:
+                    type: string
+                    example: John
+                  lastName:
+                    type: string
+                    example: Doe
+                  creationDate:
+                    type: string
+                    example: 2016-06-29T16:19:17.744+0000
+                  enabled:
+                    type: boolean
+                    example: true
+                    default: true
+                  job:
+                    type: string
+                    example: Research analyst
+                  department:
+                    type: string
+                    example: Insights
+                  uiRole:
+                    type: string
+                    example: admin
+                  address:
+                    type: string
+                    example: 1 Home Road, London, England
+                  phone:
+                    type: string
+                    example: ''
+                  mobile:
+                    type: string
+                    example: 999-999-999
+                  messenger:
+                    type: string
+                    example: johndoe121
+                  apiRole:
+                    type: array
+                    items:
+                      type: string
+                      example: BW_BASIC_USER
+                  ccAccess:
+                    type: string
+                    example: no_access
+                  externalId: {}
+                  tags:
+                    type: object
+                    properties:
+                      notify:
+                        type: string
+                        example: 'true'
+                  twoFactorAuthConfigured:
+                    type: boolean
+                    example: true
+                    default: true
+                  blocked:
+                    type: boolean
+                    example: false
+                    default: true
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: mybrandwatch
+        '401':
+          description: '401'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"error\": \"unauthorized\",\n    \"error_description\": \"Invalid authentication credentials found on request\"\n}"
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: unauthorized
+                  error_description:
+                    type: string
+                    example: Invalid authentication credentials found on request
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET https://api.brandwatch.com/user
+        samples-languages:
+        - curl
+      tags:
+      - User
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

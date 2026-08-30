@@ -1,0 +1,214 @@
+openapi: 3.2.0
+info:
+  title: Consumer Research Data API
+  version: '2.0'
+servers:
+- url: https://api.brandwatch.com
+security:
+- sec0: []
+tags:
+- name: Data
+paths:
+  /data/{aggregate}/{dimension1}/{dimension2}:
+    get:
+      summary: Basic Charts
+      description: Creating a chart out of your Mentions.
+      operationId: basic-charts-1
+      parameters:
+      - name: aggregate
+        in: path
+        description: Which aggregate data you would like to see. You can find a full list [here](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates).
+        schema:
+          type: string
+          default: volume
+        required: true
+      - name: dimension1
+        in: path
+        description: Your x-axis dimension. You can find a full list of dimensions [here](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates).
+        schema:
+          type: string
+          default: sentiment
+        required: true
+      - name: dimension2
+        in: path
+        description: Your y-axis dimension. You can find a full list [here](https://developers.brandwatch.com/docs/chart-dimensions-and-aggregates).
+        schema:
+          type: string
+          default: days
+        required: true
+      - name: queryId/queryGroupId
+        in: query
+        description: The ID of the Query or Query Group that contains the Mentions for which you'd like to see.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: The beginning of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: endDate
+        in: query
+        description: The end of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"aggregate\": \"volume\",\n  \"dimension1\": \"sentiment\",\n  \"dimension2\": \"days\",\n  \"results\": [\n    {\n      \"id\": \"negative\",\n      \"name\": \"negative\",\n      \"data\": {},\n      \"values\": [\n        {\n          \"id\": \"2016-05-05T00:00:00.000+0000\",\n          \"name\": \"2016-05-05 00:00:00.0\",\n          \"value\": 12,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-04T00:00:00.000+0000\",\n          \"name\": \"2016-05-04 00:00:00.0\",\n          \"value\": 10,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-02T00:00:00.000+0000\",\n          \"name\": \"2016-05-02 00:00:00.0\",\n          \"value\": 10,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-01T00:00:00.000+0000\",\n          \"name\": \"2016-05-01 00:00:00.0\",\n          \"value\": 5,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-06T00:00:00.000+0000\",\n          \"name\": \"2016-05-06 00:00:00.0\",\n          \"value\": 10,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-03T00:00:00.000+0000\",\n          \"name\": \"2016-05-03 00:00:00.0\",\n          \"value\": 8,\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"id\": \"neutral\",\n      \"name\": \"neutral\",\n      \"data\": {},\n      \"values\": [\n        {\n          \"id\": \"2016-05-05T00:00:00.000+0000\",\n          \"name\": \"2016-05-05 00:00:00.0\",\n          \"value\": 104,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-04T00:00:00.000+0000\",\n          \"name\": \"2016-05-04 00:00:00.0\",\n          \"value\": 110,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-02T00:00:00.000+0000\",\n          \"name\": \"2016-05-02 00:00:00.0\",\n          \"value\": 111,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-01T00:00:00.000+0000\",\n          \"name\": \"2016-05-01 00:00:00.0\",\n          \"value\": 78,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-06T00:00:00.000+0000\",\n          \"name\": \"2016-05-06 00:00:00.0\",\n          \"value\": 93,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-03T00:00:00.000+0000\",\n          \"name\": \"2016-05-03 00:00:00.0\",\n          \"value\": 103,\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"id\": \"positive\",\n      \"name\": \"positive\",\n      \"data\": {},\n      \"values\": [\n        {\n          \"id\": \"2016-05-05T00:00:00.000+0000\",\n          \"name\": \"2016-05-05 00:00:00.0\",\n          \"value\": 16,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-04T00:00:00.000+0000\",\n          \"name\": \"2016-05-04 00:00:00.0\",\n          \"value\": 19,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-02T00:00:00.000+0000\",\n          \"name\": \"2016-05-02 00:00:00.0\",\n          \"value\": 16,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-01T00:00:00.000+0000\",\n          \"name\": \"2016-05-01 00:00:00.0\",\n          \"value\": 22,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-06T00:00:00.000+0000\",\n          \"name\": \"2016-05-06 00:00:00.0\",\n          \"value\": 14,\n          \"data\": {}\n        },\n        {\n          \"id\": \"2016-05-03T00:00:00.000+0000\",\n          \"name\": \"2016-05-03 00:00:00.0\",\n          \"value\": 25,\n          \"data\": {}\n        }\n      ]\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  aggregate:
+                    type: string
+                    example: volume
+                  dimension1:
+                    type: string
+                    example: sentiment
+                  dimension2:
+                    type: string
+                    example: days
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: negative
+                        name:
+                          type: string
+                          example: negative
+                        data:
+                          type: object
+                          properties: {}
+                        values:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: 2016-05-05T00:00:00.000+0000
+                              name:
+                                type: string
+                                example: '2016-05-05 00:00:00.0'
+                              value:
+                                type: integer
+                                example: 12
+                                default: 0
+                              data:
+                                type: object
+                                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET 'https://api.brandwatch.com/projects/397263282/data/volume/sentiment/days?queryId=9226732&startDate=2016-05-01&endDate=2016-05-07'
+        samples-languages:
+        - curl
+      tags:
+      - Data
+  /data/hashtags:
+    get:
+      summary: Twitter Hashtags
+      description: 'Retrieves an aggregated breakdown of Twitter Hashtag data.
+
+
+        This endpoint accepts all of our usual [Filters](https://developers.brandwatch.com/docs/filters).'
+      operationId: twitter-insights-1
+      parameters:
+      - name: queryId/queryGroupId
+        in: query
+        description: The ID of the Query or Query Group that contains the Mentions for which you'd like to see.
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: The beginning of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      - name: endDate
+        in: query
+        description: The end of the date range that contains the Mentions.
+        required: true
+        schema:
+          type: string
+          default: '"YYYY-MM-DD''T''hh:mm:ss:xx.xx+xxxx"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"results\": [\n        {\n            \"name\": \"#battenwear\",\n            \"label\": null,\n            \"volume\": 27,\n            \"tweets\": 27,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#menswear\",\n            \"label\": null,\n            \"volume\": 6,\n            \"tweets\": 6,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#outdoor\",\n            \"label\": null,\n            \"volume\": 5,\n            \"tweets\": 5,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#patagonia\",\n            \"label\": null,\n            \"volume\": 5,\n            \"tweets\": 5,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#fresh\",\n            \"label\": null,\n            \"volume\": 4,\n            \"tweets\": 4,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#freshstoretorino\",\n            \"label\": null,\n            \"volume\": 4,\n            \"tweets\": 4,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#sportswear\",\n            \"label\": null,\n            \"volume\": 4,\n            \"tweets\": 4,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#streetstyle\",\n            \"label\": null,\n            \"volume\": 4,\n            \"tweets\": 4,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#streetwear\",\n            \"label\": null,\n            \"volume\": 4,\n            \"tweets\": 4,\n            \"retweets\": 0,\n            \"impressions\": 0\n        },\n        {\n            \"name\": \"#torino\",\n            \"label\": null,\n            \"volume\": 4,\n            \"tweets\": 4,\n            \"retweets\": 0,\n            \"impressions\": 0\n        }\n    ],\n    \"orderBy\": \"volume\",\n    \"orderDirection\": \"desc\"\n}"
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: '#battenwear'
+                        label: {}
+                        volume:
+                          type: integer
+                          example: 27
+                          default: 0
+                        tweets:
+                          type: integer
+                          example: 27
+                          default: 0
+                        retweets:
+                          type: integer
+                          example: 0
+                          default: 0
+                        impressions:
+                          type: integer
+                          example: 0
+                          default: 0
+                  orderBy:
+                    type: string
+                    example: volume
+                  orderDirection:
+                    type: string
+                    example: desc
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: curl -X GET 'https://api.brandwatch.com/projects/397382923/data/hashtags?queryId=1834636622&startDate=2017-11-11&endDate=2017-11-18'
+        samples-languages:
+        - curl
+      tags:
+      - Data
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true
