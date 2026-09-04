@@ -55,7 +55,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/brandwatch
 access: 3rd-Party
 created: '2025-03-01'
 modified: '2026-08-13'
-position: Consumer
+position: Consuming
 description: >-
   Brandwatch is a leading consumer intelligence and social media analytics platform
   providing access to trillions of consumer conversations. The platform offers six
@@ -450,8 +450,9 @@ common:
     url: errors/brandwatch-problem-types.yml
   - type: DataModel
     url: data-model/brandwatch-data-model.yml
-  - type: MCPServer
+  - type: X-MCPServerCandidate
     url: mcp/brandwatch-mcp.yml
+    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
   - type: AgentSkill
     url: skills/_index.yml
   - type: LLMsTxt
