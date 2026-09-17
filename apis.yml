@@ -252,36 +252,6 @@ apis:
     url: data-model/brandwatch-data-model.yml
   - type: ErrorCatalog
     url: errors/brandwatch-problem-types.yml
-- aid: brandwatch:brandwatch-oauth-api
-  name: Brandwatch OAUTH API
-  description: The Oauth API from Brandwatch — 1 operation(s) for oauth.
-  humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
-  baseURL: https://api.brandwatch.com
-  tags:
-  - Authentication
-  tags_raw:
-  - Oauth
-  properties:
-  - type: OpenAPI
-    url: openapi/brandwatch-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://developers.brandwatch.com/
-  - type: DeveloperPortal
-    url: https://developers.brandwatch.com/
-  - type: APIReference
-    url: https://developers.brandwatch.com/docs/data-retrieval
-  - type: GettingStarted
-    url: https://developers.brandwatch.com/docs/getting-started
-  - type: Authentication
-    url: https://developers.brandwatch.com/docs/authenticate
-  - type: ChangeLog
-    url: https://developers.brandwatch.com/changelog
-  - type: RateLimits
-    url: https://developers.brandwatch.com/docs/rate-limiting
-  - type: DataModel
-    url: data-model/brandwatch-data-model.yml
-  - type: ErrorCatalog
-    url: errors/brandwatch-problem-types.yml
 - aid: brandwatch:brandwatch-project-api
   name: Brandwatch Project API
   description: The Project API from Brandwatch — 1 operation(s) for project.
@@ -350,6 +320,34 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/brandwatch-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.brandwatch.com/
+  - type: DeveloperPortal
+    url: https://developers.brandwatch.com/
+  - type: APIReference
+    url: https://developers.brandwatch.com/docs/data-retrieval
+  - type: GettingStarted
+    url: https://developers.brandwatch.com/docs/getting-started
+  - type: Authentication
+    url: https://developers.brandwatch.com/docs/authenticate
+  - type: ChangeLog
+    url: https://developers.brandwatch.com/changelog
+  - type: RateLimits
+    url: https://developers.brandwatch.com/docs/rate-limiting
+  - type: DataModel
+    url: data-model/brandwatch-data-model.yml
+  - type: ErrorCatalog
+    url: errors/brandwatch-problem-types.yml
+- aid: brandwatch:brandwatch-oauth-api
+  name: Brandwatch OAUTH API
+  description: The Oauth API from Brandwatch — 1 operation(s) for oauth.
+  humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
+  baseURL: https://api.brandwatch.com
+  tags:
+  - Oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/brandwatch-oauth-api-openapi.yml
   - type: Documentation
     url: https://developers.brandwatch.com/
   - type: DeveloperPortal
