@@ -344,6 +344,8 @@ apis:
   humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
   baseURL: https://api.brandwatch.com
   tags:
+  - Authentication
+  tags_raw:
   - Oauth
   properties:
   - type: OpenAPI
