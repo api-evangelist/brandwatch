@@ -7,7 +7,7 @@ servers:
 security:
 - sec0: []
 tags:
-- name: Oauth
+- name: OAuth
 paths:
   /oauth/token:
     get:
@@ -81,7 +81,7 @@ paths:
         samples-languages:
         - curl
       tags:
-      - Oauth
+      - OAuth
 components:
   securitySchemes:
     sec0:

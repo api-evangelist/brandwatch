@@ -124,7 +124,7 @@ paths:
       description: 'Retrieves an aggregated breakdown of Twitter Hashtag data.
 
 
-        This endpoint accepts all of our usual [Filters](https://developers.brandwatch.com/docs/filters).'
+        This endpoint accepts all of our usual Filters.'
       operationId: twitter-insights-1
       parameters:
       - name: queryId/queryGroupId
