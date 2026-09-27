@@ -6,7 +6,7 @@ x-docs-platform-confidence: high
 x-docs-platform-checked: 2026-09-20
 tags:
   - Analytics
-  - Social-Media
+  - Social Media
   - Social Media Monitoring
   - Consumer Intelligence
   - Brand Management
@@ -18,6 +18,7 @@ tags_raw:
   - Consumer Intelligence
   - Brand Management
   - Sentiment Analysis
+  - Social-Media
 type: Index
 kind: company
 deliveryModel:
@@ -71,7 +72,7 @@ apis:
   name: Brandwatch Analysis API
   tags:
   - Analytics
-  - Social-Media
+  - Social Media
   - Sentiment Analysis
   - Aggregated Statistics
   tags_raw:
@@ -79,6 +80,7 @@ apis:
   - Social Media
   - Sentiment Analysis
   - Aggregated Statistics
+  - Social-Media
   humanURL: https://developers.brandwatch.com/docs/getting-started-analysis-api
   baseURL: https://api.brandwatch.com
   properties:
@@ -138,11 +140,12 @@ apis:
   tags:
   - Publishing
   - Content Management
-  - Social-Media
+  - Social Media
   tags_raw:
   - Publishing
   - Content Management
   - Social Media
+  - Social-Media
   humanURL: https://www.brandwatch.com/products/apis/
   properties:
   - url: https://www.brandwatch.com/products/apis/

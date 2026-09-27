@@ -13,9 +13,7 @@
     "brandwatch-project-api-openapi.yml",
     "brandwatch-projects-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -66,8 +64,7 @@
     "brandwatch-consumer-research-openapi.json: declared missing tag: Me",
     "brandwatch-consumer-research-openapi.json: declared missing tag: Project",
     "brandwatch-consumer-research-openapi.json: declared missing tag: Projects",
-    "superseded outputs removed: brandwatch-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 12 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "_original/brandwatch-consumer-research-openapi.yml: archived document superseded by a larger archived document",
@@ -75,7 +72,7 @@
     "brandwatch-client-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "brandwatch-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "brandwatch-me-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "brandwatch-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brandwatch-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "brandwatch-project-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "brandwatch-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "brandwatch-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
