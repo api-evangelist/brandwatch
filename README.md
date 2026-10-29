@@ -1,4 +1,4 @@
-# Brandwatch (brandwatch)
+# Brandwatch
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,88 +64,153 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Brandwatch is a leading consumer intelligence and social media analytics platform providing access to trillions of consumer conversations. The platform offers six distinct APIs for analysis, data upload, consumer research, social metrics, publishing, and engagement. Owned by Cision and founded in 2007 in Brighton, UK, Brandwatch enables businesses to track brand mentions, monitor competitors, analyze sentiment, and integrate social data with existing analytics and CRM systems.
+Brandwatch is a leading consumer intelligence and social media analytics platform providing access to trillions of consumer conversations. The platform offers six distinct APIs for analysis, data upload, consumer research, social metrics, publishing, and engagement. Businesses use Brandwatch to track brand mentions, monitor competitors, analyze sentiment, and integrate social data with existing analytics and CRM systems for strategic decision-making.
 
-**URL:** [https://raw.githubusercontent.com/api-evangelist/brandwatch/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/brandwatch/refs/heads/main/apis.yml)
+**Areas:** Analytics · Social Media · Social Media Monitoring · Consumer Intelligence · Brand Management · Sentiment Analysis
 
-## Scope
+## Brandwatch on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Brandwatch is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/brandwatch/](https://apis.io/providers/brandwatch/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (12)
 
-- Analytics
-- Social Media
-- Social Media Monitoring
-- Consumer Intelligence
-- Brand Management
-- Sentiment Analysis
+- [Brandwatch Analysis API](https://apis.io/apis/brandwatch/analysis-api/) — Query Brandwatch's content library or imported data to return aggregated statistics and computed analysis. Enables programmatic access to brand mention…
+- [Brandwatch Data Upload API](https://apis.io/apis/brandwatch/data-upload-api/) — Import unstructured data from any source for analysis alongside consumer conversation data. Enables organizations to blend proprietary data with…
+- [Brandwatch Measure API](https://apis.io/apis/brandwatch/measure-api/) — Integrate owned social media metrics into external analytics solutions for custom reporting. Enables organizations to combine their social channel…
+- [Brandwatch Publish API](https://apis.io/apis/brandwatch/publish-api/) — Export social publishing data to integrate with content management systems. Enables workflow automation between Brandwatch's publishing tools and external…
+- [Brandwatch Engage API](https://apis.io/apis/brandwatch/engage-api/) — Consolidate conversations from social media inboxes with customer inquiries across platforms. Enables integration of Brandwatch's engagement tools with CRM…
+- [Brandwatch Client API](https://apis.io/apis/brandwatch/brandwatch-client-api/) — The Client API from Brandwatch — 1 operation(s) for client.
+- [Brandwatch Data API](https://apis.io/apis/brandwatch/brandwatch-data-api/) — The Data API from Brandwatch — 2 operation(s) for data.
+- [Brandwatch Me API](https://apis.io/apis/brandwatch/brandwatch-me-api/) — The Me API from Brandwatch — 1 operation(s) for me.
+- [Brandwatch Project API](https://apis.io/apis/brandwatch/brandwatch-project-api/) — The Project API from Brandwatch — 1 operation(s) for project.
+- [Brandwatch Projects API](https://apis.io/apis/brandwatch/brandwatch-projects-api/) — The Projects API from Brandwatch — 26 operation(s) for projects.
+- [Brandwatch User API](https://apis.io/apis/brandwatch/brandwatch-user-api/) — The User API from Brandwatch — 1 operation(s) for user.
+- [Brandwatch OAUTH API](https://apis.io/apis/brandwatch/brandwatch-oauth-api/) — The Oauth API from Brandwatch — 1 operation(s) for oauth.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-04-21
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Brandwatch Analysis API
+Model Context Protocol servers that expose the API to agents.
 
-Query Brandwatch's content library or imported data for aggregated statistics and computed analysis. Enables programmatic access to brand mention analytics, sentiment scores, volume trends, and consumer insights.
+- [brandwatch-mcp.yml](https://apis.io/servers/brandwatch/brandwatch-mcp-yml/)
 
-**Human URL:** [https://www.brandwatch.com/products/apis/](https://www.brandwatch.com/products/apis/)
+#### Collections (2)
 
-### Brandwatch Data Upload API
+Postman and Open Collection request collections.
 
-Import unstructured data from any source for analysis alongside consumer conversation data. Blend proprietary data with Brandwatch's social intelligence for unified analytics.
+- [Consumer Research API](https://apis.io/collections/brandwatch/open-brandwatch-consumer-research/)
+- [Consumer Research API](https://apis.io/collections/brandwatch/open-brandwatch-consumer-research-authentication/)
 
-**Human URL:** [https://www.brandwatch.com/products/apis/](https://www.brandwatch.com/products/apis/)
+#### Overlays (1)
 
-### Brandwatch Consumer Research API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-Export analysis results for further research and integration with existing systems. Supports real-time data streaming for continuous monitoring workflows.
+- [Brandwatch Consumer Research Overlay](https://apis.io/overlays/brandwatch/brandwatch-consumer-research-overlay/)
 
-**Human URL:** [https://www.brandwatch.com/products/apis/](https://www.brandwatch.com/products/apis/)
+#### Security (4)
 
-### Brandwatch Measure API
+Authentication, trust centre, and vulnerability disclosure.
 
-Integrate owned social media metrics into external analytics solutions for custom reporting. Combine social channel performance data with audience intelligence in third-party BI platforms.
+- [Brandwatch Authentication](https://apis.io/security/brandwatch/brandwatch-authentication/)
+- [Brandwatch Domain Security](https://apis.io/security/brandwatch/brandwatch-domain-security/)
+- [Brandwatch Trust Center](https://apis.io/security/brandwatch/brandwatch-trust-center/)
+- [Brandwatch Vulnerability Disclosure](https://apis.io/security/brandwatch/brandwatch-vulnerability-disclosure/)
 
-**Human URL:** [https://www.brandwatch.com/products/apis/](https://www.brandwatch.com/products/apis/)
+#### OAuth scopes (1)
 
-### Brandwatch Publish API
+The permissions the API asks for.
 
-Export social publishing data to integrate with content management systems. Automate workflows between Brandwatch's publishing tools and external CMS platforms.
+- [Brandwatch Scopes](https://apis.io/scopes/brandwatch/brandwatch-scopes/)
 
-**Human URL:** [https://www.brandwatch.com/products/apis/](https://www.brandwatch.com/products/apis/)
+#### Plans and pricing (1)
 
-### Brandwatch Engage API
+Published plans, tiers and prices.
 
-Consolidate conversations from social media inboxes with customer inquiries across platforms. Integrate with CRM and customer service systems for unified conversation management.
+- [Brandwatch Plans Pricing](https://apis.io/plans/brandwatch/brandwatch-plans-pricing/)
 
-**Human URL:** [https://www.brandwatch.com/products/apis/](https://www.brandwatch.com/products/apis/)
+#### Rate limits (1)
 
-## Common Properties
+Published request limits.
+
+- [Brandwatch Rate Limits](https://apis.io/rate-limits/brandwatch/brandwatch-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Brandwatch Finops](https://apis.io/finops/brandwatch/brandwatch-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.brandwatch.com)
-- [API Products](https://www.brandwatch.com/products/apis/)
-- [Developer Documentation](https://developers.brandwatch.com)
+- [Documentation](https://developers.brandwatch.com)
+- [Getting started](https://developers.brandwatch.com/docs/getting-started)
+- [Pricing](https://www.brandwatch.com/plans/)
+- [Support](https://www.brandwatch.com/customer-support/)
+- [Blog](https://www.brandwatch.com/blog/feed/)
+- [Security](https://www.brandwatch.com/legal/information-security/)
+- [Compliance](https://www.brandwatch.com/legal/information-security/)
+- [Terms of service](https://www.cision.com/legal/msa/)
+- [Privacy policy](https://www.brandwatch.com/legal/user-privacy-policy/)
+- [GitHub](https://github.com/brandwatchltd)
+- [Status](https://status.brandwatch.com/)
 
-## Use Cases
+## API Evangelist rating
 
-Brand monitoring, competitor analysis, sentiment analysis, consumer research, social media reporting, content management integration, customer service consolidation, market research
+**Kin Score 52.1** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## About
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 48.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 41.1 |
+| Access clarity | 53.9 |
 
-- **Founded:** 2007
-- **Headquarters:** Brighton, United Kingdom
-- **Parent Company:** Cision
-- **Industry:** Consumer Intelligence, Social Media Analytics
-- **Data Scale:** Trillions of consumer conversations
+**Agent readiness 40.0** — agent-ready (gated down from agent-native)
 
-## Maintainers
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
 
-**FN:** Kin Lane
+**Regulatory alignment 45.1** — Horizontal (data, software, accessibility, platform)
 
-**Email:** info@apievangelist.com
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/brandwatch/](https://apis.io/providers/brandwatch/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Brandwatch: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/brandwatch/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
