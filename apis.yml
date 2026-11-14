@@ -467,6 +467,10 @@ common:
     url: llms/brandwatch-llms.txt
   - type: Overlay
     url: overlays/brandwatch-consumer-research-overlay.yaml
+  - type: DataProcessing
+    url: privacy/brandwatch-privacy-policy.yml
+  - type: Attestations
+    url: compliance/brandwatch-compliance.yml
 properties:
   - type: x-domain
     value: brandwatch.com
